@@ -1,0 +1,7 @@
+1. Write the address of a CB structure into the CONBLK_AD register and then setting the ACTIVE bit.
+
+2. The DMA will fetch the CB from the address set in the SCB_ADDR field of this reg and it will load it into the read-only registers described below. It will then begin a DMA transfer according to the information in the CB.
+
+3. When it has completed the current DMA transfer (length => 0) the DMA will update the CONBLK_AD register with the contents of the NEXTCONBK register, fetch a new CB from that address, and start the whole procedure once again.
+
+The DMA will stop (and clear the ACTIVE bit) when it has completed a DMA transfer and the NEXTCONBK register is set to 0x0000_0000. It will load this value into the CONBLK_AD reg and then stop.
