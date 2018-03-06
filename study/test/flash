@@ -1,0 +1,3 @@
+cp kernel8.img /media/bivistaual/PI_BOOT
+umount /media/bivistaual/PI_BOOT
+umount /media/bivistaual/PI_ROOT
