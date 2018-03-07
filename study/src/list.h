@@ -90,12 +90,17 @@ static void inline __list_add(
 		struct list_entry * prev,
 		struct list_entry * next)
 {
-
+	new->prev = prev;
+	new->next = next;
+	prev->next = new;
+	next->prev = new;
 }
 
-static void inline list_add(struct list_entry * entry, struct list_entry * head)
+static void inline list_insert_after(struct list_entry * new, struct list_entry * prev)
 {
-	
+	__list_add(new, prev, prev->next);
 }
+
+static void inline __list_del(struct list_entry * )
 
 #endif
