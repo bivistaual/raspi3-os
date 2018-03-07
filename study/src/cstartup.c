@@ -1,27 +1,36 @@
-#include "led.h"
-#include "gpio.h"
+#include "atags.h"
+#include "console.h"
 
-extern int __bss_start;
-extern int __bss_end;
+extern uint64_t __bss_start;
+extern uint64_t __bss_end;
+extern uint8_t _end;
 
-extern void kernel_main(unsigned int r0, unsigned int r1, unsigned int atags);
+extern void kernel_main(void);
 
-void _cstartup(unsigned int r0, unsigned int r1, unsigned int r2)
+static struct {
+	uint8_t * start;
+	uint8_t * end;
+} _memory_map;
+
+void _cstartup(void)
 {
-	int * bss = &__bss_start;
-	int * bss_end = &__bss_end;
-
-//	GPIO_FSEL(4, GPIO_OUTPUT);
-//	led_flash(4, 7);
+	uint64_t * bss = &__bss_start;
+	uint64_t * bss_end = &__bss_end;
+	volatile struct atag * atag_scan = (volatile struct atag *)ATAG_HEADER_ADDR;
+	uint32_t tag;
 
 	while (bss < bss_end)
 		*bss++ = 0;
 
-//	GPIO_FSEL(4, GPIO_OUTPUT);
-//	led_flash(4, 7);
+	tag = ATAG_TAG(atag_scan);
+	while (tag != ATAG_NONE) {
+		if (tag == ATAG_MEM) {
+			_memory_map.start = (uint8_t *)&_end;
+			_memory_map.end = (uint8_t *)(atag_scan->kind.mem.size + 
+					atag_scan->kind.mem.start);
+		}
+		tag = ATAG_TAG(ATAG_NEXT(atag_scan));
+	}
 
-	kernel_main(r0, r1, r2);
-
-	while (1);
+	panic(__FILE__, __LINE__, __func__, "Can't find ATAG_MEM tag!\n");
 }
-
