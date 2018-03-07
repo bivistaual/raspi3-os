@@ -28,4 +28,4 @@
 		(var);																	\
 		(var) = LIST_NEXT(var, field))
 
-#define LIST_INSERT_AFTER()
+#define LIST_INSERT_AFTER(, field)
