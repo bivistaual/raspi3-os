@@ -1,24 +1,34 @@
-#define LIST_HEAD(name, type)													\
-	struct name {																\
-		type * head;															\
-	}
+#ifndef _LIST_H
+#define _LIST_H
 
-#define LIST_ENTRY(type)														\
-	struct {																	\
-		type * prev;															\
-		type * next;															\
-	}
+struct list_entry {
+	struct list_entry * prev;
+	struct list_entry * next;
+};
+
+#define OFFSET_OF(type, member)													\
+	((size_t) &(((type)* 0)->member))
+
+#define FRIEND_OF(type, member, entry)											\
+	((type *)((char *)entry - OFFSET_OF(type, entry)))->member
+
+#define LIST_ENTRY(name)														\
+	struct list_entry name
+
+#define LIST_HEAD(name)															\
+	struct list_entry name = {&(name), &(name)}
 
 #define LIST_INIT(plist)														\
 	do {																		\
-		(plist)->head = NULL;													\
+		(plist)->prev = plist;													\
+		(plist)->next = plist;													\
 	} while (0)
 
 #define LIST_EMPTY(plist)														\
-	((plist)->head == NULL)
+	((plist)->next == plist)
 
-#define LIST_NEXT(element, field)												\
-	((element)->field.next)
+#define LIST_NEXT(entry, field)													\
+	((entry).next)
 
 #define LIST_FIRST(plist)														\
 	((plist)->head)
@@ -28,4 +38,9 @@
 		(var);																	\
 		(var) = LIST_NEXT(var, field))
 
-#define LIST_INSERT_AFTER(, field)
+#define LIST_INSERT_AFTER(ele, ele, field)										\
+	do {																		\
+		\	
+	} while (0)
+
+#endif
