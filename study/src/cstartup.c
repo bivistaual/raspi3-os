@@ -26,7 +26,7 @@ void _cstartup(void)
 	while (tag != ATAG_NONE) {
 		if (tag == ATAG_MEM) {
 			_memory_map.start = (uint8_t *)&_end;
-			_memory_map.end = (uint8_t *)(atag_scan->kind.mem.size + 
+			_memory_map.end = (uint8_t *)((uint64_t)(atag_scan->kind.mem.size) + 
 					atag_scan->kind.mem.start);
 		}
 		tag = ATAG_TAG(ATAG_NEXT(atag_scan));
