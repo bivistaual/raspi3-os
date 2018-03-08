@@ -1,16 +1,17 @@
 #include "atags.h"
 #include "console.h"
+#include "malloc.h"
+#include "list.h"
+
+#include "assert.h"
 
 extern uint64_t __bss_start;
 extern uint64_t __bss_end;
 extern uint8_t _end;
+extern LIST_HEAD(mem_bin[26]);
+extern struct mem_map _memory_map;
 
 extern void kernel_main(void);
-
-static struct {
-	uint8_t * start;
-	uint8_t * end;
-} _memory_map;
 
 void _cstartup(void)
 {
@@ -22,6 +23,11 @@ void _cstartup(void)
 	while (bss < bss_end)
 		*bss++ = 0;
 
+	// initialize the bin class array
+	for (int i = 0; i < 26; i++)
+		LIST_INIT(&mem_bin[i]);
+
+	// fetch the memory map of the mechain
 	tag = ATAG_TAG(atag_scan);
 	while (tag != ATAG_NONE) {
 		if (tag == ATAG_MEM) {
@@ -32,5 +38,5 @@ void _cstartup(void)
 		tag = ATAG_TAG(ATAG_NEXT(atag_scan));
 	}
 
-	panic(__FILE__, __LINE__, __func__, "Can't find ATAG_MEM tag!\n");
+	panic("Can't find ATAG_MEM tag!\n");
 }

@@ -13,13 +13,13 @@ int kprintf(const char *fmt, ...)
 	va_list args;
 
 	va_start(args, fmt);
-	result = _kprintf(fmt, args);
+	result = __kprintf(fmt, args);
 	va_end(args);
 
 	return result;
 }
 
-int _kprintf(const char *str, va_list args)
+int __kprintf(const char *str, va_list args)
 {
 	unsigned strIndex = 0;
 	char c, temp[32];
@@ -132,7 +132,7 @@ static inline void display(void)
 	kprintf("---------- PANIC ----------\n\n");
 }
 
-void panic(const char *file, int line, const char *func, const char *fmt, ...)
+void __panic(const char *file, int line, const char *func, const char *fmt, ...)
 {
 	va_list args;
 
@@ -143,6 +143,8 @@ void panic(const char *file, int line, const char *func, const char *fmt, ...)
 	kprintf("FUNC: %s\n", func);
 
 	va_start(args, fmt);
-	_kprintf(fmt, args);
+	__kprintf(fmt, args);
 	va_end(args);
+
+	while (1);
 }

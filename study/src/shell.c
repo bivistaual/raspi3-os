@@ -5,6 +5,7 @@
 #include "console.h"
 #include "mini_uart.h"
 #include "system_timer.h"
+#include "malloc.h"
 
 #define CMD_LIMIT		1024
 #define ARG_CAPACITY	64
@@ -22,6 +23,7 @@ static int parse_cmd(Cmd *, char *);
 static int exe_cmd(Cmd *);
 static void echo(char (*)[ARG_LIMIT], unsigned int);
 static void display_banner(void);
+static void test_malloc(void);
 
 int kernel_main(void)
 {
@@ -144,6 +146,8 @@ static int exe_cmd(Cmd * pCmd)
 		echo(pCmd->arg + 1, pCmd->length - 1);
 	else if (!strcmp(pCmd->arg[0], "atag"))
 		atag_display();
+	else if (!strcmp(pCmd->arg[0], "malloc"))
+		test_malloc();
 	else
 		kprintf("unknow command: %s\n", pCmd->arg[0]);
 
@@ -175,3 +179,14 @@ static void display_banner(void)
 	kprintf("╚══════╝ ╚═══╝   ╚═╝   ╚═══╝ ╚═════╝   ╚═╝  ╚═╝   ╚═╝ ╚═════╝ ╚═╝   ╚═╝╚══════╝\n");
 }
 
+static void test_malloc(void)
+{
+	int *p;
+
+	p = (int *)malloc(127 * sizeof(int));
+	for (int i = 0; i < 127; i++)
+		p[i] = i;
+	for (int i = 0; i < 127; i++)
+		kprintf("%d\t", i);
+	free(p);
+}

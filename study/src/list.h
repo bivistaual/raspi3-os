@@ -18,7 +18,7 @@ struct list_entry {
  * @type:		the type of the struct
  * @member:		the name of the member within the struct
  */
-#define OFFSET_OF(type, member)													\
+#define OFFSET_OF(type, member)														\
 	((size_t) &(((type)* 0)->member))
 
 /*
@@ -27,30 +27,30 @@ struct list_entry {
  * @ptr:		the pointer of the member
  * @member:		the name of the member within the struct
  */
-#define CONTAINER_OF(type, ptr, member)											\
+#define CONTAINER_OF(type, ptr, member)												\
 	((type *)((uint8_t *)ptr - OFFSET_OF(type, member)))
 
-#define LIST_ENTRY(name)														\
+#define LIST_ENTRY(name)															\
 	struct list_entry name
 
-#define LIST_HEAD(name)															\
-	struct list_entry name = {&(name), &(name)}
+#define LIST_HEAD(name)																\
+	struct list_entry name
 
-#define LIST_INIT(head)															\
-	do {																		\
-		(head)->prev = head;													\
-		(head)->next = head;													\
+#define LIST_INIT(head)																\
+	do {																			\
+		(head)->prev = head;														\
+		(head)->next = head;														\
 	} while (0)
 
-#define LIST_EMPTY(head)														\
+#define LIST_EMPTY(head)															\
 	((head)->next == head)
 
 /*
  * LIST_NEXT - return the address of the next struct containing the entry
- * @ptr:		the pointer of the current node
+ * @ptr:		the pointer of the current container struct
  * @entry:		the name of the struct list_entry within the struct
  */
-#define LIST_NEXT(ptr, entry)													\
+#define LIST_NEXT(ptr, entry)														\
 	CONTAINER_OF(typeof(*ptr), (ptr)->entry.next, entry)
 
 /*
@@ -61,7 +61,7 @@ struct list_entry {
  *
  * Note, that list is expected to be not empty.
  */
-#define LIST_FIRST(type, head, entry)											\
+#define LIST_FIRST(type, head, entry)												\
 	CONTAINER_OF(type, (head)->next, entry)
 
 /*
@@ -72,7 +72,7 @@ struct list_entry {
  *
  * Note, that list is expected to be not empty.
  */
-#define LIST_LAST(type, head, entry)											\
+#define LIST_LAST(type, head, entry)												\
 	CONTAINER_OF(type, (head)->prev, entry)
 
 /*
@@ -81,10 +81,10 @@ struct list_entry {
  * @head:		the head of the list
  * @entry:		the name of the struct list_entry within the struct
  */
-#define LIST_FOREACH(var, head, entry)											\
-	for ((var) = LIST_FIRST(typeof(*var), head, entry);							\
-		&(var)->entry != head;													\
-		(var) = LIST_NEXT(var, field))
+#define LIST_FOREACH(var, head, entry)												\
+	for ((var) = LIST_FIRST((__typeof__(*var)), head, entry);						\
+		&((var)->entry) != head;													\
+		(var) = LIST_NEXT(var, entry))
 
 /*
  * Insert a new entry between two known consecutive entries.

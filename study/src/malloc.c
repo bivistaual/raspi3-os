@@ -2,37 +2,16 @@
 
 #include "console.h"
 #include "atags.h"
-#include "alloc.h"
-
-#define IS_POWER_OF_2(x)													\
-	((x) && !((x) & ((x) - 1)))
+#include "malloc.h"
 
 extern uint8_t _end;
-extern struct {
-	uint8_t * start;
-	uint8_t * end;
-} _memory_map;
-
-static inline uint64_t align_down(uint64_t addr, uint64_t align)
-{
-	if (!IS_POWER_OF_2(align))
-		panic(__FILE__, __LINE__, __func__,
-				"Parameter align is not power of 2.\n");
-
-	return addr & ~(align - 1);
-}
-
-static inline uint64_t align_up(uint64_t addr, uint64_t align)
-{
-	return align_down(addr, align) + align;
-}
 
 void * bump_alloc(size_t size)
 {
 	static uint8_t * current = (uint8_t *)&_end;
 	uint8_t * result = current;
 
-	current += align_up(size, 8);
+	current += ALIGN_UP(size, 8);
 	if (current > _memory_map.end)
 		return NULL;
 
@@ -41,4 +20,47 @@ void * bump_alloc(size_t size)
 
 void * malloc(size_t size)
 {
+	size_t purpose_size;
+	int bin_index;
+	struct mem_chuck *pmem = NULL, *scan;
+	struct list_entry *head;
+
+	purpose_size = size + sizeof(struct mem_chuck);
+	bin_index = BIN_INDEX(purpose_size);
+	head = &mem_bin[bin_index];
+	
+	// Traverse the specific bin class list for unused chuck then mark it used and
+	// return the data field pointer.
+	LIST_FOREACH(scan, head, node) {
+		if (MEM_CHUCK_UNUSE(scan)) {
+			pmem = scan;
+			MEM_CHUCK_SET(pmem);
+			return pmem + 1;
+		}
+	}
+
+	// If the bin class list has no free chuck, bump alloc memory from heap then
+	// add it to the tail of the list and return teh data field pointer.
+	pmem = (struct mem_chuck *)bump_alloc(BIN_SIZE(bin_index));
+
+	if (pmem == NULL)
+		return NULL;
+
+	// set size aligned up and used flag
+	pmem->size = ALIGN_UP(size, 4);
+	MEM_CHUCK_SET(pmem);
+
+	list_add_tail(&(pmem->node), head);
+
+	return pmem + 1;
+}
+
+void free(void * ptr)
+{
+	struct mem_chuck * pchuck;
+	
+	pchuck = (struct mem_chuck *)((uint8_t *)ptr - sizeof(struct mem_chuck));
+	MEM_CHUCK_CLR(pchuck);
+
+	return;
 }
