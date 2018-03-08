@@ -6,6 +6,7 @@
 #define _LIST_H
 
 #include <stdint.h>
+#include <stddef.h>
 
 struct list_entry {
 	struct list_entry * prev;
@@ -85,6 +86,12 @@ struct list_entry {
 		&(var)->entry != head;													\
 		(var) = LIST_NEXT(var, field))
 
+/*
+ * Insert a new entry between two known consecutive entries.
+ *
+ * This is only for internal list manipulation where we know
+ * the prev/next entries already!
+ */
 static void inline __list_add(
 		struct list_entry * new,
 		struct list_entry * prev,
@@ -96,11 +103,59 @@ static void inline __list_add(
 	next->prev = new;
 }
 
+/*
+ * list_insert_after - add a new entry after known entry
+ * @new: new entry to be added
+ * @prev: list entry to add it after
+ */
 static void inline list_insert_after(struct list_entry * new, struct list_entry * prev)
 {
 	__list_add(new, prev, prev->next);
 }
 
-static void inline __list_del(struct list_entry * )
+static void inline list_add_tail(struct list_entry * new, struct list_entry * head)
+{
+	list_insert_after(new, head->prev);
+}
+
+static void inline list_add_first(struct list_entry * new, struct list_entry * head)
+{
+	list_insert_after(new, head);
+}
+
+/*
+ * Delete a list entry by making the prev/next entries
+ * point to each other.
+ * 
+ * This is only for internal list manipulation where we know the prev/next entries
+ * already!
+ */
+static void inline __list_del(struct list_entry * prev, struct list_entry * next)
+{
+	prev->next = next;
+	next->prev = prev;
+}
+
+/*
+ * list_del - deletes entry from list.
+ * @old: the element to delete from the list.
+ */
+static void inline list_del(struct list_entry * old)
+{
+	__list_del(old->prev, old->next);
+	old->prev = NULL;
+	old->next = NULL;
+}
+
+static void inline list_move_after(struct list_entry * src, struct list_entry * tgt)
+{
+	list_del(src);
+	list_insert_after(src, tgt);
+}
+
+static void inline list_replace(struct list_entry * new, struct list_entry * old)
+{
+	__list_add(new, old->prev, old->next);
+}
 
 #endif
