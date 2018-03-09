@@ -17,7 +17,7 @@ TTYWRITE = ./ttywrite
 BOOTLOADER = $(BIN_DIR)/bootloader
 KERNEL = $(BIN_DIR)/shell
 
-KERNEL_OBJS = shell.o system_timer.o console.o cstartup.o start.o mini_uart.o atags.o
+KERNEL_OBJS = assert.o malloc.o shell.o system_timer.o console.o cstartup.o start.o mini_uart.o atags.o
 BOOTLOADER_OBJS = bootloader.o xmodem.o system_timer.o cstartup.o start.o mini_uart.o
 
 KERNEL_DEPS = $(foreach n, $(KERNEL_OBJS), $(OBJ_DIR)/$(n))

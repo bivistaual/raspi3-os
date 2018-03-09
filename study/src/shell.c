@@ -62,16 +62,12 @@ static void mem_init(void)
 	while (tag != ATAG_NONE) {
 		if (tag == ATAG_MEM) {
 			_memory_map.start = (uint8_t *)&_end;
-			_memory_map.end = (uint8_t *)((uint64_t)(atag_scan->kind.mem.size) + 
+			_memory_map.end = (uint8_t *)((atag_scan->kind.mem.size) + 
 					atag_scan->kind.mem.start);
 
-			kprintf("size = 0x%x, &_end = 0x%x",
-					atag_scan->kind.mem.size,
-					(uint32_t)(&_end));
-
 			if (_memory_map.start >= _memory_map.end) {
-			//	panic("Memory map error!\n_memory_map.start = %x, _memory_map.end = %x\n",
-			//			_memory_map.start, _memory_map.end);
+				panic("Memory map error!\n_memory_map.start = %x, _memory_map.end = %x\n",
+						_memory_map.start, _memory_map.end);
 			}
 
 			return;

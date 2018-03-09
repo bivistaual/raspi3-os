@@ -120,14 +120,14 @@ static char * itoh(int n, char *str)
 
 static inline void display(void)
 {
-	kprintf("            (\n");
-	kprintf("        (     )     )\n");
-	kprintf("         )   (    (\n");
-	kprintf("        (          `\n");
-	kprintf("    .-\"\"^\"\"\"^\"\"^\"\"\"^\"\"-.\n");
-	kprintf("  (//\\\\//\\\\//\\\\//\\\\//\\\\//)\n");
-	kprintf("   ~\\^^^^^^^^^^^^^^^^^^/~\n");
-	kprintf("     `================`\n\n");
+	kprintf("           (\n");
+	kprintf("       (     )     )\n");
+	kprintf("        )   (    (\n");
+	kprintf("       (          `\n");
+	kprintf("   .-\"\"^\"\"\"^\"\"^\"\"\"^\"\"-.\n");
+	kprintf(" (//\\\\//\\\\//\\\\//\\\\//\\\\//)\n");
+	kprintf("  ~\\^^^^^^^^^^^^^^^^^^/~\n");
+	kprintf("    `================`\n\n");
 	kprintf("    The pi is overdone.\n\n");
 	kprintf("---------- PANIC ----------\n\n");
 }
@@ -140,7 +140,7 @@ void __panic(const char *file, int line, const char *func, const char *fmt, ...)
 
 	kprintf("FILE: %s\n", file);
 	kprintf("LINE: %d\n", line);
-	kprintf("FUNC: %s\n", func);
+	kprintf("FUNC: %s\n\n", func);
 
 	va_start(args, fmt);
 	__kprintf(fmt, args);
