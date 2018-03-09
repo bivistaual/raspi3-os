@@ -19,7 +19,7 @@ struct list_entry {
  * @member:		the name of the member within the struct
  */
 #define OFFSET_OF(type, member)														\
-	((size_t) &(((type)* 0)->member))
+	((size_t) &(((type *) 0)->member))
 
 /*
  * CONTAINER_OF - return the address of the struct containing the member
@@ -28,7 +28,7 @@ struct list_entry {
  * @member:		the name of the member within the struct
  */
 #define CONTAINER_OF(type, ptr, member)												\
-	((type *)((uint8_t *)ptr - OFFSET_OF(type, member)))
+	((type *)((uint8_t *)(ptr) - OFFSET_OF(type, member)))
 
 #define LIST_ENTRY(name)															\
 	struct list_entry name
@@ -51,7 +51,7 @@ struct list_entry {
  * @entry:		the name of the struct list_entry within the struct
  */
 #define LIST_NEXT(ptr, entry)														\
-	CONTAINER_OF(typeof(*ptr), (ptr)->entry.next, entry)
+	CONTAINER_OF(__typeof__(*ptr), (ptr)->entry.next, entry)
 
 /*
  * LIST_FIRST - return the address of the first node of the list
@@ -82,7 +82,7 @@ struct list_entry {
  * @entry:		the name of the struct list_entry within the struct
  */
 #define LIST_FOREACH(var, head, entry)												\
-	for ((var) = LIST_FIRST((__typeof__(*var)), head, entry);						\
+	for ((var) = LIST_FIRST(__typeof__(*var), head, entry);						\
 		&((var)->entry) != head;													\
 		(var) = LIST_NEXT(var, entry))
 

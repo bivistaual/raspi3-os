@@ -103,7 +103,9 @@ void spin_sleep_us(unsigned long);
  *  Spins until 'ms' milliseconds have passed.
  */
 
-#define spin_sleep_ms(p)	spin_sleep_us(p * 1000)
+#define spin_sleep_ms(p)	spin_sleep_us((p) * 1000UL)
+
+#define spin_sleep_s(p)		spin_sleep_ms((p) * 1000UL)
 
 #endif
 

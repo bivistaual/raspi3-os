@@ -3,5 +3,5 @@
 
 void __assert(const char * file, int line, const char * exp)
 {
-	kprintf("Assertion violation: file %s, line: %d, %s\n", file, line, exp);
+	kprintf("Assertion violation: file: %s, line: %d, %s\n", file, line, exp);
 }

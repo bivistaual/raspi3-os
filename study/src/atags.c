@@ -3,7 +3,7 @@
 
 void atag_display(void)
 {
-	struct atag volatile * atag_scan = (struct atag volatile *)ATAG_HEADER_ADDR;
+	volatile struct atag * atag_scan = (volatile struct atag *)ATAG_HEADER_ADDR;
 	uint32_t tag;
 
 	tag = ATAG_TAG(atag_scan);
@@ -18,7 +18,7 @@ void atag_display(void)
 				break;
 			case ATAG_MEM:
 				kprintf("ATAG_MEM:\n");
-				kprintf("\tsize = %d, start = %d\n",
+				kprintf("\tsize = 0x%x, start = 0x%x\n",
 						atag_scan->kind.mem.size,
 						atag_scan->kind.mem.start);
 				break;

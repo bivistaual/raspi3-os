@@ -3,8 +3,12 @@
 #include "console.h"
 #include "atags.h"
 #include "malloc.h"
+#include "assert.h"
 
 extern uint8_t _end;
+
+struct mem_map _memory_map;
+LIST_HEAD(mem_bin[26]);
 
 void * bump_alloc(size_t size)
 {
@@ -59,8 +63,10 @@ void free(void * ptr)
 {
 	struct mem_chuck * pchuck;
 	
-	pchuck = (struct mem_chuck *)((uint8_t *)ptr - sizeof(struct mem_chuck));
+	pchuck = (struct mem_chuck *)ptr - 1;
 	MEM_CHUCK_CLR(pchuck);
+
+	assert(!MEM_CHUCK_UNUSE(pchuck));
 
 	return;
 }

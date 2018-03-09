@@ -18,6 +18,9 @@
 #define MEM_CHUCK_CLR(chuck)													\
 	((chuck)->size &= ~0x1)
 
+#define MEM_CHUCK_SIZE(chuck)													\
+	((chuck)->size & ~0x1)
+
 #define __BSRL__(x)																\
 	(64 - __builtin_clzl(x))
 
@@ -40,7 +43,7 @@
 
 #define BIN_CLR(index, bitmap)													\
 	do {																		\
-		bitmap &= !(1 << index);												\
+		bitmap &= ~(1 << index);												\
 	} while (0)
 
 #define ALIGN_DOWN(base, size)													\
@@ -49,17 +52,15 @@
 #define ALIGN_UP(base, size)													\
 	ALIGN_DOWN((base) + (size) - 1, size)
 
-static struct mem_map {
-	uint8_t * start;
-	uint8_t * end;
-} _memory_map;
-
 struct mem_chuck {
 	uint32_t size;
 	LIST_ENTRY(node); 
 };
 
-static LIST_HEAD(mem_bin[26]);
+struct mem_map {
+	uint8_t * start;
+	uint8_t * end;
+};
 
 void * bump_alloc(size_t);
 

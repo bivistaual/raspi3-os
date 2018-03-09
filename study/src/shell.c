@@ -1,11 +1,13 @@
 #include <stddef.h>
 
+#include "assert.h"
 #include "atags.h"
 #include "string.h"
 #include "console.h"
 #include "mini_uart.h"
 #include "system_timer.h"
 #include "malloc.h"
+#include "list.h"
 
 #define CMD_LIMIT		1024
 #define ARG_CAPACITY	64
@@ -17,6 +19,10 @@ typedef struct {
 	unsigned int length;
 }	Cmd;
 
+extern uint8_t _end;
+extern struct mem_map _memory_map;
+extern LIST_HEAD(mem_bin[26]);
+
 static int shell_loop(void);
 static char * read_cmd(char *);
 static int parse_cmd(Cmd *, char *);
@@ -24,40 +30,65 @@ static int exe_cmd(Cmd *);
 static void echo(char (*)[ARG_LIMIT], unsigned int);
 static void display_banner(void);
 static void test_malloc(void);
+static void mem_init(void);
 
 int kernel_main(void)
 {
 	mu_init();
-/*	
-	char str1[] = "echo Hello world";
-	char str2[32];
-	Cmd command;
 
-	spin_sleep_ms(5000);
+	// block until read ''
+	
+	while (mu_read_byte() != '\r')
+		continue;
 
-	kprintf("str2 is opied as:%s\n", strcpy(str2, str1));
-	parse_cmd(&command, str1);
-	exe_cmd(&command);
-*/
-
+	mem_init();
 	
 	shell_loop();
 
 	return 0;
 }
 
+static void mem_init(void)
+{
+	volatile struct atag * atag_scan = (volatile struct atag *)ATAG_HEADER_ADDR;
+	uint32_t tag;
+
+	// initialize the bin class array
+	for (int i = 0; i < 26; i++)
+		LIST_INIT(&mem_bin[i]);
+
+	// return if fetch the memory map of the mechain
+	tag = ATAG_TAG(atag_scan);
+	while (tag != ATAG_NONE) {
+		if (tag == ATAG_MEM) {
+			_memory_map.start = (uint8_t *)&_end;
+			_memory_map.end = (uint8_t *)((uint64_t)(atag_scan->kind.mem.size) + 
+					atag_scan->kind.mem.start);
+
+			kprintf("size = 0x%x, &_end = 0x%x",
+					atag_scan->kind.mem.size,
+					(uint32_t)(&_end));
+
+			if (_memory_map.start >= _memory_map.end) {
+			//	panic("Memory map error!\n_memory_map.start = %x, _memory_map.end = %x\n",
+			//			_memory_map.start, _memory_map.end);
+			}
+
+			return;
+		}
+		tag = ATAG_TAG(ATAG_NEXT(atag_scan));
+	}
+
+	panic("Can't fetch ATAG_MEM tag!\n");
+}
+
 static int shell_loop(void)
 {
-	char buffer[CMD_LIMIT], confirm;
+	char buffer[CMD_LIMIT];
 	Cmd command;
 	
 	command.capacity = ARG_CAPACITY;
 	command.length = 0;
-
-	// block until read ''
-	
-	while ((confirm = mu_read_byte()) != '\r')
-		continue;
 
 	kprintf("\nWelcome to raspberry pi 3b shell!\n\n");
 	display_banner();
@@ -183,10 +214,19 @@ static void test_malloc(void)
 {
 	int *p;
 
+	assert(1 == 2);
+
 	p = (int *)malloc(127 * sizeof(int));
+	assert(p != NULL);
 	for (int i = 0; i < 127; i++)
 		p[i] = i;
-	for (int i = 0; i < 127; i++)
-		kprintf("%d\t", i);
+	for (int i = 0; i < 127; i++) {
+		assert(p[i] == i);
+		kprintf("%d\t", p[i]);
+	}
+	kprintf("\n");
+
+	kprintf("freeing memory...");
 	free(p);
+	kprintf("done.\n");
 }
