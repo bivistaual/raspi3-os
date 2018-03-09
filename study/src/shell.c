@@ -62,8 +62,8 @@ static void mem_init(void)
 	while (tag != ATAG_NONE) {
 		if (tag == ATAG_MEM) {
 			_memory_map.start = (uint8_t *)&_end;
-			_memory_map.end = (uint8_t *)((atag_scan->kind.mem.size) + 
-					atag_scan->kind.mem.start);
+			_memory_map.end = (uint8_t *)((uint64_t)(atag_scan->kind.mem.size) + 
+					(uint64_t)(atag_scan->kind.mem.start));
 
 			if (_memory_map.start >= _memory_map.end) {
 				panic("Memory map error!\n_memory_map.start = %x, _memory_map.end = %x\n",
@@ -72,7 +72,9 @@ static void mem_init(void)
 
 			return;
 		}
-		tag = ATAG_TAG(ATAG_NEXT(atag_scan));
+
+		atag_scan = ATAG_NEXT(atag_scan);
+		tag = ATAG_TAG(atag_scan);
 	}
 
 	panic("Can't fetch ATAG_MEM tag!\n");
@@ -208,21 +210,32 @@ static void display_banner(void)
 
 static void test_malloc(void)
 {
-	int *p;
-
-	assert(1 == 2);
+	int *p, *p2, *p3, *p4;
 
 	p = (int *)malloc(127 * sizeof(int));
-	assert(p != NULL);
 	for (int i = 0; i < 127; i++)
 		p[i] = i;
+
+	p2 = (int *)malloc(127 * sizeof(int));
+	for (int i = 127; i > 0; i--)
+		p2[127 - i] = i;
+
 	for (int i = 0; i < 127; i++) {
 		assert(p[i] == i);
-		kprintf("%d\t", p[i]);
+		assert(p2[i] == 127 - i);
 	}
-	kprintf("\n");
 
-	kprintf("freeing memory...");
 	free(p);
-	kprintf("done.\n");
+
+	p3 = (int *)malloc(127 * sizeof(int));
+	assert(p3 == p);
+	assert(MEM_CHUCK_SIZE((struct mem_chuck *)p3 - 1) == ALIGN_UP(127 * sizeof(int), 4));
+
+	free(p2);
+
+	p4 = (int *)malloc(127 * sizeof(int));
+	assert(p4 == p2);
+
+	free(p3);
+	free(p4);
 }

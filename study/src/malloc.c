@@ -38,6 +38,7 @@ void * malloc(size_t size)
 	LIST_FOREACH(scan, head, node) {
 		if (MEM_CHUCK_UNUSE(scan)) {
 			pmem = scan;
+			pmem->size = ALIGN_UP(size, 4);
 			MEM_CHUCK_SET(pmem);
 			return pmem + 1;
 		}
@@ -53,7 +54,7 @@ void * malloc(size_t size)
 	// set size aligned up and used flag
 	pmem->size = ALIGN_UP(size, 4);
 	MEM_CHUCK_SET(pmem);
-
+			
 	list_add_tail(&(pmem->node), head);
 
 	return pmem + 1;
@@ -65,8 +66,6 @@ void free(void * ptr)
 	
 	pchuck = (struct mem_chuck *)ptr - 1;
 	MEM_CHUCK_CLR(pchuck);
-
-	assert(!MEM_CHUCK_UNUSE(pchuck));
 
 	return;
 }
