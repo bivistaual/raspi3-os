@@ -13,6 +13,11 @@ unsigned long current_time(void)
 		return SYSTEM_TIMER_CLO_GET() + (++CHI << 32);
 }
 
+void wait_micro(unsigned int period)
+{
+	spin_sleep_us((unsigned long)period * 1000);
+}
+
 void spin_sleep_us(unsigned long period)
 {
 	unsigned long startTime = current_time();
