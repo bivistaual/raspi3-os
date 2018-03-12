@@ -8,9 +8,9 @@
 #include <stdint.h>
 #include <stddef.h>
 
-struct list_entry {
-	struct list_entry * prev;
-	struct list_entry * next;
+struct list_node {
+	struct list_node * prev;
+	struct list_node * next;
 };
 
 /*
@@ -28,13 +28,13 @@ struct list_entry {
  * @member:		the name of the member within the struct
  */
 #define CONTAINER_OF(type, ptr, member)												\
-	((type *)((uint8_t *)(ptr) - OFFSET_OF(type, member)))
+	((type *)((uint8_t *)(ptr) - offsetof(type, member)))
 
-#define LIST_ENTRY(name)															\
-	struct list_entry name
+#define LIST_NODE(name)															\
+	struct list_node name
 
 #define LIST_HEAD(name)																\
-	struct list_entry name
+	struct list_node name
 
 #define LIST_INIT(head)																\
 	do {																			\
@@ -46,56 +46,56 @@ struct list_entry {
 	((head)->next == head)
 
 /*
- * LIST_NEXT - return the address of the next struct containing the entry
+ * LIST_NEXT - return the address of the next struct containing the node
  * @ptr:		the pointer of the current container struct
- * @entry:		the name of the struct list_entry within the struct
+ * @node:		the name of the struct list_node within the struct
  */
-#define LIST_NEXT(ptr, entry)														\
-	CONTAINER_OF(__typeof__(*ptr), (ptr)->entry.next, entry)
+#define LIST_NEXT(ptr, node)														\
+	CONTAINER_OF(__typeof__(*ptr), (ptr)->node.next, node)
 
 /*
  * LIST_FIRST - return the address of the first node of the list
  * @type:		the type of the struct
  * @head:		the pointer of the list head
- * @entry:		the name of the struct list_entry within the struct
+ * @node:		the name of the struct list_node within the struct
  *
  * Note, that list is expected to be not empty.
  */
-#define LIST_FIRST(type, head, entry)												\
-	CONTAINER_OF(type, (head)->next, entry)
+#define LIST_FIRST(type, head, node)												\
+	CONTAINER_OF(type, (head)->next, node)
 
 /*
  * LIST_LAST - return the address of the last node of the list
  * @type:		the type of the struct
  * @head:		the pointer of the list head
- * @entry:		the name of the struct list_entry within the struct
+ * @node:		the name of the struct list_node within the struct
  *
  * Note, that list is expected to be not empty.
  */
-#define LIST_LAST(type, head, entry)												\
-	CONTAINER_OF(type, (head)->prev, entry)
+#define LIST_LAST(type, head, node)													\
+	CONTAINER_OF(type, (head)->prev, node)
 
 /*
  * LIST_FOREACH - iterate over a list
  * @var:		the loop cursor pointing to the current node
  * @head:		the head of the list
- * @entry:		the name of the struct list_entry within the struct
+ * @node:		the name of the struct list_node within the struct
  */
-#define LIST_FOREACH(var, head, entry)												\
-	for ((var) = LIST_FIRST(__typeof__(*var), head, entry);						\
-		&((var)->entry) != head;													\
-		(var) = LIST_NEXT(var, entry))
+#define LIST_FOREACH(var, head, node)												\
+	for ((var) = LIST_FIRST(__typeof__(*var), head, node);							\
+		&((var)->node) != head;														\
+		(var) = LIST_NEXT(var, node))
 
 /*
- * Insert a new entry between two known consecutive entries.
+ * Insert a new node between two known consecutive entries.
  *
  * This is only for internal list manipulation where we know
  * the prev/next entries already!
  */
 static void inline __list_add(
-		struct list_entry * new,
-		struct list_entry * prev,
-		struct list_entry * next)
+		struct list_node * new,
+		struct list_node * prev,
+		struct list_node * next)
 {
 	new->prev = prev;
 	new->next = next;
@@ -104,56 +104,56 @@ static void inline __list_add(
 }
 
 /*
- * list_insert_after - add a new entry after known entry
- * @new: new entry to be added
- * @prev: list entry to add it after
+ * list_insert_after - add a new node after known node
+ * @new: new node to be added
+ * @prev: list node to add it after
  */
-static void inline list_insert_after(struct list_entry * new, struct list_entry * prev)
+static void inline list_insert_after(struct list_node * new, struct list_node * prev)
 {
 	__list_add(new, prev, prev->next);
 }
 
-static void inline list_add_tail(struct list_entry * new, struct list_entry * head)
+static void inline list_add_tail(struct list_node * new, struct list_node * head)
 {
 	list_insert_after(new, head->prev);
 }
 
-static void inline list_add_first(struct list_entry * new, struct list_entry * head)
+static void inline list_add_first(struct list_node * new, struct list_node * head)
 {
 	list_insert_after(new, head);
 }
 
 /*
- * Delete a list entry by making the prev/next entries
+ * Delete a list node by making the prev/next entries
  * point to each other.
  * 
  * This is only for internal list manipulation where we know the prev/next entries
  * already!
  */
-static void inline __list_del(struct list_entry * prev, struct list_entry * next)
+static void inline __list_del(struct list_node * prev, struct list_node * next)
 {
 	prev->next = next;
 	next->prev = prev;
 }
 
 /*
- * list_del - deletes entry from list.
+ * list_del - deletes node from list.
  * @old: the element to delete from the list.
  */
-static void inline list_del(struct list_entry * old)
+static void inline list_del(struct list_node * old)
 {
 	__list_del(old->prev, old->next);
 	old->prev = NULL;
 	old->next = NULL;
 }
 
-static void inline list_move_after(struct list_entry * src, struct list_entry * tgt)
+static void inline list_move_after(struct list_node * src, struct list_node * dest)
 {
 	list_del(src);
-	list_insert_after(src, tgt);
+	list_insert_after(src, dest);
 }
 
-static void inline list_replace(struct list_entry * new, struct list_entry * old)
+static void inline list_replace(struct list_node * new, struct list_node * old)
 {
 	__list_add(new, old->prev, old->next);
 }

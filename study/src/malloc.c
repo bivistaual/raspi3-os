@@ -4,6 +4,7 @@
 #include "atags.h"
 #include "malloc.h"
 #include "assert.h"
+#include "list.h"
 
 extern uint8_t _end;
 
@@ -27,7 +28,7 @@ void * malloc(size_t size)
 	size_t purpose_size;
 	int bin_index;
 	struct mem_chuck *pmem = NULL, *scan;
-	struct list_entry *head;
+	LIST_NODE(*head);
 
 	purpose_size = size + sizeof(struct mem_chuck);
 	bin_index = BIN_INDEX(purpose_size);

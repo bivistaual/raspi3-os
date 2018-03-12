@@ -54,7 +54,7 @@
 
 struct mem_chuck {
 	uint32_t size;
-	LIST_ENTRY(node); 
+	LIST_NODE(node); 
 };
 
 struct mem_map {
