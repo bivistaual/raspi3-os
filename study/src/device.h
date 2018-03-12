@@ -8,13 +8,9 @@
 #define CHAR_DEVICE		0x2
 
 typedef struct {
-	uint8_t type;
-	uint32_t (*init)(void);
-	uint32_t (*read_sector)(uint32_t, char *);
+	uint32_t	sector_size;						// in byte
+	uint32_t	(*init)(void);
+	uint32_t	(*read_sector)(uint32_t, char *);
 }	block_device;
-
-uint32_t bd_init(block_device *pbd);
-
-uint32_t bd_read_sector(block_device *pbd, uint32_t n, char * buffer);
 
 #endif

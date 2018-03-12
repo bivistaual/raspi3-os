@@ -1,85 +1,34 @@
+#ifndef _STRING_H
+#define _STRING_H
+
 #include <stddef.h>
 
-void * memcpy (void * destination, const void * source, size_t num);
+/* Copy N bytes of SRC to DEST.  */
+extern void *memcpy (void *__restrict __dest, const void *__restrict __src, size_t __n)
+	__attribute__((nonnull(1, 2)));
 
-void * memcpy (void * destination, const void * source, size_t num)
-{
-	for (size_t i = 0; i < num; i++)
-		*((char *)(destination + i)) = *((const char *)(source + i));
+/* Return the length of S.  */
+extern size_t strlen (const char *__s)
+	__attribute__((pure, nonnull(1)));
 
-	return (void *)destination;
-}
+/* Compare S1 and S2.  */
+extern int strcmp (const char *__s1, const char *__s2)
+	__attribute__((pure, nonnull(1, 2)));
 
-unsigned long strlen(const char * str)
-{
-	unsigned long len = 0;
+/* Copy SRC to DEST.  */
+extern char *strcpy (char *__restrict __dest, const char *__restrict __src)
+	__attribute__((nonnull(1, 2)));
 
-	while (str[len++] != '\0');
+/* Copy no more than N characters of SRC to DEST.  */
+extern char *strncpy (char *__restrict __dest, const char *__restrict __src, size_t __n)
+	__attribute__((nonnull(1, 2)));
 
-	return len - 1;
-}
+/* Divide S into tokens separated by characters in DELIM.  */
+extern char *strtok (char *__restrict __s, const char *__restrict __delim)
+	__attribute__((nonnull(2)));
 
-int strcmp(const char * str1, const char * str2)
-{
-	int index = 0;
-	
-	while (str1[index] != '\0') {
-		if (str1[index] != str2[index])
-			return 1;
-		index++;
-	}
-	
-	return (str2[index] != '\0');
-}
+/* Set N bytes of S to C.  */
+extern void *memset (void *__s, int __c, size_t __n)
+	__attribute__((nonnull(1)));
 
-char * strcpy(char * t, const char * s)
-{
-	int index = 0;
-
-	while (s[index] != '\0') {
-		t[index] = s[index];
-		index++;
-	}
-	t[index] = '\0';
-
-	return t;
-}
-
-char * strtok(char * s, const char * p)
-{
-	static char * ssp = NULL, * scp = NULL, * sep = NULL;
-	const char * pp;
-	
-	if (s != NULL) {
-		ssp = scp = s;
-		while (*scp != '\0') {
-			pp = p;
-			while (*pp != '\0') {
-				if (*scp == *pp) {
-					*scp = '\0';
-					break;
-				}
-				pp++;
-			}
-			scp++;
-		}
-		sep = scp;
-	}
-
-	scp = ssp;
-	while (*scp == '\0') {
-		if (scp >= sep)
-			return NULL;
-		scp++;
-	}
-	ssp = scp + strlen(scp);
-
-	return scp;
-}
-
-void * memset (void * ptr, int value, size_t num)
-{
-	for (unsigned long i = 0; i < num; i++)
-		*((char *)(ptr + i)) = value;
-	return (void *)ptr;
-}
+#endif
