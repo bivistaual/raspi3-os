@@ -200,9 +200,4 @@
 		BSC1[I2C_CLKT] = t << I2C_CLKT_TOUT; \
 	} while (0)
 
-
-void i2c_write_init(void);
-
-
 #endif
-
