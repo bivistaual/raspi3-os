@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 
+#include "fat32.h"
 #include "hashmap.h"
 
 #define BLOCK_DEVICE	0x0
@@ -16,18 +17,17 @@ typedef struct {
 }	block_device;
 
 typedef struct {
-	uint32_t		start;
-	uint32_t		sector_size;
+	partition		part;
 	block_device	device;
 	HLIST_HEAD(cache_bin[16]);
 }	cache_device;
 
 typedef struct {
 	char			*data;
-	uint32_t		sectorn;
+	uint64_t		sectorn;
 	HLIST_NODE(node);
 }	bcache;
 
-uint32_t cd_read_sector(cache_device *pcd, uint32_t sectorn, const char *buffer);
+char *cd_read_sector(cache_device *pcd, uint64_t sectorn);
 
 #endif

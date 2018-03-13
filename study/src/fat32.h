@@ -8,6 +8,12 @@ typedef struct {
 	uint32_t	size;		// The size, in bytes, of a logical sector in the partition.
 }	partition;
 
+typedef struct {
 
+}	dir_t;
+
+typedef struct {
+
+}	file_t;
 
 #endif

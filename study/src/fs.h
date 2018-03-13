@@ -22,7 +22,7 @@ typedef struct {
 	uint8_t			per_cluster;	// Number of sectors per cluster
 	uint16_t		reserved;		// FATs offset from start of FAT32 partition.
 	uint32_t		sectors;		// Total logical sectors.
-	uint8_t		fats;			// Number of fats;
+	uint8_t			fats;			// Number of fats;
 	uint32_t		per_fat;		// Sectors per FAT. The size of the FAT in sectors.
 }	EBPB_t;
 
