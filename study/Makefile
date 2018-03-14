@@ -46,5 +46,8 @@ all: kernel bootloader
 install: $(KERNEL).bin
 	$(TTYWRITE) -i $<
 
+connect:
+	screen /dev/ttyUSB0 115200 8N1
+
 clean:
 	rm -rf $(OBJ_DIR)/* $(BIN_DIR)/*

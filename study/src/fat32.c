@@ -123,7 +123,6 @@ size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, LIST_HEAD(*buf_h))
 
 		// read entire cluster and add to cluster chain (frequently addressing)
 
-		// !!!!!!!!!!!!!!!!!!THIS WILL CAUSE SEGMENT FAULT!!!!!!!!!!!!!!!!!!
 		result += fat32_read_cluster(pfat32, c_index, &pcc->data);
 		list_add_tail(&pcc->node, buf_h);
 
@@ -148,7 +147,26 @@ size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, LIST_HEAD(*buf_h))
 	return result;
 }
 
-dir_t dir_parse(const char *dir_entry)
+dir_t *cc_get_dir(LIST_HEAD(*pbuf_h), size_t index, size_t cluster_size)
 {
-	dir_t dir;
+	size_t distance = index / (cluster_size / 32);
+	cluster_chain *pscan;
+	size_t i = 0;
+
+	LIST_FOREACH(pscan, pbuf_h, node){
+		if (i++ >= distance)
+			return (dir_t *)pscan->data;
+	}
+
+	return NULL;
+}
+
+size_t dir_parse(const char *dir_entry, dir_t *pdir)
+{
+	if (*dir_entry == '\0')
+		return 0;
+
+	if (dir_entry[11] == 0xf) {
+		
+	}
 }

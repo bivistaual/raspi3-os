@@ -48,11 +48,35 @@ typedef struct {
 }	cluster_chain;
 
 typedef struct {
+	char			name[8];
+	char			extension[3];
 	uint8_t			attribute;
-	uint16_t		date;
-	uint16_t		time;
-	char			name[807];
-	uint64_t		cluster;
+	uint8_t			reserved;
+	uint8_t			time_ts;
+	uint16_t		creation_time;
+	uint16_t		creation_date;
+	uint16_t		last_acc_date;
+	uint16_t		cluster_high;
+	uint16_t		last_mod_time;
+	uint16_t		last_mod_date;
+	uint16_t		cluster_low;
+	uint32_t		size;
+}	regular_dir_entry;
+
+typedef struct {
+	uint8_t			seq_number;
+	char			name1[10];
+	uint8_t			attribute;
+	uint8_t			type;
+	uint8_t			checksum;
+	char			name2[12];
+	uint16_t		zero;
+	char			name3[4];
+}	LFN_dir_entry;
+
+typedef union {
+	regular_dir_entry	reg_dir;
+	LFN_dir_entry		lnf_dir;
 }	dir_t;
 
 void mbr_parse (block_device *, MBR_t *);
@@ -68,8 +92,8 @@ size_t fat32_read_chain (fat32_t *pfat32, size_t c_start, LIST_HEAD(*buf_h));
 /*
  * Return the pointer of a directory entry buffer at @index of the buffer list.
  */
-char *cc_get_dir(LIST_HEAD(*buf_h), size_t index);
+dir_t *cc_get_dir (LIST_HEAD(*buf_h), size_t index, size_t cluster_size);
 
-dir_t dir_parse (const char *dir_entry);
+size_t dir_parse ( *dir_entry, dir_t *pdir);
 
 #endif
