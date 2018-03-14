@@ -42,14 +42,34 @@ typedef struct {
 	uint32_t		root_cluster;	// Often 2.
 }	EBPB_t;
 
+typedef struct {
+	char *data;
+	LIST_NODE(node);
+}	cluster_chain;
+
+typedef struct {
+	uint8_t			attribute;
+	uint16_t		date;
+	uint16_t		time;
+	char			name[807];
+	uint64_t		cluster;
+}	dir_t;
+
 void mbr_parse (block_device *, MBR_t *);
 
 void ebpb_parse (block_device *, MBR_t *, EBPB_t *);
 
 void fat32_init (fat32_t *pfat32);
 
-size_t fat32_read_cluster (fat32_t *pfat32, size_t c_index, char *buffer);
+size_t fat32_read_cluster (fat32_t *pfat32, size_t c_index, char **pbuf);
 
 size_t fat32_read_chain (fat32_t *pfat32, size_t c_start, LIST_HEAD(*buf_h));
+
+/*
+ * Return the pointer of a directory entry buffer at @index of the buffer list.
+ */
+char *cc_get_dir(LIST_HEAD(*buf_h), size_t index);
+
+dir_t dir_parse (const char *dir_entry);
 
 #endif
