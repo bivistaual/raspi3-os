@@ -86,7 +86,7 @@ static void inline hlist_del(struct hlist_node *old)
 		old->next->pprev = old->pprev;
 }
 
-#define hash_bin(code, length)													\
+#define HASH_BIN(code, length)													\
 	(code & (length - 1))
 
 int hashcode(const char *str)

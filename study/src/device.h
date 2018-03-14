@@ -31,7 +31,9 @@ typedef struct {
 
 /*
  * Read from cache device, cache data, get REFERENCE of data and return its size.
+ * @sector_log before start of the partition makes a physical sector size reading
+ * and logical size reading otherwise.
  */
-size_t cd_read_sector (cache_device *pcd, uint64_t sectorn, char **buffer);
+size_t cd_read_sector (cache_device *pcd, uint64_t sector_log, char **pbuf);
 
 #endif

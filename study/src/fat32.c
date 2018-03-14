@@ -5,6 +5,7 @@
 #include "console.h"
 #include "list.h"
 #include "malloc.h"
+#include "assert.h"
 
 typedef struct {
 	char *data;
@@ -86,15 +87,14 @@ void fat32_init(fat32_t *pfat32)
 size_t fat32_read_cluster(fat32_t *pfat32, size_t c_index, char *buffer)
 {
 	uint32_t cluster_size = pfat32->cluster_size;
-	uint32_t bytes = pfat32->sector_size;
-	size_t result = 0;
+	size_t result = 0, size;
+	char *ref;
 
 	for (uint32_t i = 0; i < cluster_size; i++) {
-		memcpy(buffer + i * bytes,
-				cd_read_sector(&pfat32->device,
-					pfat32->data_start + cluster_size * (c_index - 2) + i),
-				bytes);
-		result += bytes;
+		size = cd_read_sector(&pfat32->device,
+				pfat32->data_start + cluster_size * (c_index - 2) + i, &ref);
+		memcpy(buffer, ref, size);
+		result += size;
 	}
 
 	return result;
@@ -102,22 +102,50 @@ size_t fat32_read_cluster(fat32_t *pfat32, size_t c_index, char *buffer)
 
 size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, LIST_HEAD(*buf_h))
 {
-	size_t fat_start = pfat32->fat_start;
-	uint32_t bytes = pfat32->sector_size;
-	uint32_t entry;
+	cache_device *pcd = &pfat32->device;
+	size_t fat_start = pfat32->fat_start, result = 0;
+	uint32_t sector_size = pfat32->sector_size;
+	uint32_t entry;				// FAT entry value, may be next index of cluster
+	uint32_t c_index = c_start;	// current index of cluster
+	uint32_t distance;			// sectors between cluster index and FAT start
 	cluster_chain *pcc;
 	char *buf_entry;
 
 	LIST_INIT(buf_h);
 
-	buf_entry = cd_read_sector(&pfat32->device, fat_start + c_start / bytes);
-	entry = buf_entry[c_start % bytes] & FAT32_ENTRY_MASK;
+	// divide and mod c_start when it is lager than the logical sector size
+	distance = c_start / sector_size;
 
-	if (entry == FAT32_ENTRY_UNUSED)
+	// read file allocation table
+	cd_read_sector(pcd, fat_start + distance, &buf_entry);
+	entry = buf_entry[c_start % sector_size] & FAT32_ENTRY_MASK;
+
+	if (entry == FAT32_ENTRY_UNUSED || entry - 0xffffff8 <= 7)
 		return 0;
 	
+	// entry indicates data cluster
+
 	while (entry - 2 <= 0xfffffed) {
 		pcc = (cluster_chain *)malloc(sizeof(cluster_chain));
-		
+
+		// read entire cluster and add to cluster chain (frequently addressing)
+		result += fat32_read_cluster(pfat32, c_index, pcc->data);
+		list_add_tail(&pcc->node, buf_h);
+
+		// if entry links between two sectors, re-read file allocation table
+		if (distance != entry / sector_size) {
+			distance = entry / sector_size;
+			cd_read_sector(pcd, fat_start + distance, &buf_entry);
+		}
+	
+		entry = buf_entry[entry % sector_size];
+		c_index = entry;
 	}
+
+	// read the last cluster and add to list
+	pcc = (cluster_chain *)malloc(sizeof(cluster_chain));
+	result += fat32_read_cluster(pfat32, c_index, pcc->data);
+	list_add_tail(&pcc->node, buf_h);
+
+	return result;
 }
