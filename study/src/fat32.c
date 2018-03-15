@@ -44,19 +44,16 @@ void ebpb_parse(block_device *pbd, MBR_t *pmbr, EBPB_t *pebpb)
 	pebpb->fat_size = *((uint32_t *)buffer + 36);
 }
 
-void fat32_init(fat32_t *pfat32)
+fat32_t *fat32_init(block_device *pbd)
 {
+	fat32_t *pfat32;
 	MBR_t mbr;
 	EBPB_t ebpb;
-	cache_device cd;
-	block_device *pbd = &cd.device;
+	cache_device *pcd;
 
-	if (sd_init())
-		panic("SDcard initialization failed!\n");
+	if ((pfat32 = (fat32_t *)malloc(sizeof(fat32_t))) == NULL)
+		panic("Error in allocating memory for FAT32 system!\n");
 
-	pbd->sector_size = 512;
-	pbd->read_sector = sd_readsector;
-	
 	mbr_parse(pbd, &mbr);
 	ebpb_parse(pbd, &mbr, &ebpb);
 
@@ -71,12 +68,14 @@ void fat32_init(fat32_t *pfat32)
 	pfat32->fat_size = ebpb.fat_size;
 	pfat32->data_start = pfat32->fat_start + ebpb.fats * ebpb.fat_size;
 
-	cd.part.sector_size = pfat32->sector_size;
-	cd.part.start = pfat32->fat_start;
+	pcd = &pfat32->device;
+	pcd->p_device = pbd;
+	pcd->part.sector_size = pfat32->sector_size;
+	pcd->part.start = pfat32->fat_start;
 	for (int i = 0; i < CACHE_BIN_SIZE; i++)
-		HLIST_INIT(cd.cache_bin + i);
+		HLIST_INIT(pcd->cache_bin + i);
 
-	pfat32->device = cd;
+	return pfat32;
 }
 
 size_t fat32_read_cluster(fat32_t *pfat32, size_t c_index, char **pbuf)

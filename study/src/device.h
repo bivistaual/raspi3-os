@@ -9,6 +9,7 @@
 
 typedef struct {
 	uint32_t		sector_size;						// in byte
+	uint32_t		(*init)(void);
 	uint32_t		(*read_sector)(uint32_t, char *);
 }	block_device;
 
@@ -19,7 +20,7 @@ typedef struct {
 
 typedef struct {
 	partition		part;
-	block_device	device;
+	block_device	*p_device;
 	HLIST_HEAD(cache_bin[CACHE_BIN_SIZE]);		// linked before bcache's node
 }	cache_device;
 

@@ -83,7 +83,7 @@ void mbr_parse (block_device *, MBR_t *);
 
 void ebpb_parse (block_device *, MBR_t *, EBPB_t *);
 
-void fat32_init (fat32_t *pfat32);
+fat32_t *fat32_init (block_device *);
 
 /*
  * Return the size of the read cluster indexed by @c_index and make the pointer
