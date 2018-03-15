@@ -85,8 +85,16 @@ void ebpb_parse (block_device *, MBR_t *, EBPB_t *);
 
 void fat32_init (fat32_t *pfat32);
 
+/*
+ * Return the size of the read cluster indexed by @c_index and make the pointer
+ * addressed by @pbuf point to the cluster data.
+ */
 size_t fat32_read_cluster (fat32_t *pfat32, size_t c_index, char **pbuf);
 
+/*
+ * Return the whole data size in bytes in the chain @buf_h started at cluster
+ * @c_start.
+ */
 size_t fat32_read_chain (fat32_t *pfat32, size_t c_start, LIST_HEAD(*buf_h));
 
 /*
