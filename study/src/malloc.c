@@ -5,6 +5,7 @@
 #include "malloc.h"
 #include "assert.h"
 #include "list.h"
+#include "string.h"
 
 extern uint8_t _end;
 
@@ -59,6 +60,23 @@ void * malloc(size_t size)
 	list_add_tail(&(pmem->node), head);
 
 	return pmem + 1;
+}
+
+void *realloc(void *ptr, size_t size)
+{
+	void *new;
+	size_t size_org = ((struct mem_chuck *)ptr - 1)->size;
+
+	if (size == 0) {
+		free(ptr);
+		return NULL;
+	}
+
+	new = malloc(size);
+	if (new == NULL)
+		return NULL;
+
+	return memcpy(new, ptr, size > size_org ? size_org : size);
 }
 
 void free(void * ptr)

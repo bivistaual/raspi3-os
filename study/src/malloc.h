@@ -62,11 +62,13 @@ struct mem_map {
 	uint8_t * end;
 };
 
-void * bump_alloc(size_t);
+void *bump_alloc (size_t);
 
-void * malloc(size_t);
+void *malloc (size_t);
 
-void free(void *);
+void *realloc (void *, size_t);
+
+void free (void *);
 
 #endif
 

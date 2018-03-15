@@ -13,7 +13,7 @@
 typedef struct {
 	cache_device	device;
 	uint16_t		sector_size;
-	uint8_t			cluster_size;
+	uint8_t			cluster_size;	// in sectors
 	uint32_t		fat_size;
 	uint32_t		fat_start;		// start sector of fat partition
 	uint32_t		data_start;		// start sector of data region in fat
@@ -77,31 +77,30 @@ typedef struct {
 typedef union {
 	regular_dir_entry	reg_dir;
 	LFN_dir_entry		lnf_dir;
-}	dir_t;
+}	dir_entry_t;
 
 void mbr_parse (block_device *, MBR_t *);
 
 void ebpb_parse (block_device *, MBR_t *, EBPB_t *);
 
-fat32_t *fat32_init (block_device *);
+/*
+ * Return a initialized fat32_t struct stocked in the device.
+ * @pbd:		block device backed by a physical device
+ */
+fat32_t *fat32_init (block_device *pbd);
 
 /*
- * Return the size of the read cluster indexed by @c_index and make the pointer
- * addressed by @pbuf point to the cluster data.
+ * Return the size of the read cluster indexed by @c_index and copy the data
+ * to @buffer.
  */
-size_t fat32_read_cluster (fat32_t *pfat32, size_t c_index, char **pbuf);
+size_t fat32_read_cluster (fat32_t *pfat32, size_t c_index, char *buffer);
 
 /*
  * Return the whole data size in bytes in the chain @buf_h started at cluster
  * @c_start.
  */
-size_t fat32_read_chain (fat32_t *pfat32, size_t c_start, LIST_HEAD(*buf_h));
+size_t fat32_read_chain (fat32_t *pfat32, size_t c_start, char **pbuf);
 
-/*
- * Return the pointer of a directory entry buffer at @index of the buffer list.
- */
-dir_t *cc_get_dir (LIST_HEAD(*buf_h), size_t index, size_t cluster_size);
 
-size_t dir_parse ( *dir_entry, dir_t *pdir);
 
 #endif

@@ -1,8 +1,9 @@
 #include "device.h"
 #include "malloc.h"
 #include "assert.h"
+#include "string.h"
 
-size_t cd_read_sector(cache_device *pcd, uint64_t sector_log, char **pbuf)
+size_t cd_read_sector(cache_device *pcd, uint64_t sector_log, char *buffer)
 {
 	uint32_t bin_index = HASH_BIN(sector_log, CACHE_BIN_SIZE);
 	bcache *pscan, *pnew;
@@ -16,9 +17,10 @@ size_t cd_read_sector(cache_device *pcd, uint64_t sector_log, char **pbuf)
 
 	HLIST_FOREACH(pscan, &pcd->cache_bin[bin_index], node)
 		if (pscan->sector_log == sector_log) {
-
-			// modify pbuf pointer
-			*pbuf = pscan->data;
+			if (sector_log < pcd->part.start)
+				memcpy(buffer, pscan->data, d_sector_size);
+			else
+				memcpy(buffer, pscan->data, p_sector_size);
 
 			goto cd_read_sector_return;
 		}
@@ -28,25 +30,22 @@ size_t cd_read_sector(cache_device *pcd, uint64_t sector_log, char **pbuf)
 	pnew = (bcache *)malloc(sizeof(bcache));
 	pnew->sector_log = sector_log;
 
-	// read device sector size before partition start sector and logical sector size
+	// read size of device sector before partition start sector and logical sector
 	// at or after partition start sector
 
 	if (sector_log < pcd->part.start) {
-		*pbuf = (char *)malloc(sizeof(char) * d_sector_size);
-		assert(pcd->device.read_sector((uint32_t)sector_log, *pbuf) > 0);
+		assert(pcd->device.read_sector((uint32_t)sector_log, buffer) > 0);
 	} else {
 
 		// calculate the times to reach the logical sector size
 		factor = p_sector_size / d_sector_size;
 
-		*pbuf = (char *)malloc(sizeof(char) * pcd->part.sector_size);
 		for (int i = 0; i < factor; i++)
-			assert(pcd->device.read_sector(((uint32_t)sector_log - pcd->part.start) * factor - pcd->part.start, *pbuf + d_sector_size) > 0);
+			assert(pcd->device.read_sector(((uint32_t)sector_log - pcd->part.start) * factor - pcd->part.start, buffer + d_sector_size) > 0);
 	}
 
 	// add new data cache to hashmap
-
-	pnew->data = *pbuf;
+	pnew->data = buffer;
 	hlist_add_first(&pnew->node, &pcd->cache_bin[bin_index]);
 
 	// return the specific number of bytes read

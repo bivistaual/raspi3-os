@@ -3,7 +3,6 @@
 #include "sdcard.h"
 #include "string.h"
 #include "console.h"
-#include "list.h"
 #include "malloc.h"
 #include "assert.h"
 
@@ -57,8 +56,8 @@ fat32_t *fat32_init(block_device *pbd)
 	mbr_parse(pbd, &mbr);
 	ebpb_parse(pbd, &mbr, &ebpb);
 
-	// Only read the first partition entry and add it with FATs offset to fetch the
-	// physical sector number of FATs.
+	// Only read the first partition entry, then add its start sector and FATs
+	// offset to fetch the physical sector number of FATs.
 
 	pfat32->fat_start = mbr.part_entry[0].start + ebpb.reserved;
 	
@@ -69,7 +68,7 @@ fat32_t *fat32_init(block_device *pbd)
 	pfat32->data_start = pfat32->fat_start + ebpb.fats * ebpb.fat_size;
 
 	pcd = &pfat32->device;
-	pcd->p_device = pbd;
+	pcd->device = *pbd;
 	pcd->part.sector_size = pfat32->sector_size;
 	pcd->part.start = pfat32->fat_start;
 	for (int i = 0; i < CACHE_BIN_SIZE; i++)
@@ -78,94 +77,72 @@ fat32_t *fat32_init(block_device *pbd)
 	return pfat32;
 }
 
-size_t fat32_read_cluster(fat32_t *pfat32, size_t c_index, char **pbuf)
+size_t fat32_read_cluster(fat32_t *pfat32, size_t c_index, char *buffer)
 {
 	uint32_t cluster_size = pfat32->cluster_size;
+	uint32_t sector_size = pfat32->sector_size;
 	size_t result = 0;
 
 	for (uint32_t i = 0; i < cluster_size; i++) {
 		result += cd_read_sector(&pfat32->device,
-				pfat32->data_start + cluster_size * (c_index - 2) + i, pbuf);
+				pfat32->data_start + cluster_size * (c_index - 2) + i, buffer + i * sector_size);
 	}
 
 	return result;
 }
 
-size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, LIST_HEAD(*buf_h))
+size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, char **pbuf)
 {
 	cache_device *pcd = &pfat32->device;
-	size_t fat_start = pfat32->fat_start, result = 0;
+	size_t fat_start = pfat32->fat_start;
+	size_t result = 0;
 	uint32_t sector_size = pfat32->sector_size;
+	uint8_t cluster_size = pfat32->cluster_size;
 	uint32_t next_index;		// FAT entry value, may be next index of cluster
 	uint32_t c_index;			// current index of cluster
 	uint32_t distance;			// sectors between cluster index and FAT start
-	cluster_chain *pcc;
 	char *buf_entry;
-
-	LIST_INIT(buf_h);
 
 	// calculate distance between FAT start and c_index
 	c_index = c_start;
 	distance = c_index / sector_size;
 
 	// read file allocation table
-	cd_read_sector(pcd, fat_start + distance, &buf_entry);
+	buf_entry = (char *)malloc(sector_size);
+	cd_read_sector(pcd, fat_start + distance, buf_entry);
 	next_index = buf_entry[c_index % sector_size] & FAT32_ENTRY_MASK;
 
 	// unused cluster
+
 	if (next_index == FAT32_ENTRY_UNUSED || next_index - 0xffffff8 <= 7)
-		return 0;
+		goto fat32_read_chain_return;
 	
 	// data cluster
-	while (next_index - 2 <= 0xfffffed) {
-		pcc = (cluster_chain *)malloc(sizeof(cluster_chain));
 
-		// read entire cluster and add to cluster chain (frequently addressing)
+	*pbuf = (char *)malloc(cluster_size * sector_size);
+	while (next_index - 2 <= 0xfffffed || next_index - 0xffffff8 <= 7) {
+		// read the specific cluster data to the tail of buffer
+		result += fat32_read_cluster(pfat32, c_index, *pbuf + result);
 
-		result += fat32_read_cluster(pfat32, c_index, &pcc->data);
-		list_add_tail(&pcc->node, buf_h);
+		// not EOC
+		if (next_index - 2 <= 0xfffffed) {
+			// if entry links between two sectors, refresh file allocation table
+			if (distance != next_index / sector_size) {
+				distance = next_index / sector_size;
+				cd_read_sector(pcd, fat_start + distance, buf_entry);
+			}
 
-		// if entry links between two sectors, refresh file allocation table
-		if (distance != next_index / sector_size) {
-			distance = next_index / sector_size;
-			cd_read_sector(pcd, fat_start + distance, &buf_entry);
+			// save current entry to further use and get next entry
+			c_index = next_index;
+			next_index = buf_entry[next_index % sector_size];
+
+			// re-allocate memory for next read
+			*pbuf = (char *)realloc(*pbuf, result + cluster_size * sector_size);
 		}
-
-		// save current entry to further use and get next entry
-		c_index = next_index;
-		next_index = buf_entry[next_index % sector_size];
 	}
 
-	// if EOC detected, read the last cluster and add to list
-	if (next_index - 0xffffff8 <= 7) {
-		pcc = (cluster_chain *)malloc(sizeof(cluster_chain));
-		result += fat32_read_cluster(pfat32, c_index, &pcc->data);
-		list_add_tail(&pcc->node, buf_h);
-	}
+fat32_read_chain_return:
 
+	free(buf_entry);
 	return result;
-}
-
-dir_t *cc_get_dir(LIST_HEAD(*pbuf_h), size_t index, size_t cluster_size)
-{
-	size_t distance = index / (cluster_size / 32);
-	cluster_chain *pscan;
-	size_t i = 0;
-
-	LIST_FOREACH(pscan, pbuf_h, node){
-		if (i++ >= distance)
-			return (dir_t *)pscan->data;
-	}
-
-	return NULL;
-}
-
-size_t dir_parse(const char *dir_entry, dir_t *pdir)
-{
-	if (*dir_entry == '\0')
-		return 0;
-
-	if (dir_entry[11] == 0xf) {
-		
-	}
 }

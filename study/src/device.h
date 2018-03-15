@@ -20,7 +20,7 @@ typedef struct {
 
 typedef struct {
 	partition		part;
-	block_device	*p_device;
+	block_device	device;
 	HLIST_HEAD(cache_bin[CACHE_BIN_SIZE]);		// linked before bcache's node
 }	cache_device;
 
@@ -31,10 +31,12 @@ typedef struct {
 }	bcache;
 
 /*
- * Read from cache device, cache data, get REFERENCE of data and return its size.
- * @sector_log before start of the partition makes a physical sector size reading
- * and logical size reading otherwise.
+ * Read from cache device, cache data, copy to @buffer and return its size.
+ * @sector_log:			before start of the partition makes a physical sector
+ *						size reading and logical size reading otherwise.
+ * 
+ * NOTE: The buffer size must lager than the logical sector size!
  */
-size_t cd_read_sector (cache_device *pcd, uint64_t sector_log, char **pbuf);
+size_t cd_read_sector (cache_device *pcd, uint64_t sector_log, char *buffer);
 
 #endif
