@@ -1,3 +1,5 @@
+#include <stdbool.h>
+
 #include "fat32.h"
 #include "device.h"
 #include "sdcard.h"
@@ -114,7 +116,7 @@ size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, char **pbuf)
 
 	// unused cluster
 
-	if (next_index == FAT32_ENTRY_UNUSED || next_index - 0xffffff8 <= 7)
+	if (next_index == FAT32_ENTRY_UNUSED)
 		goto fat32_read_chain_return;
 	
 	// data cluster
@@ -145,4 +147,37 @@ fat32_read_chain_return:
 
 	free(buf_entry);
 	return result;
+}
+
+dir_entry_t *fat32_find_entry(fat32_t *pfat32, const char *name, dir_entry_t *pdir_entry)
+{
+	
+}
+
+size_t fat32_parse_name(dir_entry_t *pdir_entry, char *buffer)
+{
+	size_t lfn_entrys = 0;
+	bool has_null = false;
+	int index = 0;
+
+	if (pdir_entry->reg_dir.attribute == 0xf) {
+	
+	} else {
+		while (index < 8) {
+			if (pdir_entry->reg_dir.name[index] == '\0') {
+				has_null = true;
+				break;
+			}
+			index++;
+		}
+		strncpy(buffer, pdir_entry->reg_dir.name, 8);
+		
+	}
+
+	return lfn_entrys;
+}
+
+bool fat32_is_LNF_dir(dir_entry_t *pdir_entry)
+{
+	return pdir_entry->reg_dir.attribute == 0xf;
 }

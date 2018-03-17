@@ -50,11 +50,13 @@ char * strncpy(char *restrict dest, const char *restrict src, size_t n)
 {
 	size_t index = 0;
 
-	while (src[index] != '\0' && index < n) {
+	while (index < n) {
 		dest[index] = src[index];
-		index++;
+		if (dest[index] != '\0')
+			index++;
+		else
+			break;
 	}
-	dest[index] = '\0';
 
 	return dest;
 }

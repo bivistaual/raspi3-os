@@ -10,6 +10,15 @@
 #define FAT32_ENTRY_RESERVED	0x0000001
 #define FAT32_ENTRY_BAD			0xffffff7
 
+#define FAT32_DIR_HIDDEN(attribute)												\
+	(attribute & 0x02)
+
+#define FAT32_DIR_LNF(attribute)												\
+	(attribute == 0x0f)
+
+#define FAT32_DIR_ARCH(attribute)												\
+	(attribute & 0x20)
+
 typedef struct {
 	cache_device	device;
 	uint16_t		sector_size;
@@ -79,6 +88,11 @@ typedef union {
 	LFN_dir_entry		lnf_dir;
 }	dir_entry_t;
 
+typedef struct {
+	char			name[511];
+
+}	dir_t;
+
 void mbr_parse (block_device *, MBR_t *);
 
 void ebpb_parse (block_device *, MBR_t *, EBPB_t *);
@@ -101,6 +115,10 @@ size_t fat32_read_cluster (fat32_t *pfat32, size_t c_index, char *buffer);
  */
 size_t fat32_read_chain (fat32_t *pfat32, size_t c_start, char **pbuf);
 
-
+/*
+ * Return the specific directory entry pointer.
+ * @pdir_entry:		pointer of directory entry array.
+ */
+dir_entry_t *fat32_find_entry (fat32_t *pfat32, const char *name, dir_entry_t *pdir_entry);
 
 #endif
