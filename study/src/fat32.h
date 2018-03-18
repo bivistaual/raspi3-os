@@ -19,6 +19,9 @@
 #define FAT32_DIR_ARCH(attribute)												\
 	(attribute & 0x20)
 
+#define FAT32_DIR_DIR(attribute)												\
+	(attribute & 0x10)
+
 typedef struct {
 	cache_device	device;
 	uint16_t		sector_size;
@@ -89,9 +92,17 @@ typedef union {
 }	dir_entry_t;
 
 typedef struct {
-	char			name[511];
-
-}	dir_t;
+	uint32_t		cluster;
+	fat32_t			*pfat32;
+	uint8_t			attribute;
+	uint8_t			time_ts;
+	uint16_t		creation_time;
+	uint16_t		creation_date;
+	uint16_t		last_acc_date;
+	uint16_t		last_mod_time;
+	uint16_t		last_mod_date;
+	uint32_t		size;
+}	file;
 
 void mbr_parse (block_device *, MBR_t *);
 
@@ -119,6 +130,10 @@ size_t fat32_read_chain (fat32_t *pfat32, size_t c_start, char **pbuf);
  * Return the specific directory entry pointer.
  * @pdir_entry:		pointer of directory entry array.
  */
-dir_entry_t *fat32_find_entry (fat32_t *pfat32, const char *name, dir_entry_t *pdir_entry);
+dir_entry_t *fat32_find_entry (const char *name, dir_entry_t *pdir_entry, size_t length);
+
+size_t fat32_parse_name (dir_entry_t *pdir_entry, char *buffer);
+
+file *fat32_open (fat32_t *pfat32, const char *path);
 
 #endif

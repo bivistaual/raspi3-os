@@ -62,7 +62,7 @@ fat32_t *fat32_init(block_device *pbd)
 	// offset to fetch the physical sector number of FATs.
 
 	pfat32->fat_start = mbr.part_entry[0].start + ebpb.reserved;
-	
+
 	pfat32->sector_size = ebpb.sector_size;
 	pfat32->cluster_size = ebpb.cluster_size;
 	pfat32->root_cluster = ebpb.root_cluster;
@@ -118,7 +118,7 @@ size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, char **pbuf)
 
 	if (next_index == FAT32_ENTRY_UNUSED)
 		goto fat32_read_chain_return;
-	
+
 	// data cluster
 
 	*pbuf = (char *)malloc(cluster_size * sector_size);
@@ -149,35 +149,103 @@ fat32_read_chain_return:
 	return result;
 }
 
-dir_entry_t *fat32_find_entry(fat32_t *pfat32, const char *name, dir_entry_t *pdir_entry)
+dir_entry_t *fat32_find_entry(const char *name, dir_entry_t *pdir_entry, size_t length)
 {
-	
+	size_t c = 0, lfn_entrys;
+	char buffer[511];
+
+	while (c < length) {
+		lfn_entrys = fat32_parse_name(&pdir_entry[c], buffer);
+		if (strcmp(name, buffer) == 0)
+			return pdir_entry + c + lfn_entrys;
+		else
+			c += lfn_entrys + 1;
+	}
+
+	return NULL;
 }
 
 size_t fat32_parse_name(dir_entry_t *pdir_entry, char *buffer)
 {
 	size_t lfn_entrys = 0;
-	bool has_null = false;
-	int index = 0;
+	int index = 0, point_index = 0;
 
 	if (pdir_entry->reg_dir.attribute == 0xf) {
-	
+		while (pdir_entry[lfn_entrys].lnf_dir.attribute == 0xf) {
+			char *p = buffer + 26 * (pdir_entry[lfn_entrys].lnf_dir.seq_number & 0x1f - 1);
+			strncpy(p, pdir_entry[lfn_entrys].lnf_dir.name1, 10);
+			strncpy(p + 10, pdir_entry[lfn_entrys].lnf_dir.name2, 12);
+			strncpy(p + 22, pdir_entry[lfn_entrys].lnf_dir.name3, 14);
+			lfn_entrys++;
+		}
 	} else {
 		while (index < 8) {
-			if (pdir_entry->reg_dir.name[index] == '\0') {
-				has_null = true;
+			if (pdir_entry->reg_dir.name[index] == '\0')
 				break;
-			}
 			index++;
 		}
-		strncpy(buffer, pdir_entry->reg_dir.name, 8);
+		strncpy(buffer, pdir_entry->reg_dir.name, index);
 		
+		if (pdir_entry->reg_dir.extension[0] != '\0') {
+			point_index = index;
+			index = 0;
+			buffer[point_index] = '.';
+			while (index < 3) {
+				if (pdir_entry->reg_dir.name[index] == '\0')
+					break;
+				index++;
+			}
+			strncpy(buffer + point_index + 1, pdir_entry->reg_dir.extension, index);
+			buffer[point_index + 1 + index] = '\0';
+		} else
+			buffer[index] = '\0';
+		
+		lfn_entrys = 0;
 	}
 
 	return lfn_entrys;
 }
 
-bool fat32_is_LNF_dir(dir_entry_t *pdir_entry)
+file *fat32_open(fat32_t *pfat32, const char *path)
 {
-	return pdir_entry->reg_dir.attribute == 0xf;
+	char *p, *path_part;
+	dir_entry_t *pdir_entry, *pdir_result, dir_result;
+	size_t dirs;
+
+	// make a copy of constant path string
+	p = (char *)malloc(sizeof(char) * strlen(path));
+
+	dirs = fat32_read_chain(pfat32,
+			pfat32->root_cluster,
+			(char **)(&pdir_entry)) / sizeof(dir_entry_t);
+
+	path_part = strtok(p, "/");
+	while (path_part != NULL) {
+		pdir_result = fat32_find_entry(path_part, pdir_entry, dirs);
+		
+		// no corresponding entry in directory entries
+		if (pdir_result == NULL) {
+			free(p);
+			free(pdir_entry);
+			return NULL;
+		}
+
+		// copy the directory entry found and free current entries
+		dir_result = *pdir_result;
+		free(pdir_entry);
+
+		path_part = strtok(NULL, "/");
+
+		// if the result directory is not a sub-directory but path is not
+		// over, return NULL
+		if (!FAT32_DIR_DIR(dir_result.reg_dir.attribute) && path_part != NULL) {
+			free(p);
+			return NULL;
+		}
+
+		dirs = fat32_read_chain(pfat32,
+				(uint32_t)(dir_result.reg_dir.cluster_high << 16) +
+				dir_result.reg_dir.cluster_low,
+				(char **)(&pdir_entry)) / sizeof(dir_entry_t);
+	}
 }

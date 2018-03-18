@@ -152,7 +152,7 @@ static char * read_cmd(char * buffer)
 
 static int parse_cmd(Cmd * pCmd, char * cmd)
 {
-	char * temp;
+	char *temp;
 
 	pCmd->length = 0;
 
