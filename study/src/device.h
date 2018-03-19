@@ -9,8 +9,8 @@
 
 typedef struct {
 	uint32_t		sector_size;						// in byte
-	uint32_t		(*init)(void);
-	uint32_t		(*read_sector)(uint32_t, char *);
+	int				(*init)(void);
+	int				(*read_sector)(uint32_t, char *);
 }	block_device;
 
 typedef struct {

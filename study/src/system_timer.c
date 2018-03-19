@@ -13,9 +13,9 @@ unsigned long current_time(void)
 		return SYSTEM_TIMER_CLO_GET() + (++CHI << 32);
 }
 
-void wait_micro(unsigned int period)
+void wait_micros(unsigned int period)
 {
-	spin_sleep_us((unsigned long)period * 1000);
+	spin_sleep_us(period);
 }
 
 void spin_sleep_us(unsigned long period)

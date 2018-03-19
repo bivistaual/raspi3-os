@@ -44,7 +44,7 @@
 	(((time) & FAT32_HOUR_MASK) >> 11)
 
 #define FAT32_GET_MINUTE(time)													\
-	(((time) & FAT32_GET_MINUTE) >> 5)
+	(((time) & FAT32_MINUTE_MASK) >> 5)
 
 #define FAT32_GET_SECOND(time)													\
 	(((time) & FAT32_SECOND_MASK) << 1)

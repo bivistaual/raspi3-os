@@ -4,7 +4,7 @@ CROSS = $(TARGET)
 CC = $(CROSS)-gcc
 CCFLAGS = -std=c11 -Wall -O2 -nostdlib -nostartfiles -ffreestanding -pie -fpie
 LD = $(CROSS)-ld
-LDFLAGS = --gc-sections -static -nostdlib -nostartfiles --no-dynamic-linker
+LDFLAGS = --gc-sections -static -nostdlib -nostartfiles --no-dynamic-linker lib/sd.o
 
 SRC_DIR = src
 OBJ_DIR = obj
@@ -17,8 +17,8 @@ TTYWRITE = ./ttywrite
 BOOTLOADER = $(BIN_DIR)/bootloader
 KERNEL = $(BIN_DIR)/shell
 
-KERNEL_OBJS = assert.o malloc.o shell.o system_timer.o console.o cstartup.o start.o mini_uart.o atags.o
-BOOTLOADER_OBJS = bootloader.o xmodem.o system_timer.o cstartup.o start.o mini_uart.o
+KERNEL_OBJS = string.o kmain.o fat32.o device.o hashmap.o assert.o malloc.o shell.o system_timer.o console.o cstartup.o start.o mini_uart.o atags.o
+BOOTLOADER_OBJS = bootloader.o string.o xmodem.o system_timer.o cstartup.o start.o mini_uart.o
 
 KERNEL_DEPS = $(foreach n, $(KERNEL_OBJS), $(OBJ_DIR)/$(n))
 BOOTLOADER_DEPS = $(foreach n, $(BOOTLOADER_OBJS), $(OBJ_DIR)/$(n))

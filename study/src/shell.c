@@ -29,7 +29,7 @@ int shell_loop(void)
 	kprintf("\n");
 
 	while (1) {
-		kprintf("> ");
+		kprintf("(%s)> ", cwd);
 		if (read_cmd(buffer) == NULL)
 			continue;
 		if (parse_cmd(&command, buffer) <= 0)
@@ -251,7 +251,7 @@ void ls(char (*array)[ARG_LIMIT], unsigned int num)
 	size_t dirs, index = 0, lfn_entrys;
 	char path[1024] = "\0";
 	char name[511];
-	char *temp;
+	char *temp = array[0];
 	bool show_hidden = false;
 	char attribute[4] = "---";
 

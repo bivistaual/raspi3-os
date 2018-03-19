@@ -5,6 +5,8 @@
 
 #include "system_timer.h"
 
+void wait_micros(unsigned int);
+
 static uint64_t sd_err;
 
 /*
@@ -14,7 +16,7 @@ static uint64_t sd_err;
  * if a timeout occured, or -2 if an error sending commands to the SD controller
  * occured.
  */
-uint32_t sd_init(void);
+extern int sd_init(void);
 
 /*
  * Reads sector `n` (512 bytes) from the SD card and writes it to `buffer`.
@@ -28,6 +30,6 @@ uint32_t sd_init(void);
  * to the SD controller occured. Other error codes are also possible but defined only
  * as being less than zero.
  */
-uint32_t sd_readsector(uint32_t n, char * buffer);
+extern int sd_readsector(uint32_t n, char * buffer);
 
 #endif

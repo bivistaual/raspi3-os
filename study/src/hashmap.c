@@ -1,4 +1,4 @@
-#include "hash.h"
+#include "hashmap.h"
 #include "string.h"
 
 unsigned int hashCode(const char *str)

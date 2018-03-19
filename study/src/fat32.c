@@ -12,7 +12,9 @@ void mbr_parse(block_device *pbd, MBR_t *pmbr)
 {
 	char buffer[512];
 
+	kprintf("reading mbr...");
 	pbd->read_sector(0, buffer);
+	kprintf("\n");
 
 	memcpy(pmbr->disk_id, buffer + 436, 10);
 	memcpy(&pmbr->valid, buffer + 512, 2);
@@ -170,7 +172,7 @@ dir_entry_t *fat32_find_entry(const char *name, dir_entry_t *pdir_entry, size_t 
 {
 	size_t c = 0, lfn_entrys;
 	char buffer[511];
-	char *name_utf16;
+	char *name_utf16 = NULL;
 
 	while (c < length) {
 		lfn_entrys = fat32_parse_name(&pdir_entry[c], buffer);
@@ -188,7 +190,8 @@ dir_entry_t *fat32_find_entry(const char *name, dir_entry_t *pdir_entry, size_t 
 			c += lfn_entrys + 1;
 	}
 
-	free(name_utf16);
+	if (name_utf16 != NULL)
+		free(name_utf16);
 
 	return NULL;
 }
@@ -200,7 +203,7 @@ size_t fat32_parse_name(dir_entry_t *pdir_entry, char *buffer)
 
 	if (FAT32_IS_LNF(pdir_entry->reg_dir.attribute)) {
 		while (FAT32_IS_LNF(pdir_entry[lfn_entrys].lnf_dir.attribute)) {
-			char *p = buffer + 26 * (pdir_entry[lfn_entrys].lnf_dir.seq_number & 0x1f - 1);
+			char *p = buffer + 26 * ((pdir_entry[lfn_entrys].lnf_dir.seq_number & 0x1f) - 1);
 			strncpy(p, pdir_entry[lfn_entrys].lnf_dir.name1, 10);
 			strncpy(p + 10, pdir_entry[lfn_entrys].lnf_dir.name2, 12);
 			strncpy(p + 22, pdir_entry[lfn_entrys].lnf_dir.name3, 14);
