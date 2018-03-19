@@ -61,6 +61,11 @@ char * strncpy(char *restrict dest, const char *restrict src, size_t n)
 	return dest;
 }
 
+char *strcat(char *__restrict dest, const char *__restrict src)
+{
+	return strcpy(dest + strlen(dest), src);
+}
+
 char * strtok(char *restrict s, const char *restrict p)
 {
 	static char * ssp = NULL, * scp = NULL, * sep = NULL;

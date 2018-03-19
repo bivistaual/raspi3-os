@@ -1,5 +1,6 @@
 #include <stddef.h>
 
+#include "shell.h"
 #include "assert.h"
 #include "atags.h"
 #include "string.h"
@@ -8,79 +9,13 @@
 #include "system_timer.h"
 #include "malloc.h"
 #include "list.h"
+#include "fat32.h"
 
-#define CMD_LIMIT		1024
-#define ARG_CAPACITY	64
-#define ARG_LIMIT		64
+extern fat32_t *pfat32_global;
 
-typedef struct {
-	char arg[ARG_CAPACITY][ARG_LIMIT];
-	unsigned int capacity;
-	unsigned int length;
-}	Cmd;
+static char cwd[1024] = "/";
 
-extern uint8_t _end;
-extern struct mem_map _memory_map;
-extern LIST_HEAD(mem_bin[26]);
-
-static int shell_loop(void);
-static char * read_cmd(char *);
-static int parse_cmd(Cmd *, char *);
-static int exe_cmd(Cmd *);
-static void echo(char (*)[ARG_LIMIT], unsigned int);
-static void display_banner(void);
-static void test_malloc(void);
-static void mem_init(void);
-
-int kernel_main(void)
-{
-	mu_init();
-
-	// block until read ''
-	
-	while (mu_read_byte() != '\r')
-		continue;
-
-	mem_init();
-	
-	shell_loop();
-
-	return 0;
-}
-
-static void mem_init(void)
-{
-	volatile struct atag * atag_scan = (volatile struct atag *)ATAG_HEADER_ADDR;
-	uint32_t tag;
-
-	// initialize the bin class array
-	for (int i = 0; i < 26; i++)
-		LIST_INIT(&mem_bin[i]);
-
-	// return if fetch the memory map of the mechain
-	tag = ATAG_TAG(atag_scan);
-	while (tag != ATAG_NONE) {
-		if (tag == ATAG_MEM) {
-			_memory_map.start = (uint8_t *)&_end;
-			_memory_map.end = (uint8_t *)((uint64_t)(atag_scan->kind.mem.size) + 
-					(uint64_t)(atag_scan->kind.mem.start));
-
-			if (_memory_map.start >= _memory_map.end) {
-				panic("Memory map error!\n_memory_map.start = %x, _memory_map.end = %x\n",
-						_memory_map.start, _memory_map.end);
-			}
-
-			return;
-		}
-
-		atag_scan = ATAG_NEXT(atag_scan);
-		tag = ATAG_TAG(atag_scan);
-	}
-
-	panic("Can't fetch ATAG_MEM tag!\n");
-}
-
-static int shell_loop(void)
+int shell_loop(void)
 {
 	char buffer[CMD_LIMIT];
 	Cmd command;
@@ -104,7 +39,7 @@ static int shell_loop(void)
 	return 0;
 }
 
-static char * read_cmd(char * buffer)
+char * read_cmd(char * buffer)
 {
 	unsigned char c;
 	int index = 0;
@@ -150,7 +85,7 @@ static char * read_cmd(char * buffer)
 	return buffer;
 }
 
-static int parse_cmd(Cmd * pCmd, char * cmd)
+int parse_cmd(Cmd * pCmd, char * cmd)
 {
 	char *temp;
 
@@ -169,21 +104,21 @@ static int parse_cmd(Cmd * pCmd, char * cmd)
 	return pCmd->length;
 }
 
-static int exe_cmd(Cmd * pCmd)
+int exe_cmd(Cmd * pCmd)
 {
 	if (!strcmp(pCmd->arg[0], "echo"))
 		echo(pCmd->arg + 1, pCmd->length - 1);
 	else if (!strcmp(pCmd->arg[0], "atag"))
 		atag_display();
-	else if (!strcmp(pCmd->arg[0], "malloc"))
-		test_malloc();
+	else if (!strcmp(pCmd->arg[0], "cd"))
+		cd(pCmd->arg + 1, pCmd->length - 1);
 	else
 		kprintf("unknow command: %s\n", pCmd->arg[0]);
 
 	return 0;
 }
 
-static void echo(char (*array)[ARG_LIMIT], unsigned int num)
+void echo(char (*array)[ARG_LIMIT], unsigned int num)
 {
 	unsigned int i;
 
@@ -198,7 +133,81 @@ static void echo(char (*array)[ARG_LIMIT], unsigned int num)
 		kprintf("\n");
 }
 
-static void display_banner(void)
+void cd(char (*array)[ARG_LIMIT], unsigned int num)
+{
+	char cwd_temp[1024] = "\0";
+	file *pf;
+	char *stack[128];
+	int top = -1;
+	char *path_part;
+
+#define PUSH(p)																	\
+	do {																		\
+		stack[++top] = p;														\
+	} while (0)
+
+#define POP(s)																	\
+	(top >= 0 ? *((s) + (top--)) : 0)
+
+	if (num > 1) {
+		kprintf("too many arguments\n");
+		return;
+	}
+
+	if (num == 0) {
+		return;
+	}
+
+	// relative path to absolute path
+	if (array[0][0] != '/')
+		strcpy(cwd_temp, cwd);
+	strcat(cwd_temp, array[0]);
+
+	pf = fat32_open(pfat32_global, cwd_temp);
+	
+	if (pf == NULL) {
+		kprintf("no such file or directory: %s\n", cwd_temp);
+		return;
+	}
+
+	if (!FAT32_IS_DIR(pf->attribute)) {
+		kprintf("not a directory: %s\n", cwd_temp);
+		return;
+	}
+
+	path_part = strtok(cwd_temp, "/");
+	while (path_part != NULL) {
+		// a .. directory
+		if (!strcmp("..", path_part))
+			POP(stack);
+
+		// NOT a . directory
+		if (strcmp(".", path_part))
+			PUSH(path_part);
+	
+		path_part = strtok(NULL, "/");
+	}
+
+	strcpy(cwd, "/");
+	for (int i = 0; i <= top; i++) {
+		strcat(cwd, stack[i]);
+		strcat(cwd, "/");
+	}
+	
+	free(pf);
+
+#undef PUSH
+#undef POP
+
+	return;
+}
+
+void pwd(void)
+{
+	kprintf("%s\n", cwd);
+}
+
+void display_banner(void)
 {
 	kprintf("███████╗ ████╗██╗   ██╗████╗ ██████╗████████╗ ████╗  ██╗   ██╗  ████╗  ██╗\n");
 	kprintf("██╔═══██╗╚██╔╝██║   ██║╚██╔╝██╔════╝╚══██╔══╝██╔═██╗ ██║   ██║ ██╔═██╗ ██║\n");
@@ -208,7 +217,7 @@ static void display_banner(void)
 	kprintf("╚══════╝ ╚═══╝   ╚═╝   ╚═══╝ ╚═════╝   ╚═╝  ╚═╝   ╚═╝ ╚═════╝ ╚═╝   ╚═╝╚══════╝\n");
 }
 
-static void test_malloc(void)
+void test_malloc(void)
 {
 	int *p, *p2, *p3, *p4;
 

@@ -18,10 +18,15 @@ void mbr_parse(block_device *pbd, MBR_t *pmbr)
 	memcpy(&pmbr->valid, buffer + 512, 2);
 
 	for (int n = 0, offset = 446; n < 4; offset += 16, n++) {
+		kprintf("Partition %d:\n", n);
 		pmbr->part_entry[n].boot = *(buffer + offset);
+		kprintf("\tboot indicator = 0x%x, ", *(buffer + offset));
 		pmbr->part_entry[n].type = *(buffer + offset + 4);
+		kprintf("partition type = 0x%x,\n", *(buffer + offset + 4));
 		pmbr->part_entry[n].start = *((uint32_t *)buffer + offset + 8);
-		pmbr->part_entry[n].sector_size = *((uint32_t *)buffer + offset + 12);
+		kprintf("\tstart sector = %d, ", *((uint32_t *)buffer + offset + 8));
+		pmbr->part_entry[n].part_size = *((uint32_t *)buffer + offset + 12);
+		kprintf("partition size = %d\n", *((uint32_t *)buffer + offset + 12));
 	}
 }
 
@@ -40,7 +45,9 @@ void ebpb_parse(block_device *pbd, MBR_t *pmbr, EBPB_t *pebpb)
 	pebpb->sector_size = *((uint16_t *)buffer + 11);
 	pebpb->cluster_size = *(buffer + 13);
 	pebpb->reserved = *((uint16_t *)buffer + 14);
-	pebpb->sectors = *((uint16_t *)buffer + 19) == 0 ? *((uint32_t *)buffer + 32) : *((uint16_t *)buffer + 19);
+	pebpb->sectors = *((uint16_t *)buffer + 19) == 0 ?
+		*((uint32_t *)buffer + 32) :
+		*((uint16_t *)buffer + 19);
 	pebpb->fats = *(buffer + 16);
 	pebpb->fat_size = *((uint32_t *)buffer + 36);
 }
@@ -87,7 +94,8 @@ size_t fat32_read_cluster(fat32_t *pfat32, size_t c_index, char *buffer)
 
 	for (uint32_t i = 0; i < cluster_size; i++) {
 		result += cd_read_sector(&pfat32->device,
-				pfat32->data_start + cluster_size * (c_index - 2) + i, buffer + i * sector_size);
+				pfat32->data_start + cluster_size * (c_index - 2) + i,
+				buffer + i * sector_size);
 	}
 
 	return result;
@@ -111,6 +119,8 @@ size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, char **pbuf)
 
 	// read file allocation table
 	buf_entry = (char *)malloc(sector_size);
+	if (buf_entry == NULL)
+		return 0;
 	cd_read_sector(pcd, fat_start + distance, buf_entry);
 	next_index = buf_entry[c_index % sector_size] & FAT32_ENTRY_MASK;
 
@@ -122,6 +132,9 @@ size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, char **pbuf)
 	// data cluster
 
 	*pbuf = (char *)malloc(cluster_size * sector_size);
+	if (*pbuf == NULL)
+		goto fat32_read_chain_return;
+
 	while (next_index - 2 <= 0xfffffed || next_index - 0xffffff8 <= 7) {
 		// read the specific cluster data to the tail of buffer
 		result += fat32_read_cluster(pfat32, c_index, *pbuf + result);
@@ -140,6 +153,10 @@ size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, char **pbuf)
 
 			// re-allocate memory for next read
 			*pbuf = (char *)realloc(*pbuf, result + cluster_size * sector_size);
+			if (pbuf == NULL) {
+				result = 0;
+				goto fat32_read_chain_return;
+			}
 		}
 	}
 
@@ -170,8 +187,8 @@ size_t fat32_parse_name(dir_entry_t *pdir_entry, char *buffer)
 	size_t lfn_entrys = 0;
 	int index = 0, point_index = 0;
 
-	if (pdir_entry->reg_dir.attribute == 0xf) {
-		while (pdir_entry[lfn_entrys].lnf_dir.attribute == 0xf) {
+	if (FAT32_IS_LNF(pdir_entry->reg_dir.attribute)) {
+		while (FAT32_IS_LNF(pdir_entry[lfn_entrys].lnf_dir.attribute)) {
 			char *p = buffer + 26 * (pdir_entry[lfn_entrys].lnf_dir.seq_number & 0x1f - 1);
 			strncpy(p, pdir_entry[lfn_entrys].lnf_dir.name1, 10);
 			strncpy(p + 10, pdir_entry[lfn_entrys].lnf_dir.name2, 12);
@@ -195,7 +212,9 @@ size_t fat32_parse_name(dir_entry_t *pdir_entry, char *buffer)
 					break;
 				index++;
 			}
-			strncpy(buffer + point_index + 1, pdir_entry->reg_dir.extension, index);
+			strncpy(buffer + point_index + 1,
+					pdir_entry->reg_dir.extension,
+					index);
 			buffer[point_index + 1 + index] = '\0';
 		} else
 			buffer[index] = '\0';
@@ -211,41 +230,76 @@ file *fat32_open(fat32_t *pfat32, const char *path)
 	char *p, *path_part;
 	dir_entry_t *pdir_entry, *pdir_result, dir_result;
 	size_t dirs;
+	bool is_root = true;
+	file *pfile = NULL;
+
+	if (path == NULL)
+		panic("path is NULL!\n");
 
 	// make a copy of constant path string
 	p = (char *)malloc(sizeof(char) * strlen(path));
-
-	dirs = fat32_read_chain(pfat32,
-			pfat32->root_cluster,
-			(char **)(&pdir_entry)) / sizeof(dir_entry_t);
+	if (p == NULL)
+		return NULL;
+	strcpy(p, path);
 
 	path_part = strtok(p, "/");
 	while (path_part != NULL) {
+		// determine to read root cluster or sub-directory cluster
+		if (is_root) {
+			dirs = fat32_read_chain(pfat32,
+					pfat32->root_cluster,
+					(char **)(&pdir_entry)) / sizeof(dir_entry_t);
+			is_root = false;
+		} else {
+			// open fail when the last entry found is not a directory
+			if (!FAT32_IS_DIR(dir_result.reg_dir.attribute))
+				goto fat32_open_return;
+
+			// copy the directory entry found and free current entries
+			dir_result = *pdir_result;
+			free(pdir_entry);
+
+			// read next directory entry
+			dirs = fat32_read_chain(pfat32,
+					(uint32_t)(dir_result.reg_dir.cluster_high << 16) +
+					dir_result.reg_dir.cluster_low,
+					(char **)(&pdir_entry)) / sizeof(dir_entry_t);
+		}
+
 		pdir_result = fat32_find_entry(path_part, pdir_entry, dirs);
 		
 		// no corresponding entry in directory entries
-		if (pdir_result == NULL) {
-			free(p);
-			free(pdir_entry);
-			return NULL;
-		}
-
-		// copy the directory entry found and free current entries
-		dir_result = *pdir_result;
-		free(pdir_entry);
+		if (pdir_result == NULL)
+			goto fat32_open_return;
 
 		path_part = strtok(NULL, "/");
-
-		// if the result directory is not a sub-directory but path is not
-		// over, return NULL
-		if (!FAT32_DIR_DIR(dir_result.reg_dir.attribute) && path_part != NULL) {
-			free(p);
-			return NULL;
-		}
-
-		dirs = fat32_read_chain(pfat32,
-				(uint32_t)(dir_result.reg_dir.cluster_high << 16) +
-				dir_result.reg_dir.cluster_low,
-				(char **)(&pdir_entry)) / sizeof(dir_entry_t);
 	}
+
+	pfile = (file *)malloc(sizeof(file));
+	if (pfile == NULL)
+		goto fat32_open_return;
+
+	if (is_root) {
+		pfile->cluster = pfat32->root_cluster;
+		pfile->attribute = 0x10;
+	} else {
+		pfile->cluster = ((uint32_t)pdir_result->reg_dir.cluster_high << 16) +
+			pdir_result->reg_dir.cluster_low;
+		pfile->attribute = pdir_result->reg_dir.attribute;
+		pfile->pfat32 = pfat32;
+		pfile->time_ts = pdir_result->reg_dir.time_ts;
+		pfile->creation_time = pdir_result->reg_dir.creation_time;
+		pfile->creation_date = pdir_result->reg_dir.creation_date;
+		pfile->last_acc_date = pdir_result->reg_dir.last_acc_date;
+		pfile->last_mod_time = pdir_result->reg_dir.last_mod_time;
+		pfile->last_mod_date = pdir_result->reg_dir.last_mod_date;
+		pfile->size = pdir_entry->reg_dir.size;
+	}
+
+fat32_open_return:
+
+	free(p);
+	free(pdir_entry);
+
+	return pfile;
 }

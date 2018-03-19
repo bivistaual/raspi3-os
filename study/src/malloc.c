@@ -12,6 +12,38 @@ extern uint8_t _end;
 struct mem_map _memory_map;
 LIST_HEAD(mem_bin[26]);
 
+void mem_init(void)
+{
+	volatile struct atag * atag_scan = (volatile struct atag *)ATAG_HEADER_ADDR;
+	uint32_t tag;
+
+	// initialize the bin class array
+	for (int i = 0; i < 26; i++)
+		LIST_INIT(&mem_bin[i]);
+
+	// return if fetch the memory map of the mechain
+	tag = ATAG_TAG(atag_scan);
+	while (tag != ATAG_NONE) {
+		if (tag == ATAG_MEM) {
+			_memory_map.start = (uint8_t *)&_end;
+			_memory_map.end = (uint8_t *)((uint64_t)(atag_scan->kind.mem.size) + 
+					(uint64_t)(atag_scan->kind.mem.start));
+
+			if (_memory_map.start >= _memory_map.end) {
+				panic("Memory map error!\n_memory_map.start = %x, _memory_map.end = %x\n",
+						_memory_map.start, _memory_map.end);
+			}
+
+			return;
+		}
+
+		atag_scan = ATAG_NEXT(atag_scan);
+		tag = ATAG_TAG(atag_scan);
+	}
+
+	panic("Can't fetch ATAG_MEM tag!\n");
+}
+
 void * bump_alloc(size_t size)
 {
 	static uint8_t * current = (uint8_t *)&_end;

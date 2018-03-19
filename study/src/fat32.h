@@ -10,16 +10,16 @@
 #define FAT32_ENTRY_RESERVED	0x0000001
 #define FAT32_ENTRY_BAD			0xffffff7
 
-#define FAT32_DIR_HIDDEN(attribute)												\
+#define FAT32_IS_HIDDEN(attribute)												\
 	(attribute & 0x02)
 
-#define FAT32_DIR_LNF(attribute)												\
+#define FAT32_IS_LNF(attribute)												\
 	(attribute == 0x0f)
 
-#define FAT32_DIR_ARCH(attribute)												\
+#define FAT32_IS_ARCH(attribute)												\
 	(attribute & 0x20)
 
-#define FAT32_DIR_DIR(attribute)												\
+#define FAT32_IS_DIR(attribute)												\
 	(attribute & 0x10)
 
 typedef struct {
@@ -38,7 +38,7 @@ typedef struct {
 		uint8_t			boot;			// Boot indicator bit flag: 0 = no, 0x80 = bootable (or "active")
 		uint8_t			type;			// Partition Type
 		uint32_t		start;			// Relative Sector (to start of partition -- also the partition's starting LBA value)
-		uint32_t		sector_size;	// Total Sectors in partition
+		uint32_t		part_size;	// Total Sectors in partition
 	}				part_entry[4];	// Partition entry table
 	uint16_t		valid;			// (0x55, 0xAA) "Valid bootsector" signature bytes
 }	MBR_t;

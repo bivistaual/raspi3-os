@@ -23,6 +23,9 @@ extern char *strcpy (char *__restrict __dest, const char *__restrict __src)
 extern char *strncpy (char *__restrict __dest, const char *__restrict __src, size_t __n)
 	__attribute__((nonnull(1, 2)));
 
+extern char *strcat (char *__restrict __dest, const char *__restrict __sre)
+	__attribute__((nonnull(1, 2)));
+
 /* Divide S into tokens separated by characters in DELIM.  */
 extern char *strtok (char *__restrict __s, const char *__restrict __delim)
 	__attribute__((nonnull(2)));
