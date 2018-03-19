@@ -23,6 +23,12 @@ extern char *strcpy (char *__restrict __dest, const char *__restrict __src)
 extern char *strncpy (char *__restrict __dest, const char *__restrict __src, size_t __n)
 	__attribute__((nonnull(1, 2)));
 
+extern char *utf16toascii(char *__restrict __dest, const char *__restrict __src)
+	__attribute__((nonnull(1, 2)));
+
+extern char *asciitoutf16(char *__restrict __dest, const char *__restrict __src)
+	__attribute__((nonnull(1, 2)));
+
 extern char *strcat (char *__restrict __dest, const char *__restrict __sre)
 	__attribute__((nonnull(1, 2)));
 

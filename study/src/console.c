@@ -47,24 +47,6 @@ int __kprintf(const char *str, va_list args)
 						break;
 				}
 				break;
-/*			case 0x5c:
-				mu_write_str("Got a \\\n");
-				switch (c = str[strIndex++]) {
-					case 'n':
-						mu_write_byte(0x0D);
-						mu_write_byte(0x0A);
-						break;
-					case 't':
-						mu_write_byte(0x09);
-						break;
-					case 0x5c:
-						mu_write_byte(0x5c);
-						break;
-					default:
-						break;
-				}
-				break;
-*/
 			default:
 				mu_write_byte(c);
 				if (c == '\n')

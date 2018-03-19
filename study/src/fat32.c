@@ -170,14 +170,25 @@ dir_entry_t *fat32_find_entry(const char *name, dir_entry_t *pdir_entry, size_t 
 {
 	size_t c = 0, lfn_entrys;
 	char buffer[511];
+	char *name_utf16;
 
 	while (c < length) {
 		lfn_entrys = fat32_parse_name(&pdir_entry[c], buffer);
-		if (strcmp(name, buffer) == 0)
+		
+		name_utf16 = (char *)malloc(sizeof(char) * (strlen(name) + 1));
+		if (name_utf16 == NULL)
+			panic("No memory available!\n");
+
+		asciitoutf16(name_utf16, name);
+		if (strcmp(name_utf16, buffer) == 0) {
+			free(name_utf16);
 			return pdir_entry + c + lfn_entrys;
+		}
 		else
 			c += lfn_entrys + 1;
 	}
+
+	free(name_utf16);
 
 	return NULL;
 }

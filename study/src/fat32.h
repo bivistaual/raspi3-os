@@ -9,18 +9,45 @@
 #define FAT32_ENTRY_UNUSED		0x0000000
 #define FAT32_ENTRY_RESERVED	0x0000001
 #define FAT32_ENTRY_BAD			0xffffff7
+#define FAT32_YEAR_MASK			0xfe00
+#define FAT32_MONTH_MASK		0x01e0
+#define FAT32_DAY_MASK			0x001f
+#define FAT32_HOUR_MASK			0xf800
+#define FAT32_MINUTE_MASK		0x07e0
+#define FAT32_SECOND_MASK		0x001f
 
 #define FAT32_IS_HIDDEN(attribute)												\
 	(attribute & 0x02)
 
-#define FAT32_IS_LNF(attribute)												\
+#define FAT32_IS_LNF(attribute)													\
 	(attribute == 0x0f)
 
 #define FAT32_IS_ARCH(attribute)												\
 	(attribute & 0x20)
 
-#define FAT32_IS_DIR(attribute)												\
+#define FAT32_IS_DIR(attribute)													\
 	(attribute & 0x10)
+
+#define FAT32_IS_RO(attribute)													\
+	(attribute & 0x01)
+
+#define FAT32_GET_YEAR(date)													\
+	(((date) & FAT32_YEAR_MASK) >> 9)
+
+#define FAT32_GET_MONTH(date)													\
+	(((date) & FAT32_MONTH_MASK) >> 5)
+
+#define FAT32_GET_DAY(date)														\
+	((date) & FAT32_DAY_MASK)
+
+#define FAT32_GET_HOUR(time)													\
+	(((time) & FAT32_HOUR_MASK) >> 11)
+
+#define FAT32_GET_MINUTE(time)													\
+	(((time) & FAT32_GET_MINUTE) >> 5)
+
+#define FAT32_GET_SECOND(time)													\
+	(((time) & FAT32_SECOND_MASK) << 1)
 
 typedef struct {
 	cache_device	device;

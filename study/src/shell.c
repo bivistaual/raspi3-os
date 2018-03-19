@@ -1,4 +1,5 @@
 #include <stddef.h>
+#include <stdbool.h>
 
 #include "shell.h"
 #include "assert.h"
@@ -112,6 +113,12 @@ int exe_cmd(Cmd * pCmd)
 		atag_display();
 	else if (!strcmp(pCmd->arg[0], "cd"))
 		cd(pCmd->arg + 1, pCmd->length - 1);
+	else if (!strcmp(pCmd->arg[0], "cat"))
+		cat(pCmd->arg + 1, pCmd->length - 1);
+	else if (!strcmp(pCmd->arg[0], "pwd"))
+		pwd();
+	else if (!strcmp(pCmd->arg[0], "ls"))
+		ls(pCmd->arg + 1, pCmd->length - 1);
 	else
 		kprintf("unknow command: %s\n", pCmd->arg[0]);
 
@@ -120,17 +127,47 @@ int exe_cmd(Cmd * pCmd)
 
 void echo(char (*array)[ARG_LIMIT], unsigned int num)
 {
-	unsigned int i;
-
-	for (i = 0; i < num; i++) {
-//		for (int j = 0; j < 64; j++)
-//			kprintf(">%c-", array[i][j]);
+	for (unsigned int i = 0; i < num; i++) {
 		kprintf("%s", array[i]);
 		if (i != num - 1)
 			kprintf(" ");
 	}
 	if (num != 0)
 		kprintf("\n");
+}
+
+void cat(char (*array)[ARG_LIMIT], unsigned int num)
+{
+	file *pf;
+	char path[1024] = "\0";
+	char *data;
+	size_t size;
+
+	if (num == 0) {
+		kprintf("no input file\n");
+		return;
+	}
+
+	for (unsigned int i = 0; i < num; i++) {
+		if (array[i][0] != '/')
+			strcpy(path, cwd);
+		strcat(path, array[i]);
+
+		pf = fat32_open(pfat32_global, path);
+		if (pf == NULL) {
+			kprintf("no such file or directory: %s\n", array[i]);
+			return;
+		}
+
+		if (FAT32_IS_DIR(pf->attribute)) {
+			kprintf("it's a directory: %s\n", array[i]);
+			return;
+		}
+
+		size = fat32_read_chain(pfat32_global, pf->cluster, &data);
+		data[size] = '\0';
+		kprintf("%s\n", data);
+	}
 }
 
 void cd(char (*array)[ARG_LIMIT], unsigned int num)
@@ -205,6 +242,119 @@ void cd(char (*array)[ARG_LIMIT], unsigned int num)
 void pwd(void)
 {
 	kprintf("%s\n", cwd);
+}
+
+void ls(char (*array)[ARG_LIMIT], unsigned int num)
+{
+	file *pf;
+	dir_entry_t *pdir_entry;
+	size_t dirs, index = 0, lfn_entrys;
+	char path[1024] = "\0";
+	char name[511];
+	char *temp;
+	bool show_hidden = false;
+	char attribute[4] = "---";
+
+	if (num == 1) {
+		if (!strcmp("-a", array[0]))
+			show_hidden = true;
+	}
+
+	if (num == 2) {
+		if (!strcmp("-a", array[0])) {
+			show_hidden = true;
+			temp = array[1];
+			if (array[1][0] != '/')
+				strcpy(path, cwd);
+			strcat(path, array[1]);
+		} else if (!strcmp("-a", array[1])) {
+			show_hidden = true;
+			temp = array[0];
+			if (array[0][0] != '/')
+				strcpy(path, cwd);
+			strcat(path, array[0]);
+		} else {
+			kprintf("too many arguments\n");
+			return;
+		}
+	}
+
+	if (num == 0) {
+		if (array[0][0] != '/')
+			strcpy(path, cwd);
+		strcat(path, array[0]);
+		temp = array[0];
+	}
+
+	pf = fat32_open(pfat32_global, path);
+	if (pf == NULL) {
+		kprintf("no such file of directory: %s\n", temp);
+		return;
+	}
+		
+	if (!FAT32_IS_DIR(pf->attribute)) {
+		kprintf("it is not a directory: %s\n", temp);
+		return;
+	}
+
+	dirs = fat32_read_chain(pfat32_global, pf->cluster, (char **)(&pdir_entry)) /
+		sizeof(dir_entry_t);
+
+	while (index < dirs) {
+		lfn_entrys = fat32_parse_name(&pdir_entry[index], name);
+		
+		index += lfn_entrys;
+
+		if (!show_hidden && FAT32_IS_HIDDEN(pdir_entry[index].reg_dir.attribute)) {
+			index++;
+			continue;
+		}
+
+		uint8_t attr = pdir_entry[index].reg_dir.attribute;
+		uint16_t creation_time = pdir_entry[index].reg_dir.creation_time;
+		uint16_t creation_date = pdir_entry[index].reg_dir.creation_date;
+		uint16_t last_mod_time = pdir_entry[index].reg_dir.last_mod_time;
+		uint16_t last_mod_date = pdir_entry[index].reg_dir.last_mod_date;
+
+		if (FAT32_IS_DIR(attr)) {
+			strcat(name, "/");
+			attribute[0] = 'd';
+		}
+		if (!FAT32_IS_RO(attr))
+			attribute[1] = 'w';
+		if (FAT32_IS_HIDDEN(attr))
+			attribute[2] = 'h';
+
+		kprintf("%s %d/%d/%d\t%d:%d:%d\t%d/%d/%d\t%d:%d:%d\t%d\t%s\n",
+				attribute,
+				FAT32_GET_MONTH(creation_date),
+				FAT32_GET_DAY(creation_date),
+				FAT32_GET_YEAR(creation_date),
+				FAT32_GET_HOUR(creation_time),
+				FAT32_GET_MINUTE(creation_time),
+				FAT32_GET_SECOND(creation_time) + pdir_entry[index].reg_dir.time_ts / 10,
+				FAT32_GET_MONTH(last_mod_date),
+				FAT32_GET_DAY(last_mod_date),
+				FAT32_GET_YEAR(last_mod_date),
+				FAT32_GET_HOUR(last_mod_time),
+				FAT32_GET_MINUTE(last_mod_time),
+				FAT32_GET_SECOND(last_mod_time),
+				pdir_entry[index].reg_dir.size,
+				name);
+
+		index++;
+		strcpy(attribute, "---");
+	}
+}
+
+void display_banner_short(void)
+{
+	kprintf("███████╗ ██╗   ██╗ ██████╗████████╗ ██╗\n");
+	kprintf("██╔═══██╗██║   ██║██╔════╝╚══██╔══╝ ██║\n");
+	kprintf("███████╔╝╚██╗ ██╔╝╚██████╗   ██║    ██║\n");
+	kprintf("██╔═══██╗ ╚████╔╝  ╚════██╗  ██║    ██║\n");
+	kprintf("███████╔╝  ╚██╔╝   ██████╔╝  ██║    ███████╗\n");
+	kprintf("╚══════╝    ╚═╝    ╚═════╝   ╚═╝    ╚══════╝\n");
 }
 
 void display_banner(void)

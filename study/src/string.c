@@ -1,4 +1,5 @@
 #include <stddef.h>
+#include <stdint.h>
 
 #include "string.h"
 
@@ -59,6 +60,34 @@ char * strncpy(char *restrict dest, const char *restrict src, size_t n)
 	}
 
 	return dest;
+}
+
+char *utf16toascii(char *restrict dest, const char *restrict src)
+{
+	char *d = dest;
+
+	while (*(uint16_t *)src != L'\0') {
+		*dest = (char)(*src);
+		dest++;
+		src += 2;
+	}
+	*dest = '\0';
+
+	return d;
+}
+
+char *asciitoutf16(char *restrict dest, const char *restrict src)
+{
+	char *d = dest;
+
+	while (*src != '\0') {
+		*(uint16_t *)dest = (uint16_t)(*src);
+		dest += 2;
+		src++;
+	}
+	*(uint16_t *)dest = L'\0';
+
+	return d;
 }
 
 char *strcat(char *__restrict dest, const char *__restrict src)

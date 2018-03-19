@@ -18,9 +18,17 @@ int exe_cmd (Cmd *);
 
 void echo (char (*)[ARG_LIMIT], unsigned int);
 
+void display_banner_short (void);
+
 void display_banner (void);
 
-void cd(char (*)[ARG_LIMIT], unsigned int);
+void cd (char (*)[ARG_LIMIT], unsigned int);
+
+void pwd (void);
+
+void cat (char (*)[ARG_LIMIT], unsigned int);
+
+void ls (char (*)[ARG_LIMIT], unsigned int);
 
 void test_malloc (void);
 
