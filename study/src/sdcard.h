@@ -3,8 +3,6 @@
 
 #include <stdint.h>
 
-#include "system_timer.h"
-
 //void wait_micros(unsigned int);
 
 static uint64_t sd_err;

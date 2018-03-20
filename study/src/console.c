@@ -1,7 +1,10 @@
 #include <stdarg.h>
+#include <stdint.h>
 
 #include "console.h"
 #include "mini_uart.h"
+
+extern void _start(void);
 
 static char * itoa(int, char *);
 static char * itoh(int, char *);
@@ -117,6 +120,8 @@ static inline void display(void)
 void __panic(const char *file, int line, const char *func, const char *fmt, ...)
 {
 	va_list args;
+	uint32_t *current_stack_point;
+	int i = 0;
 
 	display();
 
@@ -127,6 +132,18 @@ void __panic(const char *file, int line, const char *func, const char *fmt, ...)
 	va_start(args, fmt);
 	__kprintf(fmt, args);
 	va_end(args);
+
+	__asm__(
+		"mov %0, sp"
+		:"=r"(current_stack_point)
+	);
+
+	kprintf("\n\nSTACK DUMP FROM ADDRESS 0x%x:\n\n", (uint32_t)current_stack_point);
+	for (uint32_t *p = current_stack_point; p < (uint32_t *)0x80000; p++, i++) {
+		kprintf("0x%x\t", *p);
+		if ((i + 1) % 8 == 0)
+			kprintf("\n");
+	}
 
 	while (1);
 }

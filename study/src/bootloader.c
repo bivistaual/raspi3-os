@@ -9,16 +9,10 @@ static void jump_to(char *);
 
 int kernel_main(void)
 {
-	// you have 15*0.3=4.5 seconds to run ttywrite or screen command on your
-	// computer after USB to TTL module is pluged in.
-	
-	mu_init();
+    mu_init();
 
-	if (xmodem_receive(0, 0) == -1) {
-//		led_flash(4, 1);
-//		spin_sleep_ms(1000);
+	if (xmodem_receive(0, 0) == -1)
 		return -1;
-	}
 
 	jump_to(BINARY_START_ADDR);
 
