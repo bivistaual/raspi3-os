@@ -524,7 +524,8 @@ Disassembly of section .text:
 
  
  
- 
+ // Assertion violation: file: src/device.c, line: 44, pcd->device.read_sector(((uint32_t)sector_log - pcd->part.start) * factor - pcd->part.start, buffer + d_sector_size) > 0
+
  
  
  

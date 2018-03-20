@@ -121,7 +121,6 @@ void __panic(const char *file, int line, const char *func, const char *fmt, ...)
 {
 	va_list args;
 	uint32_t *current_stack_point;
-	int i = 0;
 
 	display();
 
@@ -138,12 +137,16 @@ void __panic(const char *file, int line, const char *func, const char *fmt, ...)
 		:"=r"(current_stack_point)
 	);
 
+#ifdef DUMP_STACK
+	
 	kprintf("\n\nSTACK DUMP FROM ADDRESS 0x%x:\n\n", (uint32_t)current_stack_point);
 	for (uint32_t *p = current_stack_point; p < (uint32_t *)0x80000; p++, i++) {
 		kprintf("0x%x\t", *p);
 		if ((i + 1) % 8 == 0)
 			kprintf("\n");
 	}
+
+#endif
 
 	while (1);
 }

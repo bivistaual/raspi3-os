@@ -13,22 +13,34 @@ void mbr_parse(block_device *pbd, MBR_t *pmbr)
 	char buffer[512];
 
 	kprintf("reading mbr...");
-	pbd->read_sector(0, buffer);
-	kprintf("\n");
+	kprintf("%d bytes read.\n", pbd->read_sector(0, buffer));
 
 	memcpy(pmbr->disk_id, buffer + 436, 10);
 	memcpy(&pmbr->valid, buffer + 512, 2);
 
+	kprintf("disk id = ");
+	for (int i = 0; i < 10; i++)
+		kprintf("%c", pmbr->disk_id[i]);
+	kprintf("\n");
+
 	for (int n = 0, offset = 446; n < 4; offset += 16, n++) {
 		kprintf("Partition %d:\n", n);
+		
 		pmbr->part_entry[n].boot = *(buffer + offset);
-		kprintf("\tboot indicator = 0x%x, ", *(buffer + offset));
+		kprintf("\tboot indicator = 0x%x,\t", pmbr->part_entry[n].boot);
+		
 		pmbr->part_entry[n].type = *(buffer + offset + 4);
-		kprintf("partition type = 0x%x,\n", *(buffer + offset + 4));
-		pmbr->part_entry[n].start = *((uint32_t *)buffer + offset + 8);
-		kprintf("\tstart sector = %d, ", *((uint32_t *)buffer + offset + 8));
-		pmbr->part_entry[n].part_size = *((uint32_t *)buffer + offset + 12);
-		kprintf("partition size = %d\n", *((uint32_t *)buffer + offset + 12));
+		kprintf("partition type = 0x%x,\n", pmbr->part_entry[n].type);
+		
+		// pmbr->part_entry[n].start = *((uint32_t *)(buffer + offset + 8));
+		
+		memcpy(&pmbr->part_entry[n].start, buffer + offset + 8, 4);
+		kprintf("\tstart sector = %d,\t", pmbr->part_entry[n].start);
+		
+		// pmbr->part_entry[n].part_size = *((uint32_t *)(buffer + offset + 12));
+		
+		memcpy(&pmbr->part_entry[n].part_size, buffer + offset + 12, 4);
+		kprintf("partition size = %d\n", pmbr->part_entry[n].part_size);
 	}
 }
 
@@ -60,6 +72,7 @@ fat32_t *fat32_init(block_device *pbd)
 	MBR_t mbr;
 	EBPB_t ebpb;
 	cache_device *pcd;
+	bool boot_partition_found = false;
 
 	if ((pfat32 = (fat32_t *)malloc(sizeof(fat32_t))) == NULL)
 		panic("Error in allocating memory for FAT32 system!\n");
@@ -70,7 +83,14 @@ fat32_t *fat32_init(block_device *pbd)
 	// Only read the first partition entry, then add its start sector and FATs
 	// offset to fetch the physical sector number of FATs.
 
-	pfat32->fat_start = mbr.part_entry[0].start + ebpb.reserved;
+	for (int i = 0; i < 4; i++)
+		if (mbr.part_entry[i].boot == 0x80) {
+			pfat32->fat_start = mbr.part_entry[i].start + ebpb.reserved;
+			boot_partition_found = true;
+		}
+
+	if (boot_partition_found == false)
+		panic("No boot partition was found!\n");
 
 	pfat32->sector_size = ebpb.sector_size;
 	pfat32->cluster_size = ebpb.cluster_size;

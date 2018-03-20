@@ -15,7 +15,7 @@ unsigned long current_time(void)
 
 void wait_micros(unsigned int period)
 {
-	spin_sleep_us(period * 10);
+	spin_sleep_us(period);
 }
 
 void spin_sleep_us(unsigned long period)
