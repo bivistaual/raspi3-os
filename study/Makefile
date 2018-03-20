@@ -4,7 +4,7 @@ CROSS = $(TARGET)
 CC = $(CROSS)-gcc
 CCFLAGS = -std=c11 -Wall -O2 -nostdlib -nostartfiles -ffreestanding -pie -fpie
 LD = $(CROSS)-ld
-LDFLAGS = --gc-sections -static -nostdlib -nostartfiles --no-dynamic-linker lib/sd.o
+LDFLAGS = --gc-sections -static -nostdlib -nostartfiles --no-dynamic-linker
 
 SRC_DIR = src
 OBJ_DIR = obj
@@ -27,7 +27,7 @@ kernel: $(KERNEL).elf
 	$(CROSS)-objcopy $< -O binary $(KERNEL).bin
 
 $(KERNEL).elf: $(KERNEL_DEPS)
-	$(LD) $(LDFLAGS) $(KERNEL_DEPS) -T$(LD_LAYOUT) -o $@
+	$(LD) $(LDFLAGS) $(KERNEL_DEPS) -T$(LD_LAYOUT) -o $@ -Llib -lsd
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.S
 	$(CC) -c $(CCFLAGS) $< -o $@
