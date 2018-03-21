@@ -8,62 +8,39 @@
 #include "malloc.h"
 #include "assert.h"
 
-void mbr_parse(block_device *pbd, MBR_t *pmbr)
+static inline void mbr_parse(block_device *pbd, MBR_t *pmbr)
 {
 	char buffer[512];
 
-	kprintf("reading mbr...");
-	kprintf("%d bytes read.\n", pbd->read_sector(0, buffer));
+	if (pbd->read_sector(0, buffer) <= 0)
+		panic("Can't read MBR from sdcard.\n");
 
 	memcpy(pmbr->disk_id, buffer + 436, 10);
 	memcpy(&pmbr->valid, buffer + 512, 2);
 
-	kprintf("disk id = ");
-	for (int i = 0; i < 10; i++)
-		kprintf("%c", pmbr->disk_id[i]);
-	kprintf("\n");
-
 	for (int n = 0, offset = 446; n < 4; offset += 16, n++) {
-		kprintf("Partition %d:\n", n);
-		
 		pmbr->part_entry[n].boot = *(buffer + offset);
-		kprintf("\tboot indicator = 0x%x,\t", pmbr->part_entry[n].boot);
-		
 		pmbr->part_entry[n].type = *(buffer + offset + 4);
-		kprintf("partition type = 0x%x,\n", pmbr->part_entry[n].type);
-		
-		// pmbr->part_entry[n].start = *((uint32_t *)(buffer + offset + 8));
-		
 		memcpy(&pmbr->part_entry[n].start, buffer + offset + 8, 4);
-		kprintf("\tstart sector = %d,\t", pmbr->part_entry[n].start);
-		
-		// pmbr->part_entry[n].part_size = *((uint32_t *)(buffer + offset + 12));
-		
 		memcpy(&pmbr->part_entry[n].part_size, buffer + offset + 12, 4);
-		kprintf("partition size = %d\n", pmbr->part_entry[n].part_size);
 	}
 }
 
-void ebpb_parse(block_device *pbd, MBR_t *pmbr, EBPB_t *pebpb)
+static inline void ebpb_parse(block_device *pbd, MBR_t *pmbr, EBPB_t *pebpb)
 {
-	char buffer[512];
+	uint32_t start = 0;
 
 	for (int n = 0; n < 4; n++)
 		if (pmbr->part_entry[n].type == 0xb || pmbr->part_entry[n].type == 0xc) {
-			pebpb->start = pmbr->part_entry[n].start;
+			start = pmbr->part_entry[n].start;
 			break;
 		}
 
-	pbd->read_sector(pebpb->start, buffer);
+	if (start == 0)
+		panic("No FAT32 partition was found!\n");
 
-	pebpb->sector_size = *((uint16_t *)buffer + 11);
-	pebpb->cluster_size = *(buffer + 13);
-	pebpb->reserved = *((uint16_t *)buffer + 14);
-	pebpb->sectors = *((uint16_t *)buffer + 19) == 0 ?
-		*((uint32_t *)buffer + 32) :
-		*((uint16_t *)buffer + 19);
-	pebpb->fats = *(buffer + 16);
-	pebpb->fat_size = *((uint32_t *)buffer + 36);
+	if (pbd->read_sector(start, (char *)pebpb) <= 0)
+		panic("Can't read any data from sector %d.\n", start);
 }
 
 fat32_t *fat32_init(block_device *pbd)
@@ -72,7 +49,7 @@ fat32_t *fat32_init(block_device *pbd)
 	MBR_t mbr;
 	EBPB_t ebpb;
 	cache_device *pcd;
-	bool boot_partition_found = false;
+	int boot_entry_i = -1;
 
 	if ((pfat32 = (fat32_t *)malloc(sizeof(fat32_t))) == NULL)
 		panic("Error in allocating memory for FAT32 system!\n");
@@ -80,23 +57,37 @@ fat32_t *fat32_init(block_device *pbd)
 	mbr_parse(pbd, &mbr);
 	ebpb_parse(pbd, &mbr, &ebpb);
 
-	// Only read the first partition entry, then add its start sector and FATs
-	// offset to fetch the physical sector number of FATs.
-
 	for (int i = 0; i < 4; i++)
 		if (mbr.part_entry[i].boot == 0x80) {
-			pfat32->fat_start = mbr.part_entry[i].start + ebpb.reserved;
-			boot_partition_found = true;
+			boot_entry_i = i;
+			break;
 		}
 
-	if (boot_partition_found == false)
+	if (boot_entry_i == -1)
 		panic("No boot partition was found!\n");
 
-	pfat32->sector_size = ebpb.sector_size;
+	pfat32->fat_start = mbr.part_entry[boot_entry_i].start + ebpb.reserved_size;
+	DEBUG("fat_start = %d\n", pfat32->fat_start);
+	
+	memcpy(&pfat32->sector_size, &ebpb.sector_size, 2);
+	DEBUG("sector_size = %d\n", pfat32->sector_size);
+
 	pfat32->cluster_size = ebpb.cluster_size;
+	DEBUG("cluster_size = %d\n", pfat32->cluster_size);
+
 	pfat32->root_cluster = ebpb.root_cluster;
+	DEBUG("root_cluster = %d\n", pfat32->root_cluster);
+
+	DEBUG("#FATs = %d\n", ebpb.fats);
+	
+	ebpb.system_id[6] = '\0';
+	DEBUG("system id = %s\n", ebpb.system_id);
+
 	pfat32->fat_size = ebpb.fat_size;
+	DEBUG("fat_size = %d\n", pfat32->fat_size);
+
 	pfat32->data_start = pfat32->fat_start + ebpb.fats * ebpb.fat_size;
+	DEBUG("data_start = %d\n", pfat32->data_start);
 
 	pcd = &pfat32->device;
 	pcd->device = *pbd;
@@ -115,10 +106,16 @@ size_t fat32_read_cluster(fat32_t *pfat32, size_t c_index, char *buffer)
 	size_t result = 0;
 
 	for (uint32_t i = 0; i < cluster_size; i++) {
+
+		DEBUG("Reading logical sector %d.\n",
+				pfat32->data_start + cluster_size * (c_index - 2) + i);
+
 		result += cd_read_sector(&pfat32->device,
 				pfat32->data_start + cluster_size * (c_index - 2) + i,
 				buffer + i * sector_size);
 	}
+
+	DEBUG("Total %d bytes read.\n", result);
 
 	return result;
 }
@@ -126,25 +123,30 @@ size_t fat32_read_cluster(fat32_t *pfat32, size_t c_index, char *buffer)
 size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, char **pbuf)
 {
 	cache_device *pcd = &pfat32->device;
-	size_t fat_start = pfat32->fat_start;
+	size_t fat_start = pfat32->fat_start;			// FAT start sector
 	size_t result = 0;
-	uint32_t sector_size = pfat32->sector_size;
-	uint8_t cluster_size = pfat32->cluster_size;
+	uint32_t sector_size = pfat32->sector_size;		// in bytes
+	uint8_t cluster_size = pfat32->cluster_size;	// in sectors
 	uint32_t next_index;		// FAT entry value, may be next index of cluster
 	uint32_t c_index;			// current index of cluster
 	uint32_t distance;			// sectors between cluster index and FAT start
-	char *buf_entry;
+	uint32_t *buf_entry;
 
 	// calculate distance between FAT start and c_index
 	c_index = c_start;
 	distance = c_index / sector_size;
 
 	// read file allocation table
-	buf_entry = (char *)malloc(sector_size);
+	buf_entry = (uint32_t *)malloc(sector_size);
 	if (buf_entry == NULL)
 		return 0;
-	cd_read_sector(pcd, fat_start + distance, buf_entry);
+
+	if (cd_read_sector(pcd, fat_start + distance, (char *)buf_entry) <= 0)
+		panic("Can't read any directory entry at sector %d.\n",
+				fat_start + distance);
 	next_index = buf_entry[c_index % sector_size] & FAT32_ENTRY_MASK;
+
+	DEBUG("Data from sector %d read.\n", fat_start + distance);
 
 	// unused cluster
 
@@ -159,14 +161,23 @@ size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, char **pbuf)
 
 	while (next_index - 2 <= 0xfffffed || next_index - 0xffffff8 <= 7) {
 		// read the specific cluster data to the tail of buffer
+	
 		result += fat32_read_cluster(pfat32, c_index, *pbuf + result);
+
+		DEBUG("Data from cluster %d read.\n", c_index);
 
 		// not EOC
 		if (next_index - 2 <= 0xfffffed) {
 			// if entry links between two sectors, refresh file allocation table
 			if (distance != next_index / sector_size) {
 				distance = next_index / sector_size;
-				cd_read_sector(pcd, fat_start + distance, buf_entry);
+	
+				if (cd_read_sector(pcd, fat_start + distance,
+							(char *)buf_entry) <= 0)
+					panic("Can't read any directory entry at sector %d.\n",
+							fat_start + distance);
+
+				DEBUG("Data from sector %d read.\n", fat_start + distance);
 			}
 
 			// save current entry to further use and get next entry
@@ -181,6 +192,8 @@ size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, char **pbuf)
 			}
 		}
 	}
+
+	DEBUG("Total %d bytes data read from cluster %d.\n", result, c_start);
 
 fat32_read_chain_return:
 
@@ -280,9 +293,13 @@ file *fat32_open(fat32_t *pfat32, const char *path)
 	while (path_part != NULL) {
 		// determine to read root cluster or sub-directory cluster
 		if (is_root) {
+
 			dirs = fat32_read_chain(pfat32,
 					pfat32->root_cluster,
 					(char **)(&pdir_entry)) / sizeof(dir_entry_t);
+
+			DEBUG("Root cluster read.\n");
+
 			is_root = false;
 		} else {
 			// open fail when the last entry found is not a directory
@@ -298,6 +315,10 @@ file *fat32_open(fat32_t *pfat32, const char *path)
 					(uint32_t)(dir_result.reg_dir.cluster_high << 16) +
 					dir_result.reg_dir.cluster_low,
 					(char **)(&pdir_entry)) / sizeof(dir_entry_t);
+
+			DEBUG("Cluster %d read.\n",
+					(uint32_t)(dir_result.reg_dir.cluster_high << 16) +
+					dir_result.reg_dir.cluster_low);
 		}
 
 		pdir_result = fat32_find_entry(path_part, pdir_entry, dirs);
@@ -329,6 +350,8 @@ file *fat32_open(fat32_t *pfat32, const char *path)
 		pfile->last_mod_date = pdir_result->reg_dir.last_mod_date;
 		pfile->size = pdir_entry->reg_dir.size;
 	}
+
+	DEBUG("File opened.\n");
 
 fat32_open_return:
 

@@ -1,4 +1,0 @@
-device_tree=
-start_file=start.elf
-fixup_file=fixup.dat
-kernel_address=0x4000000

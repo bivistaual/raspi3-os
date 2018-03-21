@@ -54,7 +54,7 @@ typedef struct {
 	uint16_t		sector_size;
 	uint8_t			cluster_size;	// in sectors
 	uint32_t		fat_size;
-	uint32_t		fat_start;		// start sector of fat partition
+	uint32_t		fat_start;		// start sector of FAT but NOT partition!
 	uint32_t		data_start;		// start sector of data region in fat
 	uint32_t		root_cluster;
 }	fat32_t;
@@ -71,15 +71,36 @@ typedef struct {
 }	MBR_t;
 
 typedef struct {
-	uint32_t		start;			// First sector number of FAT32 partition
-	uint16_t		sector_size;	// The number of Bytes per sector (all numbers are in the little-endian format)
-	uint8_t			cluster_size;	// Number of sectors per cluster
-	uint16_t		reserved;		// FATs offset from start of FAT32 partition.
-	uint32_t		sectors;		// Total logical sectors.
-	uint8_t			fats;			// Number of fats.
-	uint32_t		fat_size;		// Sectors per FAT. The size of the FAT in sectors.
-	uint32_t		root_cluster;	// Often 2.
-}	EBPB_t;
+	uint8_t			disassemble[3];
+	uint8_t			oem_id[8];
+	uint16_t		sector_size;
+	uint8_t			cluster_size;
+	uint16_t		reserved_size;
+	uint8_t			fats;
+	uint16_t		dir_entries_max;
+	uint16_t		log_sectors_w;
+	uint8_t			fat_id;
+	uint16_t		fat_size_w;
+	uint16_t		track_size;
+	uint16_t		heads;
+	uint32_t		hidden_size;
+	uint32_t		log_sectors_d;
+	uint32_t		fat_size;
+	uint16_t		flags;
+	uint16_t		fat_version;
+	uint32_t		root_cluster;
+	uint16_t		fsinfo_sector;
+	uint16_t		boot_sector_bk;
+	uint8_t			reserved[12];
+	uint8_t			dirve_number;
+	uint8_t			flag_nt;
+	uint8_t			signature;
+	uint32_t		volume_id;
+	uint8_t			volume_lable[11];
+	uint8_t			system_id[8];
+	uint8_t			boot_code[420];
+	uint16_t		bootable;
+} __attribute__((packed)) EBPB_t;
 
 typedef struct {
 	char *data;
@@ -100,7 +121,7 @@ typedef struct {
 	uint16_t		last_mod_date;
 	uint16_t		cluster_low;
 	uint32_t		size;
-}	regular_dir_entry;
+} __attribute__((packed)) regular_dir_entry;
 
 typedef struct {
 	uint8_t			seq_number;
@@ -111,7 +132,7 @@ typedef struct {
 	char			name2[12];
 	uint16_t		zero;
 	char			name3[4];
-}	LFN_dir_entry;
+} __attribute__((packed)) LFN_dir_entry;
 
 typedef union {
 	regular_dir_entry	reg_dir;
@@ -130,10 +151,6 @@ typedef struct {
 	uint16_t		last_mod_date;
 	uint32_t		size;
 }	file;
-
-void mbr_parse (block_device *, MBR_t *);
-
-void ebpb_parse (block_device *, MBR_t *, EBPB_t *);
 
 /*
  * Return a initialized fat32_t struct stocked in the device.

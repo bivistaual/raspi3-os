@@ -6,9 +6,9 @@
 
 extern void _start(void);
 
-static char * itoa(int, char *);
-static char * itoh(int, char *);
-static char getDigit(int, char *, int *);
+static char * itoa(long unsigned int, char *);
+static char * itoh(long unsigned int, char *);
+static char getDigit(long unsigned int, char *, long unsigned int *);
 
 int kprintf(const char *fmt, ...)
 {
@@ -61,7 +61,7 @@ int __kprintf(const char *str, va_list args)
 	return 1;
 }
 
-static char getDigit(int n, char * str, int * pIndex)
+static char getDigit(long unsigned int n, char * str, long unsigned int *pIndex)
 {
 	char c;
 	if (n / 10 > 0) {
@@ -74,21 +74,21 @@ static char getDigit(int n, char * str, int * pIndex)
 	}
 }
 
-static char * itoa(int n, char * str)
+static char * itoa(long unsigned int n, char * str)
 {
-	int index = 0;
+	long unsigned int index = 0;
 	char c = getDigit(n, str, &index);
 	str[index++] = c;
 	str[index] = '\0';
 	return str;
 }
 
-static char * itoh(int n, char *str)
+static char * itoh(long unsigned int n, char *str)
 {
-	int t;
+	long unsigned int t;
 	char *scan = str;
 
-	for (int i = 0; i < 8; i++) {
+	for (long unsigned int i = 0; i < 8; i++) {
 		t = (n >> ((7 - i) << 2)) & 0xf;
 		if (t < 10)
 			*(scan++) = t + '0';
@@ -149,4 +149,17 @@ void __panic(const char *file, int line, const char *func, const char *fmt, ...)
 #endif
 
 	while (1);
+}
+
+int __debug(const char *func, const char *fmt, ...)
+{
+	va_list args;
+
+	kprintf("%s: ", func);
+
+	va_start(args, fmt);
+	__kprintf(fmt, args);
+	va_end(args);
+
+	return 1;
 }

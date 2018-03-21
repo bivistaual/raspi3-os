@@ -1,6 +1,6 @@
 #include "device.h"
 #include "malloc.h"
-#include "assert.h"
+#include "console.h"
 #include "string.h"
 
 size_t cd_read_sector(cache_device *pcd, uint64_t sector_log, char *buffer)
@@ -17,6 +17,9 @@ size_t cd_read_sector(cache_device *pcd, uint64_t sector_log, char *buffer)
 
 	HLIST_FOREACH(pscan, &pcd->cache_bin[bin_index], node)
 		if (pscan->sector_log == sector_log) {
+
+			DEBUG("Prepare to read from cache.\n");
+
 			if (sector_log < pcd->part.start)
 				memcpy(buffer, pscan->data, d_sector_size);
 			else
@@ -24,25 +27,61 @@ size_t cd_read_sector(cache_device *pcd, uint64_t sector_log, char *buffer)
 
 			goto cd_read_sector_return;
 		}
+
+	DEBUG("Prepare to read from sdcard.\n");
 	
 	// else alloc and cache a new sector and return
 
 	pnew = (bcache *)malloc(sizeof(bcache));
+
+	DEBUG("Determining pnew is NULL or not.\n");
+
+	if (pnew == NULL)
+		panic("No memory available for bcache.\n");
+
+	DEBUG("Set logical sector to pnew.\n");
+
 	pnew->sector_log = sector_log;
 
 	// read size of device sector before partition start sector and logical sector
 	// at or after partition start sector
 
+	DEBUG("Determining to read as physical sector or logical.\n");
+
 	if (sector_log < pcd->part.start) {
-		assert(pcd->device.read_sector((uint32_t)sector_log, buffer) > 0);
+		if (pcd->device.read_sector((uint32_t)sector_log, buffer) <= 0)
+			panic("Can't read data from sector %d.\n", sector_log);
+
+		DEBUG("Physical sector %d read because it is less than partition's start \
+physical sector %d.\n", sector_log, pcd->part.start);
+
 	} else {
+
+		DEBUG("Calculating fator.\n");
 
 		// calculate the times to reach the logical sector size
 		factor = p_sector_size / d_sector_size;
 
+		DEBUG("Reading %d physical sectors from logical sector %d.\n",
+				factor, sector_log);
+
 		for (int i = 0; i < factor; i++)
-			assert(pcd->device.read_sector(((uint32_t)sector_log - pcd->part.start) * factor - pcd->part.start, buffer + d_sector_size) > 0);
+			if (pcd->device.read_sector(((uint32_t)sector_log -
+					pcd->part.start) * factor + pcd->part.start + i,
+					buffer + d_sector_size)
+					<= 0)
+				panic("Can't read data from sector %d.\n",
+						((uint32_t)sector_log - pcd->part.start) * factor +
+						pcd->part.start + i);
+
+		DEBUG("Logical sector %d which is %d physical sectors from physical \
+sector %d is read.\n",
+				sector_log,
+				factor,
+				((uint32_t)sector_log - pcd->part.start) * factor + pcd->part.start);
 	}
+
+	DEBUG("Adding to cache bin.\n");
 
 	// add new data cache to hashmap
 	pnew->data = buffer;
@@ -51,6 +90,10 @@ size_t cd_read_sector(cache_device *pcd, uint64_t sector_log, char *buffer)
 	// return the specific number of bytes read
 
 cd_read_sector_return:
+
+	DEBUG("%d bytes data read from sector %d.\n",
+			sector_log < pcd->part.start ? d_sector_size : p_sector_size,
+			sector_log);
 
 	if (sector_log < pcd->part.start)
 		return d_sector_size;

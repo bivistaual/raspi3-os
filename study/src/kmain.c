@@ -10,8 +10,6 @@ fat32_t *pfat32_global;
 
 int kernel_main(void)
 {
-	int state;
-
 	block_device bd = {512, sd_init, sd_readsector};
 	
 	mu_init();
@@ -20,13 +18,8 @@ int kernel_main(void)
 	while (mu_read_byte() != '\r')
 		continue;
 
-	if ((state = bd.init()) != 0) {
-		if (state == -1)
-			kprintf("state = -1\n");
-		if (state == -2)
-			kprintf("state = -2");
+	if (bd.init() != 0)
 		panic("Can't initialize SD card!");
-	}
 
 	mem_init();
 

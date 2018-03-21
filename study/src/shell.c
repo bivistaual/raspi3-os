@@ -14,6 +14,8 @@
 
 extern fat32_t *pfat32_global;
 
+static inline void fat32_info(void);
+
 static char cwd[1024] = "/";
 
 int shell_loop(void)
@@ -29,7 +31,7 @@ int shell_loop(void)
 	kprintf("\n");
 
 	while (1) {
-		kprintf("(%s)> ", cwd);
+		kprintf("(%s) > ", cwd);
 		if (read_cmd(buffer) == NULL)
 			continue;
 		if (parse_cmd(&command, buffer) <= 0)
@@ -66,12 +68,12 @@ char * read_cmd(char * buffer)
 			case '\0':
 				break;
 			default:
-				// if (!(c & 0x80)) {
+				if (!(c & 0x80)) {
 					mu_write_byte(c);
 					//kprintf("0x%x ", (int)c);
 					if (index < 1024)
 						buffer[index++] = c;
-				// }
+				}
 				break;
 		}
 	}
@@ -119,6 +121,8 @@ int exe_cmd(Cmd * pCmd)
 		pwd();
 	else if (!strcmp(pCmd->arg[0], "ls"))
 		ls(pCmd->arg + 1, pCmd->length - 1);
+	else if (!strcmp(pCmd->arg[0], "fat32info"))
+		fat32_info();
 	else
 		kprintf("unknow command: %s\n", pCmd->arg[0]);
 
@@ -398,3 +402,17 @@ void test_malloc(void)
 	free(p3);
 	free(p4);
 }
+
+static inline void fat32_info(void)
+{
+	extern fat32_t *pfat32_global;
+
+	kprintf("FAT32 information:\n");
+	kprintf("sector size:\t%d bytes\n", pfat32_global->sector_size);
+	kprintf("cluster size:\t%d sectors\n", pfat32_global->cluster_size);
+	kprintf("FAT size:\t%d sectors\n", pfat32_global->fat_size);
+	kprintf("FAT start at sector %d\n", pfat32_global->fat_start);
+	kprintf("data start at sector %d\n", pfat32_global->data_start);
+	kprintf("root directory start at cluster %d\n", pfat32_global->root_cluster);
+}
+

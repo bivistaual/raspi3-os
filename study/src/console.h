@@ -17,4 +17,13 @@ int kprintf(const char *, ...)
 
 void __panic(const char *, int, const char *, const char *, ...);
 
+int __debug(const char *, const char *, ...);
+
+#ifndef NDEBUG
+# define DEBUG(fmt, ...)														\
+	__debug(__func__, fmt, ##__VA_ARGS__)
+#else
+# define DEBUG(fmt, ...)
+#endif
+
 #endif

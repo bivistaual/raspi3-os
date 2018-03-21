@@ -72,7 +72,7 @@ void * malloc(size_t size)
 	LIST_FOREACH(scan, head, node) {
 		if (MEM_CHUCK_UNUSE(scan)) {
 			pmem = scan;
-			pmem->size = ALIGN_UP(size, 4);
+			pmem->size = ALIGN_UP(size, 8);
 			MEM_CHUCK_SET(pmem);
 			return pmem + 1;
 		}
@@ -86,7 +86,7 @@ void * malloc(size_t size)
 		return NULL;
 
 	// set size aligned up and used flag
-	pmem->size = ALIGN_UP(size, 4);
+	pmem->size = ALIGN_UP(size, 8);
 	MEM_CHUCK_SET(pmem);
 			
 	list_add_tail(&(pmem->node), head);
