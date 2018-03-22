@@ -76,6 +76,21 @@ char *utf16toascii(char *restrict dest, const char *restrict src)
 	return d;
 }
 
+char *utf16ntoascii(char *restrict dest, const char *restrict src, size_t size)
+{
+	size_t index = 0;
+
+	while (index < size) {
+		dest[index] = src[index << 1];
+		if (dest[index] != '\0')
+			index++;
+		else
+			break;
+	}
+
+	return dest;
+}
+
 char *asciitoutf16(char *restrict dest, const char *restrict src)
 {
 	char *d = dest;
@@ -88,6 +103,21 @@ char *asciitoutf16(char *restrict dest, const char *restrict src)
 	*(uint16_t *)dest = L'\0';
 
 	return d;
+}
+
+char *asciintoutf16(char *restrict dest, const char *restrict src, size_t size)
+{
+	size_t index = 0;
+
+	while (index < size) {
+		dest[index << 1] = (uint16_t)(src[index]);
+		if ((uint16_t)(dest[index << 1]) != L'\0')
+			index++;
+		else
+			break;
+	}
+
+	return dest;
 }
 
 char *strcat(char *__restrict dest, const char *__restrict src)

@@ -176,6 +176,12 @@ size_t fat32_read_chain (fat32_t *pfat32, size_t c_start, char **pbuf);
  */
 dir_entry_t *fat32_find_entry (const char *name, dir_entry_t *pdir_entry, size_t length);
 
+/*
+ * Return an offset of regular_dir_entry from @pdir_entry.
+ *
+ * NOTE: the directory entry name's first byte indicates the directory is deleted or
+ * not.
+ */
 size_t fat32_parse_name (dir_entry_t *pdir_entry, char *buffer);
 
 file *fat32_open (fat32_t *pfat32, const char *path);

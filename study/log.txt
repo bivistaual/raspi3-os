@@ -1,17 +1,19 @@
-cd_read_sector: Find sector 2080 in bin[0].
-cd_read_sector: Adding sector 2080 to bin[0] at 0x863f0
-cd_read_sector: Find sector 32602 in bin[10].
-cd_read_sector: Adding sector 32602 to bin[10] at 0x96430
-cd_read_sector: Find sector 32603 in bin[11].
-cd_read_sector: Adding sector 32603 to bin[11] at 0x96470
-cd_read_sector: Find sector 32604 in bin[12].
-cd_read_sector: Adding sector 32604 to bin[12] at 0x964b0
-cd_read_sector: Find sector 32605 in bin[13].
-cd_read_sector: Adding sector 32605 to bin[13] at 0x964f0
-cd_read_sector: Find sector 32606 in bin[14].
-cd_read_sector: Adding sector 32606 to bin[14] at 0x96530
-cd_read_sector: Find sector 32607 in bin[15].
-cd_read_sector: Adding sector 32607 to bin[15] at 0x96570
-cd_read_sector: Find sector 32608 in bin[0].
-cd_read_sector: pscan=0x863f0 &node=0x86400 next=0x0 pprev=0x84f10
-cd_read_sector: pscan=0xfffffff0 &node=0x0 next=0xd2a80000 pprev=0x52b00001
+fat32_open: strlen(path) = 9
+fat32_read_chain: Total 32768 bytes data read from cluster 2.
+free: Fetching pchuck = 0x853b8
+free: Free success.
+fat32_open: &pdir_entry = 0x7e318fat32_open: Got next dir_entry pdir_entry = 0x85810
+fat32_open: Root cluster read.
+fat32_open: Finding sub-directory "resource".
+fat32_find_entry: Found directory "@�"
+fat32_find_entry: Found directory "bootcode.bin"
+fat32_find_entry: Found directory "config.txt"
+fat32_find_entry: Found directory "fixup.dat"
+fat32_find_entry: Found directory "kernel8.img"
+fat32_find_entry: Found directory "start.elf"
+fat32_find_entry: Found directory "start.elf"
+fat32_find_entry: Found directory "resource"
+fat32_find_entry: Find "resource" entry at 0x86770
+fat32_open: Allocating memory for file.
+fat32_open: pfile = 0x96810
+

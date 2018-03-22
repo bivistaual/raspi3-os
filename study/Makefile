@@ -2,7 +2,7 @@ TARGET = aarch64-none-elf
 CROSS = $(TARGET)
 
 CC = $(CROSS)-gcc
-CCFLAGS = -std=c11 -Wall -O2 -nostdlib -nostartfiles -ffreestanding -pie -fpie
+CCFLAGS = -std=c11 -O2 -Wall -nostdlib -nostartfiles -ffreestanding -pie -fpie
 LD = $(CROSS)-ld
 LDFLAGS = --gc-sections -static -nostdlib -nostartfiles --no-dynamic-linker
 

@@ -7,14 +7,12 @@
 #include "console.h"
 #include "malloc.h"
 #include "assert.h"
-#include "system_timer.h"
 
 extern int sd_err;
 
 static inline void mbr_parse(block_device *pbd, MBR_t *pmbr)
 {
 	char buffer[512];
-	unsigned long start_time = current_time();
 
 	if (pbd->read_sector(0, buffer) != 512)
 		panic("Can't read MBR from sdcard. Error code %d.\n", sd_err);
@@ -59,13 +57,17 @@ fat32_t *fat32_init(block_device *pbd)
 	cache_device *pcd;
 	int boot_entry_i = -1;
 
+
+	DEBUG("cluster_high = %d\n", offsetof(regular_dir_entry, cluster_high));
+	DEBUG("cluster_low = %d\n", offsetof(regular_dir_entry, cluster_low));
+
+
+
+
 	if ((pfat32 = (fat32_t *)malloc(sizeof(fat32_t))) == NULL)
 		panic("Error in allocating memory for FAT32 system!\n");
 
 	mbr_parse(pbd, &mbr);
-
-	spin_sleep_us(200);
-
 	ebpb_parse(pbd, &mbr, &ebpb);
 
 	for (int i = 0; i < 4; i++)
@@ -126,7 +128,7 @@ size_t fat32_read_cluster(fat32_t *pfat32, size_t c_index, char *buffer)
 				buffer + i * sector_size);
 	}
 
-	DEBUG("Total %d bytes read.\n", result);
+//	DEBUG("Total %d bytes read.\n", result);
 
 	return result;
 }
@@ -176,9 +178,9 @@ size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, char **pbuf)
 	
 		result += fat32_read_cluster(pfat32, c_index, *pbuf + result);
 
-		DEBUG("Data from cluster %d read.\n", c_index);
+//		DEBUG("Data from cluster %d read.\n", c_index);
 
-		DEBUG("next entry = 0x%x\n", next_index);
+//		DEBUG("next entry = 0x%x\n", next_index);
 		
 		// not EOC
 		
@@ -192,7 +194,7 @@ size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, char **pbuf)
 					panic("Can't read any directory entry at sector %d.\n",
 							fat_start + distance);
 
-				DEBUG("Renew directory entry at sector %d.\n", fat_start + distance);
+//				DEBUG("Renew directory entry at sector %d.\n", fat_start + distance);
 			}
 
 			// save current entry to further use and get next entry
@@ -201,8 +203,9 @@ size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, char **pbuf)
 
 			// re-allocate memory for next read
 			
-			DEBUG("Re-allocate pbuf to %d bytes.\n", result + cluster_size * sector_size);
-			
+//			DEBUG("Re-allocate pbuf to %d bytes.\n", result + cluster_size * sector_size);
+
+			// !!!!!!!!!! MEMORY LEAK HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			*pbuf = (char *)realloc(*pbuf, result + cluster_size * sector_size);
 			if (pbuf == NULL) {
 				result = 0;
@@ -224,26 +227,26 @@ dir_entry_t *fat32_find_entry(const char *name, dir_entry_t *pdir_entry, size_t 
 {
 	size_t c = 0, lfn_entrys;
 	char buffer[511];
-	char *name_utf16 = NULL;
 
 	while (c < length) {
-		lfn_entrys = fat32_parse_name(&pdir_entry[c], buffer);
-		
-		name_utf16 = (char *)malloc(sizeof(char) * (strlen(name) + 1));
-		if (name_utf16 == NULL)
-			panic("No memory available!\n");
+		lfn_entrys = fat32_parse_name(pdir_entry + c, buffer);
 
-		asciitoutf16(name_utf16, name);
-		if (strcmp(name_utf16, buffer) == 0) {
-			free(name_utf16);
-			return pdir_entry + c + lfn_entrys;
-		}
-		else
+		if (buffer[0] == '\0')
 			c += lfn_entrys + 1;
-	}
+		else {
 
-	if (name_utf16 != NULL)
-		free(name_utf16);
+			DEBUG("Found directory \"%s\"\n", buffer);
+
+			if (strcmp(name, buffer) == 0) {
+				DEBUG("Find \"%s\" entry at 0x%x\n",
+						name,
+						(uint64_t)(pdir_entry + c + lfn_entrys));
+				return pdir_entry + c + lfn_entrys;
+			}
+			
+			c += lfn_entrys + 1;
+		}
+	}
 
 	return NULL;
 }
@@ -252,40 +255,55 @@ size_t fat32_parse_name(dir_entry_t *pdir_entry, char *buffer)
 {
 	size_t lfn_entrys = 0;
 	int index = 0, point_index = 0;
+	char temp[7];
 
 	if (FAT32_IS_LNF(pdir_entry->reg_dir.attribute)) {
 		while (FAT32_IS_LNF(pdir_entry[lfn_entrys].lnf_dir.attribute)) {
-			char *p = buffer + 26 * ((pdir_entry[lfn_entrys].lnf_dir.seq_number & 0x1f) - 1);
-			strncpy(p, pdir_entry[lfn_entrys].lnf_dir.name1, 10);
-			strncpy(p + 10, pdir_entry[lfn_entrys].lnf_dir.name2, 12);
-			strncpy(p + 22, pdir_entry[lfn_entrys].lnf_dir.name3, 14);
+			char *p = buffer + 13 * ((pdir_entry[lfn_entrys].lnf_dir.seq_number & 0x1f) - 1);
+			
+			strncpy(p, utf16ntoascii(temp, pdir_entry[lfn_entrys].lnf_dir.name1, 10), 5);
+			strncpy(p + 5, utf16ntoascii(temp, pdir_entry[lfn_entrys].lnf_dir.name2, 12), 6);
+			strncpy(p + 11, utf16ntoascii(temp, pdir_entry[lfn_entrys].lnf_dir.name3, 4), 2);
+			
 			lfn_entrys++;
 		}
+	} else if ((uint8_t)pdir_entry->reg_dir.name[0] == 0xe5) {
+//		DEBUG("A deleted entry.\n");
+		buffer[0] = '\0';
 	} else {
+
+//		DEBUG("A regular entry with:\n");
+
+		// get directory entry name and make @index be index of '\0' or equal to 8
 		while (index < 8) {
 			if (pdir_entry->reg_dir.name[index] == '\0')
 				break;
 			index++;
 		}
+
+		// copy at most @index char to buffer
 		strncpy(buffer, pdir_entry->reg_dir.name, index);
 		
+		// if extension is NOT empty
 		if (pdir_entry->reg_dir.extension[0] != '\0') {
 			point_index = index;
 			index = 0;
 			buffer[point_index] = '.';
+			
+			// get extension name and make @index be index of '\0' or equal to 3
 			while (index < 3) {
 				if (pdir_entry->reg_dir.name[index] == '\0')
 					break;
 				index++;
 			}
+
+			// copy at most @index char behind '.'
 			strncpy(buffer + point_index + 1,
-					pdir_entry->reg_dir.extension,
+					utf16ntoascii(temp, pdir_entry->reg_dir.extension, 3),
 					index);
 			buffer[point_index + 1 + index] = '\0';
 		} else
 			buffer[index] = '\0';
-		
-		lfn_entrys = 0;
 	}
 
 	return lfn_entrys;
@@ -294,25 +312,24 @@ size_t fat32_parse_name(dir_entry_t *pdir_entry, char *buffer)
 file *fat32_open(fat32_t *pfat32, const char *path)
 {
 	char *p, *path_part;
-	dir_entry_t *pdir_entry = NULL, *pdir_result, dir_result;
+	dir_entry_t *pdir_entry = NULL, *pdir_sub, dir_sub_bk;
 	size_t dirs;
 	bool is_root = true;
 	file *pfile = NULL;
 
 	if (path == NULL)
-		panic("path is NULL!\n");
+		panic("path is NULL");
 
 	// make a copy of constant path string
-	p = (char *)malloc(sizeof(char) * strlen(path));
+
+	DEBUG("strlen(path) = %d\n", strlen(path));
+	p = (char *)malloc(sizeof(char) * (strlen(path) + 1));
 	if (p == NULL)
-		return NULL;
+		panic("Run out of memory!\n");
 	strcpy(p, path);
 
 	path_part = strtok(p, "/");
 	while (path_part != NULL) {
-		
-		DEBUG("path part = %s\n", path_part);
-		
 		// determine to read root cluster or sub-directory cluster
 		if (is_root) {
 
@@ -320,66 +337,97 @@ file *fat32_open(fat32_t *pfat32, const char *path)
 					pfat32->root_cluster,
 					(char **)(&pdir_entry)) / sizeof(dir_entry_t);
 
+			DEBUG("&pdir_entry = 0x%x", (uint64_t)(&pdir_entry));
+			DEBUG("Got next dir_entry pdir_entry = 0x%x\n", (uint64_t)pdir_entry);
+
 			DEBUG("Root cluster read.\n");
 
 			is_root = false;
 		} else {
 			// open fail when the last entry found is not a directory
-			if (!FAT32_IS_DIR(dir_result.reg_dir.attribute))
+			if (!FAT32_IS_DIR(pdir_sub->reg_dir.attribute))
 				goto fat32_open_return;
 
 			// copy the directory entry found and free current entries
-			dir_result = *pdir_result;
+			dir_sub_bk = *pdir_sub;
 			free(pdir_entry);
 
 			// read next directory entry
 			dirs = fat32_read_chain(pfat32,
-					(uint32_t)(dir_result.reg_dir.cluster_high << 16) +
-					dir_result.reg_dir.cluster_low,
+					(uint32_t)(dir_sub_bk.reg_dir.cluster_high << 16) +
+					dir_sub_bk.reg_dir.cluster_low,
 					(char **)(&pdir_entry)) / sizeof(dir_entry_t);
 
+			DEBUG("&pdir_entry = 0x%x", (uint64_t)(&pdir_entry));
+			DEBUG("Got next dir_entry pdir_entry = 0x%x\n", (uint64_t)pdir_entry);
+
 			DEBUG("Cluster %d read.\n",
-					(uint32_t)(dir_result.reg_dir.cluster_high << 16) +
-					dir_result.reg_dir.cluster_low);
+					(uint32_t)(dir_sub_bk.reg_dir.cluster_high << 16) +
+					dir_sub_bk.reg_dir.cluster_low);
 		}
 
-		pdir_result = fat32_find_entry(path_part, pdir_entry, dirs);
-		
+		DEBUG("Finding sub-directory \"%s\".\n", path_part);
+
+		pdir_sub = fat32_find_entry(path_part, pdir_entry, dirs);
+
 		// no corresponding entry in directory entries
-		if (pdir_result == NULL)
+		if (pdir_sub == NULL)
 			goto fat32_open_return;
 
 		path_part = strtok(NULL, "/");
 	}
 
+	DEBUG("Allocating memory for file.\n");
+	
 	pfile = (file *)malloc(sizeof(file));
 	if (pfile == NULL)
 		goto fat32_open_return;
 
+	DEBUG("pfile = 0x%x\n", (uint64_t)pfile);
+
+	///////////////////////////////////////////////////////////////////////////////////
+
+//	DEBUG("path %s is openning and saving at address 0x%x.\n", path, (uint64_t)pfile);
+
 	if (is_root) {
+
+		DEBUG("Making root file struct.");
+
 		pfile->cluster = pfat32->root_cluster;
 		pfile->attribute = 0x10;
 	} else {
-		pfile->cluster = ((uint32_t)pdir_result->reg_dir.cluster_high << 16) +
-			pdir_result->reg_dir.cluster_low;
-		pfile->attribute = pdir_result->reg_dir.attribute;
+
+		DEBUG("Making %s file struct.\n", path);
+
+		pfile->cluster = ((uint32_t)(pdir_sub->reg_dir.cluster_high) << 16) +
+			pdir_sub->reg_dir.cluster_low;
+		pfile->attribute = pdir_sub->reg_dir.attribute;
 		pfile->pfat32 = pfat32;
-		pfile->time_ts = pdir_result->reg_dir.time_ts;
-		pfile->creation_time = pdir_result->reg_dir.creation_time;
-		pfile->creation_date = pdir_result->reg_dir.creation_date;
-		pfile->last_acc_date = pdir_result->reg_dir.last_acc_date;
-		pfile->last_mod_time = pdir_result->reg_dir.last_mod_time;
-		pfile->last_mod_date = pdir_result->reg_dir.last_mod_date;
-		pfile->size = pdir_entry->reg_dir.size;
+		pfile->time_ts = pdir_sub->reg_dir.time_ts;
+		pfile->creation_time = pdir_sub->reg_dir.creation_time;
+		pfile->creation_date = pdir_sub->reg_dir.creation_date;
+		pfile->last_acc_date = pdir_sub->reg_dir.last_acc_date;
+		pfile->last_mod_time = pdir_sub->reg_dir.last_mod_time;
+		pfile->last_mod_date = pdir_sub->reg_dir.last_mod_date;
+		pfile->size = pdir_sub->reg_dir.size;
+	
+		DEBUG("file struct make done.\n");
 	}
 
-	DEBUG("%s opened and saved at address 0x%x.\n", path, (uint64_t)pfile);
+	DEBUG("path opened and saved at address 0x%x.\n", (uint64_t)pfile);
 	
 fat32_open_return:
 
+	DEBUG("Deallocing.");
+
 	free(p);
-	if (pdir_entry)
+	if (pdir_entry != NULL) {
+		DEBUG("WTF HERE!!!!!!!!!\n");
+		DEBUG("pdir_entry = 0x%x\n", (uint64_t)pdir_entry);
 		free(pdir_entry);
+	}
+
+	DEBUG("Return pfile = 0x%x\n", (uint64_t)pfile);
 
 	return pfile;
 }

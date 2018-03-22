@@ -81,13 +81,13 @@ void * malloc(size_t size)
 			pmem->size = ALIGN_UP(size, 8);
 			MEM_CHUCK_SET(pmem);
 
-			//DEBUG("Return data address at 0x%x.\n", (uint64_t)(pmem + 1));
+//			DEBUG("Return data address at 0x%x.\n", (uint64_t)(pmem + 1));
 
 			return pmem + 1;
 		}
 	}
 
-//	DEBUG("List full. Bump allocating...");
+//	DEBUG("List full. Bump allocating...\n");
 
 	// If the bin class list has no free chuck, bump alloc memory from heap then
 	// add it to the tail of the list and return teh data field pointer.
@@ -104,7 +104,7 @@ void * malloc(size_t size)
 			
 	list_add_tail(&(pmem->node), head);
 
-	//DEBUG("Return data address 0x%x.\n", (uint64_t)(pmem + 1));
+//	DEBUG("Return data address 0x%x.\n", (uint64_t)(pmem + 1));
 
 	return pmem + 1;
 }
@@ -129,9 +129,13 @@ void *realloc(void *ptr, size_t size)
 void free(void * ptr)
 {
 	struct mem_chuck * pchuck;
-	
+
+	DEBUG("Fetching pchuck = 0x%x\n", (struct mem_chuck *)ptr - 1);
+
 	pchuck = (struct mem_chuck *)ptr - 1;
 	MEM_CHUCK_CLR(pchuck);
+
+	DEBUG("Free success.\n");
 
 	return;
 }

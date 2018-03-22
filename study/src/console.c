@@ -156,7 +156,7 @@ int __debug(const char *func, const char *fmt, ...)
 	va_list args;
 
 	kprintf("%s: ", func);
-
+    
 	va_start(args, fmt);
 	__kprintf(fmt, args);
 	va_end(args);

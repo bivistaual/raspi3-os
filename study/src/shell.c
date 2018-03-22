@@ -312,10 +312,16 @@ void ls(char (*array)[ARG_LIMIT], unsigned int num)
 
 	DEBUG("%d directory entries read.\n", dirs);
 		
-	while (index < dirs && index < 10) {
+	while (index < dirs) {
 		lfn_entrys = fat32_parse_name(&pdir_entry[index], name);
-		
+
 		index += lfn_entrys;
+
+		// the entry has already deleted.
+		if (name[0] == '\0') {
+			index++;
+			continue;
+		}
 
 		if (!show_hidden && FAT32_IS_HIDDEN(pdir_entry[index].reg_dir.attribute)) {
 			index++;
@@ -357,6 +363,8 @@ void ls(char (*array)[ARG_LIMIT], unsigned int num)
 		index++;
 		strcpy(attribute, "---");
 	}
+
+	free(pf);
 }
 
 void display_banner_short(void)

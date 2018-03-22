@@ -17,14 +17,14 @@ size_t cd_read_sector(cache_device *pcd, uint64_t sector_log, char *buffer)
 
 	// if sector data is in hashmap, return it
 	if (sector_log == 32603)
-	DEBUG("Searching sector %d in bin[%d].\n", sector_log, bin_index);
+//	DEBUG("Reading sector %d from bin[%d].\n", sector_log, bin_index);
 
 	HLIST_FOREACH(pscan, &pcd->cache_bin[bin_index], node) {
 		if (sector_log == 32603)
-		DEBUG("pscan=0x%x &node=0x%x next=0x%x pprev=0x%x\n",
-			(uint64_t)pscan, (uint64_t)(&pscan->node),
-			(uint64_t)(pscan->node.next), (uint64_t)(pscan->node.pprev)
-		);
+//		DEBUG("pscan=0x%x &node=0x%x next=0x%x pprev=0x%x\n",
+//			(uint64_t)pscan, (uint64_t)(&pscan->node),
+//			(uint64_t)(pscan->node.next), (uint64_t)(pscan->node.pprev)
+//		);
 		
 		if (pscan->sector_log == sector_log) {
 
@@ -63,8 +63,7 @@ size_t cd_read_sector(cache_device *pcd, uint64_t sector_log, char *buffer)
 		if (pcd->device.read_sector((uint32_t)sector_log, buffer) <= 0)
 				panic("Can't read data from sector %d.\n", sector_log);
 
-		//DEBUG("Physical sector %d read because it is less than partition's start \
-//physical sector %d.\n", sector_log, pcd->part.start);
+		//DEBUG("Physical sector %d read because it is less than partition's start physical sector %d.\n", sector_log, pcd->part.start);
 
 	} else {
 	
@@ -86,14 +85,13 @@ size_t cd_read_sector(cache_device *pcd, uint64_t sector_log, char *buffer)
 								pcd->part.start + i);
 		}
 
-		//DEBUG("Logical sector %d which is %d physical sectors from physical \
-//sector %d is read.\n",
+		//DEBUG("Logical sector %d which is %d physical sectors from physical sector %d is read.\n",
 		//		sector_log,
 		//		factor,
 		//		((uint32_t)sector_log - pcd->part.start) * factor + pcd->part.start);
 	}
-	if (sector_log == 32603)
-	DEBUG("Adding sector %d to bin[%d] at 0x%x\n", sector_log, bin_index, (uint64_t)pnew);
+
+//	DEBUG("Adding sector %d to bin[%d] at 0x%x\n", sector_log, bin_index, (uint64_t)pnew);
 
 	// add new data cache to hashmap
 	pnew->data = buffer;

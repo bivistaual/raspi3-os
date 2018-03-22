@@ -3,7 +3,7 @@
 
 #define SD_READSECTOR_TIMEOUT	10000000
 
-static int sd_err;
+//static int sd_err;
 
 /*
  * Initializes the SD card controller.
