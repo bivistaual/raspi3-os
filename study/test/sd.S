@@ -47,6 +47,11 @@ Disassembly of section .text:
   9c:	f9401bf7 	ldr	x23, [sp, #48]
   a0:	a8c47bfd 	ldp	x29, x30, [sp], #64
   a4:	d65f03c0 	ret
+  
+  
+  
+  
+  
   a8:	a9bc7bfd 	stp	x29, x30, [sp, #-64]!
   ac:	910003fd 	mov	x29, sp
   b0:	a90153f3 	stp	x19, x20, [sp, #16]
@@ -95,6 +100,11 @@ Disassembly of section .text:
  15c:	52800000 	mov	w0, #0x0                   	// #0
  160:	b9000296 	str	w22, [x20]
  164:	17ffffef 	b	120 <sd_readsector-0x368>
+ 
+ 
+ 
+ 
+ 
  168:	a9bc7bfd 	stp	x29, x30, [sp, #-64]!
  16c:	910003fd 	mov	x29, sp
  170:	a9025bf5 	stp	x21, x22, [sp, #32]
@@ -206,6 +216,11 @@ Disassembly of section .text:
  318:	72bfff20 	movk	w0, #0xfff9, lsl #16
  31c:	0a000020 	and	w0, w1, w0
  320:	17ffffa9 	b	1c4 <sd_readsector-0x2c4>
+ 
+ 
+ 
+ 
+ 
  324:	a9bd7bfd 	stp	x29, x30, [sp, #-48]!
  328:	910003fd 	mov	x29, sp
  32c:	a90153f3 	stp	x19, x20, [sp, #16]
@@ -303,6 +318,7 @@ Disassembly of section .text:
  48c:	910003fd 	mov	x29, sp
  490:	a90153f3 	stp	x19, x20, [sp, #16]
  494:	a9025bf5 	stp	x21, x22, [sp, #32]
+ 
  498:	2a0003f5 	mov	w21, w0
  49c:	aa0103f6 	mov	x22, x1
  4a0:	52800040 	mov	w0, #0x2                   	// #2

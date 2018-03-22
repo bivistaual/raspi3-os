@@ -7,22 +7,30 @@
 #include "console.h"
 #include "malloc.h"
 #include "assert.h"
+#include "system_timer.h"
+
+extern int sd_err;
 
 static inline void mbr_parse(block_device *pbd, MBR_t *pmbr)
 {
 	char buffer[512];
+	unsigned long start_time = current_time();
 
-	if (pbd->read_sector(0, buffer) <= 0)
-		panic("Can't read MBR from sdcard.\n");
+	if (pbd->read_sector(0, buffer) != 512)
+		panic("Can't read MBR from sdcard. Error code %d.\n", sd_err);
 
 	memcpy(pmbr->disk_id, buffer + 436, 10);
 	memcpy(&pmbr->valid, buffer + 512, 2);
 
 	for (int n = 0, offset = 446; n < 4; offset += 16, n++) {
 		pmbr->part_entry[n].boot = *(buffer + offset);
+//		DEBUG("boot = 0x%x\n", pmbr->part_entry[n].boot);
 		pmbr->part_entry[n].type = *(buffer + offset + 4);
+//		DEBUG("type = 0x%x\n", pmbr->part_entry[n].type);
 		memcpy(&pmbr->part_entry[n].start, buffer + offset + 8, 4);
+//		DEBUG("start = %d\n", pmbr->part_entry[n].start);
 		memcpy(&pmbr->part_entry[n].part_size, buffer + offset + 12, 4);
+//		DEBUG("size = %d\n\n", pmbr->part_entry[n].part_size);
 	}
 }
 
@@ -39,8 +47,8 @@ static inline void ebpb_parse(block_device *pbd, MBR_t *pmbr, EBPB_t *pebpb)
 	if (start == 0)
 		panic("No FAT32 partition was found!\n");
 
-	if (pbd->read_sector(start, (char *)pebpb) <= 0)
-		panic("Can't read any data from sector %d.\n", start);
+	if (pbd->read_sector(start, (char *)pebpb) != 512)
+		panic("Can't read any data from sector %d. Error code %d\n", start, sd_err);
 }
 
 fat32_t *fat32_init(block_device *pbd)
@@ -55,6 +63,9 @@ fat32_t *fat32_init(block_device *pbd)
 		panic("Error in allocating memory for FAT32 system!\n");
 
 	mbr_parse(pbd, &mbr);
+
+	spin_sleep_us(200);
+
 	ebpb_parse(pbd, &mbr, &ebpb);
 
 	for (int i = 0; i < 4; i++)
@@ -67,27 +78,27 @@ fat32_t *fat32_init(block_device *pbd)
 		panic("No boot partition was found!\n");
 
 	pfat32->fat_start = mbr.part_entry[boot_entry_i].start + ebpb.reserved_size;
-	DEBUG("fat_start = %d\n", pfat32->fat_start);
+//	DEBUG("fat_start = %d\n", pfat32->fat_start);
 	
 	memcpy(&pfat32->sector_size, &ebpb.sector_size, 2);
-	DEBUG("sector_size = %d\n", pfat32->sector_size);
+//	DEBUG("sector_size = %d\n", pfat32->sector_size);
 
 	pfat32->cluster_size = ebpb.cluster_size;
-	DEBUG("cluster_size = %d\n", pfat32->cluster_size);
+//	DEBUG("cluster_size = %d\n", pfat32->cluster_size);
 
 	pfat32->root_cluster = ebpb.root_cluster;
-	DEBUG("root_cluster = %d\n", pfat32->root_cluster);
+//	DEBUG("root_cluster = %d\n", pfat32->root_cluster);
 
-	DEBUG("#FATs = %d\n", ebpb.fats);
+//	DEBUG("#FATs = %d\n", ebpb.fats);
 	
 	ebpb.system_id[6] = '\0';
-	DEBUG("system id = %s\n", ebpb.system_id);
+//	DEBUG("system id = %s\n", ebpb.system_id);
 
 	pfat32->fat_size = ebpb.fat_size;
-	DEBUG("fat_size = %d\n", pfat32->fat_size);
+//	DEBUG("fat_size = %d\n", pfat32->fat_size);
 
 	pfat32->data_start = pfat32->fat_start + ebpb.fats * ebpb.fat_size;
-	DEBUG("data_start = %d\n", pfat32->data_start);
+//	DEBUG("data_start = %d\n", pfat32->data_start);
 
 	pcd = &pfat32->device;
 	pcd->device = *pbd;
@@ -107,8 +118,8 @@ size_t fat32_read_cluster(fat32_t *pfat32, size_t c_index, char *buffer)
 
 	for (uint32_t i = 0; i < cluster_size; i++) {
 
-		DEBUG("Reading logical sector %d.\n",
-				pfat32->data_start + cluster_size * (c_index - 2) + i);
+		//DEBUG("Reading logical sector %d.\n",
+		//		pfat32->data_start + cluster_size * (c_index - 2) + i);
 
 		result += cd_read_sector(&pfat32->device,
 				pfat32->data_start + cluster_size * (c_index - 2) + i,
@@ -146,7 +157,7 @@ size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, char **pbuf)
 				fat_start + distance);
 	next_index = buf_entry[c_index % sector_size] & FAT32_ENTRY_MASK;
 
-	DEBUG("Data from sector %d read.\n", fat_start + distance);
+	//DEBUG("Data from sector %d read.\n", fat_start + distance);
 
 	// unused cluster
 
@@ -159,14 +170,18 @@ size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, char **pbuf)
 	if (*pbuf == NULL)
 		goto fat32_read_chain_return;
 
-	while (next_index - 2 <= 0xfffffed || next_index - 0xffffff8 <= 7) {
+	//while (next_index - 2 <= 0xfffffed || next_index - 0xffffff8 <= 7) {
+	while (1) {
 		// read the specific cluster data to the tail of buffer
 	
 		result += fat32_read_cluster(pfat32, c_index, *pbuf + result);
 
 		DEBUG("Data from cluster %d read.\n", c_index);
 
+		DEBUG("next entry = 0x%x\n", next_index);
+		
 		// not EOC
+		
 		if (next_index - 2 <= 0xfffffed) {
 			// if entry links between two sectors, refresh file allocation table
 			if (distance != next_index / sector_size) {
@@ -177,20 +192,24 @@ size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, char **pbuf)
 					panic("Can't read any directory entry at sector %d.\n",
 							fat_start + distance);
 
-				DEBUG("Data from sector %d read.\n", fat_start + distance);
+				DEBUG("Renew directory entry at sector %d.\n", fat_start + distance);
 			}
 
 			// save current entry to further use and get next entry
 			c_index = next_index;
-			next_index = buf_entry[next_index % sector_size];
+			next_index = buf_entry[next_index % sector_size] & FAT32_ENTRY_MASK;
 
 			// re-allocate memory for next read
+			
+			DEBUG("Re-allocate pbuf to %d bytes.\n", result + cluster_size * sector_size);
+			
 			*pbuf = (char *)realloc(*pbuf, result + cluster_size * sector_size);
 			if (pbuf == NULL) {
 				result = 0;
 				goto fat32_read_chain_return;
 			}
-		}
+		} else
+			break;
 	}
 
 	DEBUG("Total %d bytes data read from cluster %d.\n", result, c_start);
@@ -275,7 +294,7 @@ size_t fat32_parse_name(dir_entry_t *pdir_entry, char *buffer)
 file *fat32_open(fat32_t *pfat32, const char *path)
 {
 	char *p, *path_part;
-	dir_entry_t *pdir_entry, *pdir_result, dir_result;
+	dir_entry_t *pdir_entry = NULL, *pdir_result, dir_result;
 	size_t dirs;
 	bool is_root = true;
 	file *pfile = NULL;
@@ -291,6 +310,9 @@ file *fat32_open(fat32_t *pfat32, const char *path)
 
 	path_part = strtok(p, "/");
 	while (path_part != NULL) {
+		
+		DEBUG("path part = %s\n", path_part);
+		
 		// determine to read root cluster or sub-directory cluster
 		if (is_root) {
 
@@ -351,12 +373,13 @@ file *fat32_open(fat32_t *pfat32, const char *path)
 		pfile->size = pdir_entry->reg_dir.size;
 	}
 
-	DEBUG("File opened.\n");
-
+	DEBUG("%s opened and saved at address 0x%x.\n", path, (uint64_t)pfile);
+	
 fat32_open_return:
 
 	free(p);
-	free(pdir_entry);
+	if (pdir_entry)
+		free(pdir_entry);
 
 	return pfile;
 }

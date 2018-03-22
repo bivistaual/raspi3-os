@@ -123,6 +123,8 @@ int exe_cmd(Cmd * pCmd)
 		ls(pCmd->arg + 1, pCmd->length - 1);
 	else if (!strcmp(pCmd->arg[0], "fat32info"))
 		fat32_info();
+	else if (!strcmp(pCmd->arg[0], "malloc"))
+		test_malloc();
 	else
 		kprintf("unknow command: %s\n", pCmd->arg[0]);
 
@@ -262,9 +264,12 @@ void ls(char (*array)[ARG_LIMIT], unsigned int num)
 	if (num == 1) {
 		if (!strcmp("-a", array[0]))
 			show_hidden = true;
-	}
-
-	if (num == 2) {
+		else {
+			if (array[0][0] != '/')
+				strcat(path, cwd);
+			strcat(path, array[0]);
+		}
+	} else if (num == 2) {
 		if (!strcmp("-a", array[0])) {
 			show_hidden = true;
 			temp = array[1];
@@ -281,13 +286,9 @@ void ls(char (*array)[ARG_LIMIT], unsigned int num)
 			kprintf("too many arguments\n");
 			return;
 		}
-	}
-
-	if (num == 0) {
-		if (array[0][0] != '/')
-			strcpy(path, cwd);
-		strcat(path, array[0]);
-		temp = array[0];
+	} else if (num == 0) {
+		strcat(path, cwd);
+		temp = cwd;
 	}
 
 	pf = fat32_open(pfat32_global, path);
@@ -295,16 +296,23 @@ void ls(char (*array)[ARG_LIMIT], unsigned int num)
 		kprintf("no such file of directory: %s\n", temp);
 		return;
 	}
+	
+	DEBUG("Determine file is directory or file.");
 		
 	if (!FAT32_IS_DIR(pf->attribute)) {
 		kprintf("it is not a directory: %s\n", temp);
 		return;
 	}
 
+	DEBUG("Reading cluster %d.\n", pf->cluster);
+	
+	// char ** cast may cause unaligned access!!!!!!!!!!!!!!!!!!!!!!!!!!
 	dirs = fat32_read_chain(pfat32_global, pf->cluster, (char **)(&pdir_entry)) /
 		sizeof(dir_entry_t);
 
-	while (index < dirs) {
+	DEBUG("%d directory entries read.\n", dirs);
+		
+	while (index < dirs && index < 10) {
 		lfn_entrys = fat32_parse_name(&pdir_entry[index], name);
 		
 		index += lfn_entrys;
@@ -333,7 +341,7 @@ void ls(char (*array)[ARG_LIMIT], unsigned int num)
 				attribute,
 				FAT32_GET_MONTH(creation_date),
 				FAT32_GET_DAY(creation_date),
-				FAT32_GET_YEAR(creation_date),
+				FAT32_GET_YEAR(creation_date) + 1980,
 				FAT32_GET_HOUR(creation_time),
 				FAT32_GET_MINUTE(creation_time),
 				FAT32_GET_SECOND(creation_time) + pdir_entry[index].reg_dir.time_ts / 10,
@@ -379,25 +387,17 @@ void test_malloc(void)
 	for (int i = 0; i < 127; i++)
 		p[i] = i;
 
-	p2 = (int *)malloc(127 * sizeof(int));
-	for (int i = 127; i > 0; i--)
-		p2[127 - i] = i;
-
-	for (int i = 0; i < 127; i++) {
-		assert(p[i] == i);
-		assert(p2[i] == 127 - i);
-	}
+	p2 = (int *)malloc(126 * sizeof(int));
+	for (int i = 126; i > 0; i--)
+		p2[126 - i] = i;
 
 	free(p);
 
-	p3 = (int *)malloc(127 * sizeof(int));
-	assert(p3 == p);
-	assert(MEM_CHUCK_SIZE((struct mem_chuck *)p3 - 1) == ALIGN_UP(127 * sizeof(int), 4));
+	p3 = (int *)malloc(45 * sizeof(int));
 
 	free(p2);
 
-	p4 = (int *)malloc(127 * sizeof(int));
-	assert(p4 == p2);
+	p4 = (int *)malloc(47 * sizeof(int));
 
 	free(p3);
 	free(p4);

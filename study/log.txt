@@ -1,0 +1,17 @@
+cd_read_sector: Find sector 2080 in bin[0].
+cd_read_sector: Adding sector 2080 to bin[0] at 0x863f0
+cd_read_sector: Find sector 32602 in bin[10].
+cd_read_sector: Adding sector 32602 to bin[10] at 0x96430
+cd_read_sector: Find sector 32603 in bin[11].
+cd_read_sector: Adding sector 32603 to bin[11] at 0x96470
+cd_read_sector: Find sector 32604 in bin[12].
+cd_read_sector: Adding sector 32604 to bin[12] at 0x964b0
+cd_read_sector: Find sector 32605 in bin[13].
+cd_read_sector: Adding sector 32605 to bin[13] at 0x964f0
+cd_read_sector: Find sector 32606 in bin[14].
+cd_read_sector: Adding sector 32606 to bin[14] at 0x96530
+cd_read_sector: Find sector 32607 in bin[15].
+cd_read_sector: Adding sector 32607 to bin[15] at 0x96570
+cd_read_sector: Find sector 32608 in bin[0].
+cd_read_sector: pscan=0x863f0 &node=0x86400 next=0x0 pprev=0x84f10
+cd_read_sector: pscan=0xfffffff0 &node=0x0 next=0xd2a80000 pprev=0x52b00001

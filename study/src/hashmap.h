@@ -34,7 +34,7 @@ struct hlist_head {
 	CONTAINER_OF(__typeof__(*ptr), (ptr)->node.next, node)
 
 #define HLIST_NEXT_SAFE(ptr, node)												\
-	((ptr) ? HLIST_NEXT(ptr, node) : NULL)
+	((ptr)->node.next ? HLIST_NEXT(ptr, node) : NULL)
 
 #define HLIST_FIRST(type, head, node)											\
 	CONTAINER_OF(type, (head)->first, node)
@@ -75,7 +75,7 @@ static void inline hlist_add_behind(struct hlist_node *new, struct hlist_node *p
 
 /*
  * So the pointer of the pointer of the struct hlist_node, the double pointer feild
- * pprev in the struct hlist_node, makes this delete function avoid determining the
+ * pprev in the struct hlist_node, makes this delete function avoid to determine the
  * previous node of the node @old is the head of the hash list or not, which is hard
  * to program.
  */

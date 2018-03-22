@@ -66,21 +66,34 @@ void * malloc(size_t size)
 	purpose_size = size + sizeof(struct mem_chuck);
 	bin_index = BIN_INDEX(purpose_size);
 	head = &mem_bin[bin_index];
+
+//	DEBUG("Prepare to allocating bin class %d.\n", BIN_SIZE(bin_index));
 	
 	// Traverse the specific bin class list for unused chuck then mark it used and
 	// return the data field pointer.
+
 	LIST_FOREACH(scan, head, node) {
 		if (MEM_CHUCK_UNUSE(scan)) {
+
+//			DEBUG("Unused bin found in the list. Setting used.\n");
+
 			pmem = scan;
 			pmem->size = ALIGN_UP(size, 8);
 			MEM_CHUCK_SET(pmem);
+
+			//DEBUG("Return data address at 0x%x.\n", (uint64_t)(pmem + 1));
+
 			return pmem + 1;
 		}
 	}
 
+//	DEBUG("List full. Bump allocating...");
+
 	// If the bin class list has no free chuck, bump alloc memory from heap then
 	// add it to the tail of the list and return teh data field pointer.
 	pmem = (struct mem_chuck *)bump_alloc(BIN_SIZE(bin_index));
+
+//	DEBUG("Bump allocated memory at 0x%x.\n", (uint64_t)pmem);
 
 	if (pmem == NULL)
 		return NULL;
@@ -90,6 +103,8 @@ void * malloc(size_t size)
 	MEM_CHUCK_SET(pmem);
 			
 	list_add_tail(&(pmem->node), head);
+
+	//DEBUG("Return data address 0x%x.\n", (uint64_t)(pmem + 1));
 
 	return pmem + 1;
 }

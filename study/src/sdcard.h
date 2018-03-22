@@ -1,11 +1,9 @@
 #ifndef _SDCARD_H
 #define _SDCARD_H
 
-#include <stdint.h>
+#define SD_READSECTOR_TIMEOUT	10000000
 
-//void wait_micros(unsigned int);
-
-static uint64_t sd_err;
+static int sd_err;
 
 /*
  * Initializes the SD card controller.
@@ -14,7 +12,7 @@ static uint64_t sd_err;
  * if a timeout occured, or -2 if an error sending commands to the SD controller
  * occured.
  */
-extern int sd_init(void);
+extern int sd_init (void);
 
 /*
  * Reads sector `n` (512 bytes) from the SD card and writes it to `buffer`.
@@ -28,6 +26,6 @@ extern int sd_init(void);
  * to the SD controller occured. Other error codes are also possible but defined only
  * as being less than zero.
  */
-extern int sd_readsector(uint32_t n, char * buffer);
+extern int sd_readsector (unsigned int n, char *buffer);
 
 #endif

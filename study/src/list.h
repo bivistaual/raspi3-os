@@ -30,6 +30,10 @@ struct list_node {
 #define CONTAINER_OF(type, ptr, member)												\
 	((type *)((uint8_t *)(ptr) - offsetof(type, member)))
 
+#define __CONTAINER_OF(type, ptr, member) ({											\
+	const typeof( ((type *)0)->member ) *__mptr = (ptr);							\
+	(type *)( (char *)__mptr - offsetof(type,member) );})
+
 #define LIST_NODE(name)															\
 	struct list_node name
 

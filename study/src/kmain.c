@@ -18,10 +18,10 @@ int kernel_main(void)
 	while (mu_read_byte() != '\r')
 		continue;
 
+	mem_init();
+
 	if (bd.init() != 0)
 		panic("Can't initialize SD card!");
-
-	mem_init();
 
 	pfat32_global = fat32_init(&bd);
 	
