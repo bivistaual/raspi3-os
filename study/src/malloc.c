@@ -113,6 +113,8 @@ void *realloc(void *ptr, size_t size)
 {
 	void *new;
 	size_t size_org = ((struct mem_chuck *)ptr - 1)->size;
+	
+	DEBUG("Orginal size is %d bytes, now is %d bytes.\n", size_org, size);
 
 	if (size == 0) {
 		free(ptr);
@@ -123,7 +125,15 @@ void *realloc(void *ptr, size_t size)
 	if (new == NULL)
 		return NULL;
 
-	return memcpy(new, ptr, size > size_org ? size_org : size);
+	memcpy(new, ptr, size > size_org ? size_org : size);
+	free(ptr);
+	
+	DEBUG("New memory area from 0x%x to 0x%x, old from 0x%x to 0x%x.\n",
+		(uint32_t)new, (uint32_t)new + size,
+		(uint32_t)ptr, (uint32_t)ptr + size_org
+	);
+	
+	return new;
 }
 
 void free(void * ptr)

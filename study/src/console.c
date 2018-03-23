@@ -41,7 +41,7 @@ int __kprintf(const char *str, va_list args)
 						mu_write_byte((char)va_arg(args, int));
 						break;
 					case 'x':
-						mu_write_str(itoh(va_arg(args, int), temp));
+						mu_write_str(itoh(va_arg(args, long unsigned int), temp));
 						break;
 					case '%':
 						mu_write_byte('%');
@@ -120,7 +120,6 @@ static inline void display(void)
 void __panic(const char *file, int line, const char *func, const char *fmt, ...)
 {
 	va_list args;
-	uint32_t *current_stack_point;
 
 	display();
 
@@ -132,13 +131,15 @@ void __panic(const char *file, int line, const char *func, const char *fmt, ...)
 	__kprintf(fmt, args);
 	va_end(args);
 
+#ifdef DUMP_STACK
+
+	uint32_t *current_stack_point;
+
 	__asm__(
 		"mov %0, sp"
 		:"=r"(current_stack_point)
 	);
 
-#ifdef DUMP_STACK
-	
 	kprintf("\n\nSTACK DUMP FROM ADDRESS 0x%x:\n\n", (uint32_t)current_stack_point);
 	for (uint32_t *p = current_stack_point; p < (uint32_t *)0x80000; p++, i++) {
 		kprintf("0x%x\t", *p);

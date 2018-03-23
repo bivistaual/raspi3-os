@@ -11,6 +11,8 @@ int kernel_main(void)
 {
     mu_init();
 
+	spin_sleep_ms(100);
+
 	if (xmodem_receive(0, 0) == -1)
 		return -1;
 

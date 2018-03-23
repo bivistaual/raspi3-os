@@ -16,11 +16,9 @@ size_t cd_read_sector(cache_device *pcd, uint64_t sector_log, char *buffer)
 	d_sector_size = pcd->device.sector_size;
 
 	// if sector data is in hashmap, return it
-	if (sector_log == 32603)
 //	DEBUG("Reading sector %d from bin[%d].\n", sector_log, bin_index);
 
 	HLIST_FOREACH(pscan, &pcd->cache_bin[bin_index], node) {
-		if (sector_log == 32603)
 //		DEBUG("pscan=0x%x &node=0x%x next=0x%x pprev=0x%x\n",
 //			(uint64_t)pscan, (uint64_t)(&pscan->node),
 //			(uint64_t)(pscan->node.next), (uint64_t)(pscan->node.pprev)
@@ -28,7 +26,7 @@ size_t cd_read_sector(cache_device *pcd, uint64_t sector_log, char *buffer)
 		
 		if (pscan->sector_log == sector_log) {
 
-			//DEBUG("Prepare to read from cache.\n");
+//			DEBUG("Read %d sector from cache.\n", sector_log);
 
 			if (sector_log < pcd->part.start)
 				memcpy(buffer, pscan->data, d_sector_size);
@@ -72,8 +70,8 @@ size_t cd_read_sector(cache_device *pcd, uint64_t sector_log, char *buffer)
 		// calculate the times to reach the logical sector size
 		factor = p_sector_size / d_sector_size;
 
-		//DEBUG("Reading %d physical sectors from logical sector %d.\n",
-		//		factor, sector_log);
+//		DEBUG("Reading %d physical sectors from logical sector %d.\n",
+//				factor, sector_log);
 
 		for (int i = 0; i < factor; i++) {
 			if (pcd->device.read_sector(((uint32_t)sector_log -

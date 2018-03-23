@@ -11,10 +11,12 @@
 #include "malloc.h"
 #include "list.h"
 #include "fat32.h"
+#include "sdcard.h"
 
 extern fat32_t *pfat32_global;
 
 static inline void fat32_info(void);
+static inline void sdinit(void);
 
 static char cwd[1024] = "/";
 
@@ -125,6 +127,8 @@ int exe_cmd(Cmd * pCmd)
 		fat32_info();
 	else if (!strcmp(pCmd->arg[0], "malloc"))
 		test_malloc();
+	else if (!strcmp(pCmd->arg[0], "sdinit"))
+		sdinit();
 	else
 		kprintf("unknow command: %s\n", pCmd->arg[0]);
 
@@ -424,3 +428,8 @@ static inline void fat32_info(void)
 	kprintf("root directory start at cluster %d\n", pfat32_global->root_cluster);
 }
 
+static inline void sdinit(void)
+{
+	if (sd_init() != 0)
+		kprintf("Failed init sdcard!\n");
+}

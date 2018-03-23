@@ -240,7 +240,7 @@ dir_entry_t *fat32_find_entry(const char *name, dir_entry_t *pdir_entry, size_t 
 			if (strcmp(name, buffer) == 0) {
 				DEBUG("Find \"%s\" entry at 0x%x\n",
 						name,
-						(uint64_t)(pdir_entry + c + lfn_entrys));
+						(uint32_t)(pdir_entry + c + lfn_entrys));
 				return pdir_entry + c + lfn_entrys;
 			}
 			
@@ -322,7 +322,6 @@ file *fat32_open(fat32_t *pfat32, const char *path)
 
 	// make a copy of constant path string
 
-	DEBUG("strlen(path) = %d\n", strlen(path));
 	p = (char *)malloc(sizeof(char) * (strlen(path) + 1));
 	if (p == NULL)
 		panic("Run out of memory!\n");
@@ -336,9 +335,6 @@ file *fat32_open(fat32_t *pfat32, const char *path)
 			dirs = fat32_read_chain(pfat32,
 					pfat32->root_cluster,
 					(char **)(&pdir_entry)) / sizeof(dir_entry_t);
-
-			DEBUG("&pdir_entry = 0x%x", (uint64_t)(&pdir_entry));
-			DEBUG("Got next dir_entry pdir_entry = 0x%x\n", (uint64_t)pdir_entry);
 
 			DEBUG("Root cluster read.\n");
 
@@ -358,8 +354,8 @@ file *fat32_open(fat32_t *pfat32, const char *path)
 					dir_sub_bk.reg_dir.cluster_low,
 					(char **)(&pdir_entry)) / sizeof(dir_entry_t);
 
-			DEBUG("&pdir_entry = 0x%x", (uint64_t)(&pdir_entry));
-			DEBUG("Got next dir_entry pdir_entry = 0x%x\n", (uint64_t)pdir_entry);
+			DEBUG("&pdir_entry = 0x%x", (uint32_t)(&pdir_entry));
+			DEBUG("Got next dir_entry pdir_entry = 0x%x\n", (uint32_t)pdir_entry);
 
 			DEBUG("Cluster %d read.\n",
 					(uint32_t)(dir_sub_bk.reg_dir.cluster_high << 16) +
@@ -369,6 +365,10 @@ file *fat32_open(fat32_t *pfat32, const char *path)
 		DEBUG("Finding sub-directory \"%s\".\n", path_part);
 
 		pdir_sub = fat32_find_entry(path_part, pdir_entry, dirs);
+		
+		for (uint32_t i = 0; i < 8; i++)
+			DEBUG("0x%x ", *((uint32_t *)pdir_sub + i));
+		DEBUG("\n");
 
 		// no corresponding entry in directory entries
 		if (pdir_sub == NULL)
@@ -383,7 +383,7 @@ file *fat32_open(fat32_t *pfat32, const char *path)
 	if (pfile == NULL)
 		goto fat32_open_return;
 
-	DEBUG("pfile = 0x%x\n", (uint64_t)pfile);
+	kprintf("pfile = 0x%x\n", (uint32_t)pfile);
 
 	///////////////////////////////////////////////////////////////////////////////////
 
@@ -391,43 +391,50 @@ file *fat32_open(fat32_t *pfat32, const char *path)
 
 	if (is_root) {
 
-		DEBUG("Making root file struct.");
+//		DEBUG("Making root file struct.");
 
 		pfile->cluster = pfat32->root_cluster;
 		pfile->attribute = 0x10;
+		
+		goto fat32_open_return;
 	} else {
 
-		DEBUG("Making %s file struct.\n", path);
+//		kprintf("Making %s file struct.\n", path);
 
-		pfile->cluster = ((uint32_t)(pdir_sub->reg_dir.cluster_high) << 16) +
-			pdir_sub->reg_dir.cluster_low;
+		memcpy(((uint16_t *)(&pfile->cluster) + 1), &pdir_sub->reg_dir.cluster_high, 2);
+		memcpy(&pfile->cluster, &pdir_sub->reg_dir.cluster_low, 2);
+		
+//		pfile->cluster = ((uint32_t)(pdir_sub->reg_dir.cluster_high) << 16) +
+//			pdir_sub->reg_dir.cluster_low;
 		pfile->attribute = pdir_sub->reg_dir.attribute;
-		pfile->pfat32 = pfat32;
+		memcpy(&pfile->pfat32, &pfat32, 8);
 		pfile->time_ts = pdir_sub->reg_dir.time_ts;
-		pfile->creation_time = pdir_sub->reg_dir.creation_time;
-		pfile->creation_date = pdir_sub->reg_dir.creation_date;
-		pfile->last_acc_date = pdir_sub->reg_dir.last_acc_date;
-		pfile->last_mod_time = pdir_sub->reg_dir.last_mod_time;
-		pfile->last_mod_date = pdir_sub->reg_dir.last_mod_date;
-		pfile->size = pdir_sub->reg_dir.size;
+		memcpy(&pfile->creation_time, &pdir_sub->reg_dir.creation_time, 2);
+		memcpy(&pfile->creation_date, &pdir_sub->reg_dir.creation_date, 2);
+		memcpy(&pfile->last_acc_date, &pdir_sub->reg_dir.last_acc_date, 2);
+		memcpy(&pfile->last_mod_time, &pdir_sub->reg_dir.last_mod_time, 2);
+		memcpy(&pfile->last_mod_date, &pdir_sub->reg_dir.last_mod_date, 2);
+		memcpy(&pfile->size, &pdir_sub->reg_dir.size, 4);
 	
 		DEBUG("file struct make done.\n");
+		
+		goto fat32_open_return;
 	}
 
-	DEBUG("path opened and saved at address 0x%x.\n", (uint64_t)pfile);
+//	DEBUG("path opened and saved at address 0x%x.\n", (uint32_t)pfile);
 	
 fat32_open_return:
 
-	DEBUG("Deallocing.");
+//	DEBUG("Deallocing.\n");
 
 	free(p);
 	if (pdir_entry != NULL) {
-		DEBUG("WTF HERE!!!!!!!!!\n");
-		DEBUG("pdir_entry = 0x%x\n", (uint64_t)pdir_entry);
+//		DEBUG("WTF HERE!!!!!!!!!\n");
+//		DEBUG("pdir_entry = 0x%x\n", (uint32_t)pdir_entry);
 		free(pdir_entry);
 	}
 
-	DEBUG("Return pfile = 0x%x\n", (uint64_t)pfile);
+//	DEBUG("Return pfile = 0x%x\n", (uint32_t)pfile);
 
 	return pfile;
 }

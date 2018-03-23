@@ -1,19 +1,26 @@
-fat32_open: strlen(path) = 9
-fat32_read_chain: Total 32768 bytes data read from cluster 2.
-free: Fetching pchuck = 0x853b8
-free: Free success.
-fat32_open: &pdir_entry = 0x7e318fat32_open: Got next dir_entry pdir_entry = 0x85810
-fat32_open: Root cluster read.
-fat32_open: Finding sub-directory "resource".
-fat32_find_entry: Found directory "@�"
-fat32_find_entry: Found directory "bootcode.bin"
-fat32_find_entry: Found directory "config.txt"
-fat32_find_entry: Found directory "fixup.dat"
-fat32_find_entry: Found directory "kernel8.img"
-fat32_find_entry: Found directory "start.elf"
-fat32_find_entry: Found directory "start.elf"
-fat32_find_entry: Found directory "resource"
-fat32_find_entry: Find "resource" entry at 0x86770
-fat32_open: Allocating memory for file.
-fat32_open: pfile = 0x96810
+0x4f 53 45 52		OSER
+0x45 43 52 55		ECRU
+0x10 20 20 20		directory   
+0x23 87 64 00 
+0x4c 76 4c 76 
+0x23 87 00 01 
+0xe4 08 4c 76 
+0x0
 
+
+typedef struct {
+	char			name[8];
+	char			extension[3];
+	uint8_t			attribute;
+	uint8_t			reserved;
+	
+	uint8_t			time_ts;
+	uint16_t		creation_time;
+	uint16_t		creation_date;
+	uint16_t		last_acc_date;
+	uint16_t		cluster_high;
+	uint16_t		last_mod_time;
+	uint16_t		last_mod_date;
+	uint16_t		cluster_low;
+	uint32_t		size;
+} __attribute__((packed)) regular_dir_entry;
