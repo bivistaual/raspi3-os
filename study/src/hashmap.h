@@ -47,6 +47,27 @@ struct hlist_head {
 		var;																	\
 		(var) = HLIST_NEXT_SAFE(var, node))
 
+#define HASH_BIN(code, length)													\
+	(code & (length - 1))
+
+static void inline hlist_add_before(struct hlist_node *new, struct hlist_node *next);
+
+static void inline hlist_add_first(struct hlist_node *new, struct hlist_head *head);
+
+static void inline hlist_add_behind(struct hlist_node *new, struct hlist_node *prev);
+
+/*
+ * So the pointer of the pointer of the struct hlist_node, the double pointer feild
+ * pprev in the struct hlist_node, makes this delete function avoid to determine the
+ * previous node of the node @old is the head of the hash list or not, which is hard
+ * to program.
+ */
+static void inline hlist_del(struct hlist_node *old);
+
+int hashcode(const char *str)
+	__attribute__((pure, nonnull(1)));
+    
+    
 static void inline hlist_add_before(struct hlist_node *new, struct hlist_node *next)
 {
 	new->next = next;
@@ -73,23 +94,11 @@ static void inline hlist_add_behind(struct hlist_node *new, struct hlist_node *p
 		new->next->pprev = &new->next;
 }
 
-/*
- * So the pointer of the pointer of the struct hlist_node, the double pointer feild
- * pprev in the struct hlist_node, makes this delete function avoid to determine the
- * previous node of the node @old is the head of the hash list or not, which is hard
- * to program.
- */
 static void inline hlist_del(struct hlist_node *old)
 {
 	(*(old->pprev))->next = old->next;
 	if (old->next)
 		old->next->pprev = old->pprev;
 }
-
-#define HASH_BIN(code, length)													\
-	(code & (length - 1))
-
-int hashcode(const char *str)
-	__attribute__((pure, nonnull(1)));
 
 #endif

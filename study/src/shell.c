@@ -212,6 +212,8 @@ void cd(char (*array)[ARG_LIMIT], unsigned int num)
 
 	pf = fat32_open(pfat32_global, cwd_temp);
 	
+	DEBUG("%d read.\n", cwd_temp);
+	
 	if (pf == NULL) {
 		kprintf("no such file or directory: %s\n", cwd_temp);
 		return;
@@ -347,7 +349,7 @@ void ls(char (*array)[ARG_LIMIT], unsigned int num)
 		if (FAT32_IS_HIDDEN(attr))
 			attribute[2] = 'h';
 
-		kprintf("%s %d/%d/%d\t%d:%d:%d\t%d/%d/%d\t%d:%d:%d\t%d\t%s\n",
+		kprintf("%s %d/%d/%d\t%d:%d:%d       \t%d/%d/%d       \t%d:%d:%d       \t%d\t%s\n",
 				attribute,
 				FAT32_GET_MONTH(creation_date),
 				FAT32_GET_DAY(creation_date),

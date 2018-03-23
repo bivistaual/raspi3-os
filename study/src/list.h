@@ -90,12 +90,42 @@ struct list_node {
 		&((var)->node) != head;														\
 		(var) = LIST_NEXT(var, node))
 
+static void inline __list_add(
+		struct list_node * new,
+		struct list_node * prev,
+		struct list_node * next);
+
 /*
- * Insert a new node between two known consecutive entries.
- *
- * This is only for internal list manipulation where we know
- * the prev/next entries already!
+ * list_insert_after - add a new node after known node
+ * @new: new node to be added
+ * @prev: list node to add it after
  */
+static void inline list_insert_after(struct list_node * new, struct list_node * prev);
+
+static void inline list_add_tail(struct list_node * new, struct list_node * head);
+
+static void inline list_add_first(struct list_node * new, struct list_node * head);
+
+/*
+ * Delete a list node by making the prev/next entries
+ * point to each other.
+ * 
+ * This is only for internal list manipulation where we know the prev/next entries
+ * already!
+ */
+static void inline __list_del(struct list_node * prev, struct list_node * next);
+
+/*
+ * list_del - deletes node from list.
+ * @old: the element to delete from the list.
+ */
+static void inline list_del(struct list_node * old);
+
+static void inline list_move_after(struct list_node * src, struct list_node * dest);
+
+static void inline list_replace(struct list_node * new, struct list_node * old);
+
+
 static void inline __list_add(
 		struct list_node * new,
 		struct list_node * prev,
@@ -107,11 +137,6 @@ static void inline __list_add(
 	next->prev = new;
 }
 
-/*
- * list_insert_after - add a new node after known node
- * @new: new node to be added
- * @prev: list node to add it after
- */
 static void inline list_insert_after(struct list_node * new, struct list_node * prev)
 {
 	__list_add(new, prev, prev->next);
@@ -127,23 +152,12 @@ static void inline list_add_first(struct list_node * new, struct list_node * hea
 	list_insert_after(new, head);
 }
 
-/*
- * Delete a list node by making the prev/next entries
- * point to each other.
- * 
- * This is only for internal list manipulation where we know the prev/next entries
- * already!
- */
 static void inline __list_del(struct list_node * prev, struct list_node * next)
 {
 	prev->next = next;
 	next->prev = prev;
 }
 
-/*
- * list_del - deletes node from list.
- * @old: the element to delete from the list.
- */
 static void inline list_del(struct list_node * old)
 {
 	__list_del(old->prev, old->next);

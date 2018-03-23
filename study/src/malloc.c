@@ -140,9 +140,10 @@ void free(void * ptr)
 {
 	struct mem_chuck * pchuck;
 
-	DEBUG("Fetching pchuck = 0x%x\n", (struct mem_chuck *)ptr - 1);
+    DEBUG("Freeing 0x%x\n", (uint64_t)ptr);
+	DEBUG("Fetching pchuck at 0x%x\n", (struct mem_chuck *)ptr - 1);
 
-	pchuck = (struct mem_chuck *)ptr - 1;
+	pchuck = ((struct mem_chuck *)ptr) - 1;
 	MEM_CHUCK_CLR(pchuck);
 
 	DEBUG("Free success.\n");

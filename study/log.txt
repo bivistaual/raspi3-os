@@ -1,26 +1,39 @@
-0x4f 53 45 52		OSER
-0x45 43 52 55		ECRU
-0x10 20 20 20		directory   
-0x23 87 64 00 
-0x4c 76 4c 76 
-0x23 87 00 01 
-0xe4 08 4c 76 
-0x0
+(/) > ls
+fat32_open: pdir_entry = 0x0
+ls: Determine file is directory or file.ls: Reading cluster 2.
+fat32_read_chain: Total 32768 bytes data read from cluster 2.
+free: Freeing 0x90158
+free: Fetching pchuck at 0x90140
+free: Free success.
+ls: 1024 directory entries read.
+dw- 3/22/2018   4:28:18         3/22/38         4:28:18         0       UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU.Trash-1000/
+-w- 3/20/2018   15:19:26        3/20/38         15:19:16        51996   bootcode.bin
+-w- 3/20/2018   15:19:26        3/20/38         15:19:16        80      config.txt
+-w- 3/20/2018   15:19:26        3/20/38         15:19:16        6567    fixup.dat
+-w- 3/22/2018   16:49:26        3/22/38         16:49:16        2704    kernel8.img
+-w- 3/20/2018   15:19:26        3/20/38         15:19:16        2821476 start.elf
+dw- 3/21/2018   17:45:0         3/21/38         17:45:0         0       start.elf/
+dw- 3/22/2018   4:28:24         3/22/38         4:28:14         0       resource/
+free: Freeing 0x90118
+free: Fetching pchuck at 0x90100
+free: Free success.
+(/) > cd resource
+fat32_read_chain: Total 32768 bytes data read from cluster 2.
+free: Freeing 0x90158
+free: Fetching pchuck at 0x90140
+free: Free success.
+fat32_open: Root cluster read.
+fat32_open: Finding sub-directory "resource".
+fat32_find_entry: Found directory "`�"
+fat32_find_entry: Found directory "bootcode.bin"
+fat32_find_entry: Found directory "config.txt"
+fat32_find_entry: Found directory "fixup.dat"
+fat32_find_entry: Found directory "kernel8.img"
+fat32_find_entry: Found directory "start.elf"
+fat32_find_entry: Found directory "start.elf"
+fat32_find_entry: Found directory "resource"
+fat32_find_entry: Find "resource" entry at 0xa24f8
+fat32_open: before write pfile.
++++++++++
+fat32_open: after write pfile.
 
-
-typedef struct {
-	char			name[8];
-	char			extension[3];
-	uint8_t			attribute;
-	uint8_t			reserved;
-	
-	uint8_t			time_ts;
-	uint16_t		creation_time;
-	uint16_t		creation_date;
-	uint16_t		last_acc_date;
-	uint16_t		cluster_high;
-	uint16_t		last_mod_time;
-	uint16_t		last_mod_date;
-	uint16_t		cluster_low;
-	uint32_t		size;
-} __attribute__((packed)) regular_dir_entry;

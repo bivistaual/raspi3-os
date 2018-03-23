@@ -121,7 +121,7 @@ typedef struct {
 	uint16_t		last_mod_date;
 	uint16_t		cluster_low;
 	uint32_t		size;
-} __attribute__((packed)) regular_dir_entry;
+}   regular_dir_entry;
 
 typedef struct {
 	uint8_t			seq_number;
@@ -132,12 +132,12 @@ typedef struct {
 	char			name2[12];
 	uint16_t		zero;
 	char			name3[4];
-} __attribute__((packed)) LFN_dir_entry;
+}   LFN_dir_entry;
 
 typedef union {
 	regular_dir_entry	reg_dir;
 	LFN_dir_entry		lnf_dir;
-}	dir_entry_t;
+}   dir_entry_t;
 
 typedef struct {
 	uint32_t		cluster;
