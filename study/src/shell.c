@@ -12,13 +12,12 @@
 #include "list.h"
 #include "fat32.h"
 #include "sdcard.h"
+#include "path.h"
 
 extern fat32_t *pfat32_global;
 
 static inline void fat32_info(void);
-static inline void sdinit(void);
-
-static char cwd[1024] = "/";
+static inline void file_info(file *pfile);
 
 int shell_loop(void)
 {
@@ -29,11 +28,11 @@ int shell_loop(void)
 	command.length = 0;
 
 	kprintf("\nWelcome to raspberry pi 3b shell!\n\n");
-	display_banner();
+	display_bvstl();
 	kprintf("\n");
 
 	while (1) {
-		kprintf("(%s) > ", cwd);
+		kprintf("(%s) > ", cwd());
 		if (read_cmd(buffer) == NULL)
 			continue;
 		if (parse_cmd(&command, buffer) <= 0)
@@ -127,8 +126,6 @@ int exe_cmd(Cmd * pCmd)
 		fat32_info();
 	else if (!strcmp(pCmd->arg[0], "malloc"))
 		test_malloc();
-	else if (!strcmp(pCmd->arg[0], "sdinit"))
-		sdinit();
 	else
 		kprintf("unknow command: %s\n", pCmd->arg[0]);
 
@@ -159,15 +156,18 @@ void cat(char (*array)[ARG_LIMIT], unsigned int num)
 	}
 
 	for (unsigned int i = 0; i < num; i++) {
-		if (array[i][0] != '/')
-			strcpy(path, cwd);
-		strcat(path, array[i]);
+		to_abs_path(path, array[i]);
 
 		pf = fat32_open(pfat32_global, path);
 		if (pf == NULL) {
 			kprintf("no such file or directory: %s\n", array[i]);
 			return;
 		}
+	
+		file_info(pf);
+		// block until read ''
+		while (mu_read_byte() != '\r')
+			continue;
 
 		if (FAT32_IS_DIR(pf->attribute)) {
 			kprintf("it's a directory: %s\n", array[i]);
@@ -184,17 +184,6 @@ void cd(char (*array)[ARG_LIMIT], unsigned int num)
 {
 	char cwd_temp[1024] = "\0";
 	file *pf;
-	char *stack[128];
-	int top = -1;
-	char *path_part;
-
-#define PUSH(p)																	\
-	do {																		\
-		stack[++top] = p;														\
-	} while (0)
-
-#define POP(s)																	\
-	(top >= 0 ? *((s) + (top--)) : 0)
 
 	if (num > 1) {
 		kprintf("too many arguments\n");
@@ -205,55 +194,36 @@ void cd(char (*array)[ARG_LIMIT], unsigned int num)
 		return;
 	}
 
-	// relative path to absolute path
-	if (array[0][0] != '/')
-		strcpy(cwd_temp, cwd);
-	strcat(cwd_temp, array[0]);
+	path_filte(cwd_temp, array[0]);
 
 	pf = fat32_open(pfat32_global, cwd_temp);
 	
-	DEBUG("%d read.\n", cwd_temp);
-	
 	if (pf == NULL) {
-		kprintf("no such file or directory: %s\n", cwd_temp);
+		kprintf("no such file or directory: %s\n", array[0]);
 		return;
 	}
+	
+	file_info(pf);
+	// block until read ''
+	while (mu_read_byte() != '\r')
+		continue;
 
 	if (!FAT32_IS_DIR(pf->attribute)) {
+//		DEBUG("attribute = 0x%x\n", pf->attribute);
 		kprintf("not a directory: %s\n", cwd_temp);
 		return;
 	}
 
-	path_part = strtok(cwd_temp, "/");
-	while (path_part != NULL) {
-		// a .. directory
-		if (!strcmp("..", path_part))
-			POP(stack);
+	strcpy(cwd(), cwd_temp);
 
-		// NOT a . directory
-		if (strcmp(".", path_part))
-			PUSH(path_part);
-	
-		path_part = strtok(NULL, "/");
-	}
-
-	strcpy(cwd, "/");
-	for (int i = 0; i <= top; i++) {
-		strcat(cwd, stack[i]);
-		strcat(cwd, "/");
-	}
-	
 	free(pf);
-
-#undef PUSH
-#undef POP
 
 	return;
 }
 
 void pwd(void)
 {
-	kprintf("%s\n", cwd);
+	kprintf("%s\n", cwd());
 }
 
 void ls(char (*array)[ARG_LIMIT], unsigned int num)
@@ -270,31 +240,24 @@ void ls(char (*array)[ARG_LIMIT], unsigned int num)
 	if (num == 1) {
 		if (!strcmp("-a", array[0]))
 			show_hidden = true;
-		else {
-			if (array[0][0] != '/')
-				strcat(path, cwd);
-			strcat(path, array[0]);
-		}
+		else
+			path_filte(path, array[0]);
 	} else if (num == 2) {
 		if (!strcmp("-a", array[0])) {
 			show_hidden = true;
 			temp = array[1];
-			if (array[1][0] != '/')
-				strcpy(path, cwd);
-			strcat(path, array[1]);
+			path_filte(path, array[1]);
 		} else if (!strcmp("-a", array[1])) {
 			show_hidden = true;
 			temp = array[0];
-			if (array[0][0] != '/')
-				strcpy(path, cwd);
-			strcat(path, array[0]);
+			path_filte(path, array[0]);
 		} else {
 			kprintf("too many arguments\n");
 			return;
 		}
 	} else if (num == 0) {
-		strcat(path, cwd);
-		temp = cwd;
+		strcat(path, cwd());
+		temp = cwd();
 	}
 
 	pf = fat32_open(pfat32_global, path);
@@ -302,6 +265,11 @@ void ls(char (*array)[ARG_LIMIT], unsigned int num)
 		kprintf("no such file of directory: %s\n", temp);
 		return;
 	}
+	
+	file_info(pf);
+	// block until read ''
+	while (mu_read_byte() != '\r')
+		continue;
 	
 	DEBUG("Determine file is directory or file.");
 		
@@ -373,7 +341,7 @@ void ls(char (*array)[ARG_LIMIT], unsigned int num)
 	free(pf);
 }
 
-void display_banner_short(void)
+void display_bvstl(void)
 {
 	kprintf("███████╗ ██╗   ██╗ ██████╗████████╗ ██╗\n");
 	kprintf("██╔═══██╗██║   ██║██╔════╝╚══██╔══╝ ██║\n");
@@ -383,7 +351,7 @@ void display_banner_short(void)
 	kprintf("╚══════╝    ╚═╝    ╚═════╝   ╚═╝    ╚══════╝\n");
 }
 
-void display_banner(void)
+void display_bivistaual(void)
 {
 	kprintf("███████╗ ████╗██╗   ██╗████╗ ██████╗████████╗ ████╗  ██╗   ██╗  ████╗  ██╗\n");
 	kprintf("██╔═══██╗╚██╔╝██║   ██║╚██╔╝██╔════╝╚══██╔══╝██╔═██╗ ██║   ██║ ██╔═██╗ ██║\n");
@@ -417,10 +385,15 @@ void test_malloc(void)
 	free(p4);
 }
 
+static inline void file_info(file *pfile)
+{
+	kprintf("cluster:\t%d\n", pfile->cluster);
+	kprintf("attribute:\t0x%x\n", pfile->attribute);
+	kprintf("size:\t\t%d\n", pfile->size);
+}
+
 static inline void fat32_info(void)
 {
-	extern fat32_t *pfat32_global;
-
 	kprintf("FAT32 information:\n");
 	kprintf("sector size:\t%d bytes\n", pfat32_global->sector_size);
 	kprintf("cluster size:\t%d sectors\n", pfat32_global->cluster_size);
@@ -428,10 +401,4 @@ static inline void fat32_info(void)
 	kprintf("FAT start at sector %d\n", pfat32_global->fat_start);
 	kprintf("data start at sector %d\n", pfat32_global->data_start);
 	kprintf("root directory start at cluster %d\n", pfat32_global->root_cluster);
-}
-
-static inline void sdinit(void)
-{
-	if (sd_init() != 0)
-		kprintf("Failed init sdcard!\n");
 }

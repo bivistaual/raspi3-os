@@ -121,7 +121,7 @@ typedef struct {
 	uint16_t		last_mod_date;
 	uint16_t		cluster_low;
 	uint32_t		size;
-}   regular_dir_entry;
+}   __attribute__((packed)) regular_dir_entry;
 
 typedef struct {
 	uint8_t			seq_number;
@@ -132,16 +132,14 @@ typedef struct {
 	char			name2[12];
 	uint16_t		zero;
 	char			name3[4];
-}   LFN_dir_entry;
+}   __attribute__((packed)) LFN_dir_entry;
 
 typedef union {
 	regular_dir_entry	reg_dir;
 	LFN_dir_entry		lnf_dir;
-}   dir_entry_t;
+}   __attribute__((packed)) dir_entry_t;
 
 typedef struct {
-	uint32_t		cluster;
-	fat32_t			*pfat32;
 	uint8_t			attribute;
 	uint8_t			time_ts;
 	uint16_t		creation_time;
@@ -149,7 +147,9 @@ typedef struct {
 	uint16_t		last_acc_date;
 	uint16_t		last_mod_time;
 	uint16_t		last_mod_date;
+	uint32_t		cluster;
 	uint32_t		size;
+	fat32_t			*pfat32;
 }	file;
 
 /*

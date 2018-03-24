@@ -129,8 +129,8 @@ void *realloc(void *ptr, size_t size)
 	free(ptr);
 	
 	DEBUG("New memory area from 0x%x to 0x%x, old from 0x%x to 0x%x.\n",
-		(uint32_t)new, (uint32_t)new + size,
-		(uint32_t)ptr, (uint32_t)ptr + size_org
+		(uint64_t)new, (uint64_t)new + size,
+		(uint64_t)ptr, (uint64_t)ptr + size_org
 	);
 	
 	return new;
@@ -140,13 +140,8 @@ void free(void * ptr)
 {
 	struct mem_chuck * pchuck;
 
-    DEBUG("Freeing 0x%x\n", (uint64_t)ptr);
-	DEBUG("Fetching pchuck at 0x%x\n", (struct mem_chuck *)ptr - 1);
-
 	pchuck = ((struct mem_chuck *)ptr) - 1;
 	MEM_CHUCK_CLR(pchuck);
-
-	DEBUG("Free success.\n");
 
 	return;
 }

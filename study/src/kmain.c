@@ -6,12 +6,14 @@
 #include "device.h"
 #include "system_timer.h"
 
+#include "malloc.h"
+
 fat32_t *pfat32_global;
 
 int kernel_main(void)
 {
 	block_device bd = {512, sd_init, sd_readsector};
-	
+
 	mu_init();
 
 	// block until read ''

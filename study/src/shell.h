@@ -1,6 +1,6 @@
 #define CMD_LIMIT		1024
 #define ARG_CAPACITY	64
-#define ARG_LIMIT		64
+#define ARG_LIMIT		1024
 
 typedef struct {
 	char arg[ARG_CAPACITY][ARG_LIMIT];
@@ -18,9 +18,9 @@ int exe_cmd (Cmd *);
 
 void echo (char (*)[ARG_LIMIT], unsigned int);
 
-void display_banner_short (void);
+void display_bvstl (void);
 
-void display_banner (void);
+void display_bivistaual (void);
 
 void cd (char (*)[ARG_LIMIT], unsigned int);
 

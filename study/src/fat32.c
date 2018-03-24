@@ -7,6 +7,7 @@
 #include "console.h"
 #include "malloc.h"
 #include "assert.h"
+#include "system_timer.h"
 
 extern int sd_err;
 
@@ -17,8 +18,8 @@ static inline void mbr_parse(block_device *pbd, MBR_t *pmbr)
 	if (pbd->read_sector(0, buffer) != 512)
 		panic("Can't read MBR from sdcard. Error code %d.\n", sd_err);
 
-	memcpy(pmbr->disk_id, buffer + 436, 10);
-	memcpy(&pmbr->valid, buffer + 512, 2);
+		memcpy(pmbr->disk_id, buffer + 436, 10);
+		memcpy(&pmbr->valid, buffer + 512, 2);
 
 	for (int n = 0, offset = 446; n < 4; offset += 16, n++) {
 		pmbr->part_entry[n].boot = *(buffer + offset);
@@ -55,28 +56,14 @@ fat32_t *fat32_init(block_device *pbd)
 	MBR_t mbr;
 	EBPB_t ebpb;
 	cache_device *pcd;
-	int boot_entry_i = -1;
     
-    DEBUG("sizeof(regular_dir_entry) = %d\n", sizeof(regular_dir_entry));
-    DEBUG("sizeof(LFN_dir_entry) = %d\n", sizeof(LFN_dir_entry));
-    DEBUG("sizeof(dir_entry_t) = %d\n", sizeof(dir_entry_t));
-
 	if ((pfat32 = (fat32_t *)malloc(sizeof(fat32_t))) == NULL)
 		panic("Error in allocating memory for FAT32 system!\n");
 
 	mbr_parse(pbd, &mbr);
 	ebpb_parse(pbd, &mbr, &ebpb);
 
-	for (int i = 0; i < 4; i++)
-		if (mbr.part_entry[i].boot == 0x80) {
-			boot_entry_i = i;
-			break;
-		}
-
-	if (boot_entry_i == -1)
-		panic("No boot partition was found!\n");
-
-	pfat32->fat_start = mbr.part_entry[boot_entry_i].start + ebpb.reserved_size;
+	pfat32->fat_start = mbr.part_entry[0].start + ebpb.reserved_size;
 //	DEBUG("fat_start = %d\n", pfat32->fat_start);
 	
 	memcpy(&pfat32->sector_size, &ebpb.sector_size, 2);
@@ -177,7 +164,7 @@ size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, char **pbuf)
 
 //		DEBUG("Data from cluster %d read.\n", c_index);
 
-//		DEBUG("next entry = 0x%x\n", next_index);
+		DEBUG("next entry = 0x%x\n", next_index);
 		
 		// not EOC
 		
@@ -217,6 +204,7 @@ size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, char **pbuf)
 fat32_read_chain_return:
 
 	free(buf_entry);
+
 	return result;
 }
 
@@ -232,16 +220,8 @@ dir_entry_t *fat32_find_entry(const char *name, dir_entry_t *pdir_entry, size_t 
 			c += lfn_entrys + 1;
 		else {
 
-			DEBUG("Found directory \"%s\"\n", buffer);
-
 			if (strcmp(name, buffer) == 0) {
-				DEBUG("Find \"%s\" entry at 0x%x. ",
-						name,
-						(uint64_t)(pdir_entry + c + lfn_entrys));
 				fat32_parse_name(pdir_entry + c + lfn_entrys, buffer);
-				
-				DEBUG("It's name is %s.\n", buffer);
-				
 				return pdir_entry + c + lfn_entrys;
 			}
 			
@@ -249,8 +229,6 @@ dir_entry_t *fat32_find_entry(const char *name, dir_entry_t *pdir_entry, size_t 
 		}
 	}
 	
-	DEBUG("No entry named %s found.\n", name);
-
 	return NULL;
 }
 
@@ -312,11 +290,12 @@ size_t fat32_parse_name(dir_entry_t *pdir_entry, char *buffer)
 	return lfn_entrys;
 }
 
-file *fat32_open2(fat32_t *pfat32, const char *path)
+file *fat32_open(fat32_t *pfat32, const char *path)
 {
-	char p[1024], *path_part;
+	char p[1024];
+	char *path_part;
 	dir_entry_t *pdir_entry = NULL;
-	dir_entry_t *pdir_sub;
+	dir_entry_t *pdir_sub = NULL;
 	dir_entry_t dir_sub_bk;
 	size_t dirs;
 	bool is_root = true;
@@ -324,32 +303,25 @@ file *fat32_open2(fat32_t *pfat32, const char *path)
 
 	if (path == NULL)
 		panic("path is NULL");
-
-	DEBUG("&pdir_entry = 0x%x\n", &pdir_entry);
 	
 	// make a copy of constant path string
-
 	strcpy(p, path);
 
 	path_part = strtok(p, "/");
 	while (path_part != NULL) {
 		// determine to read root cluster or sub-directory cluster
 		if (is_root) {
-
 			dirs = fat32_read_chain(pfat32,
 					pfat32->root_cluster,
 					(char **)(&pdir_entry)) / sizeof(dir_entry_t);
-
-			DEBUG("Root cluster read at 0x%x.\n", pdir_entry);
 
 			is_root = false;
 		} else {
 			// open fail when the last entry found is not a directory
 			if (!FAT32_IS_DIR(pdir_sub->reg_dir.attribute))
-				goto fat32_open_return;
+				return pfile;
 
 			// copy the directory entry found and free current entries
-			dir_sub_bk = *pdir_sub;
 			free(pdir_entry);
 
 			// read next directory entry
@@ -357,18 +329,22 @@ file *fat32_open2(fat32_t *pfat32, const char *path)
 					(uint32_t)(dir_sub_bk.reg_dir.cluster_high << 16) +
 					dir_sub_bk.reg_dir.cluster_low,
 					(char **)(&pdir_entry)) / sizeof(dir_entry_t);
-					
-			DEBUG("Sub-cluster read at 0x%x.\n", pdir_entry);
 		}
 
-		DEBUG("Finding sub-directory \"%s\" in 0x%x.\n", path_part, pdir_entry);
+		if (pdir_entry == NULL) {
+			kprintf("Can't read chain.\n");
+			return NULL;
+		}
 
+		DEBUG("Finding sub-directory in 0x%x.\n", pdir_entry);
 		pdir_sub = fat32_find_entry(path_part, pdir_entry, dirs);
 
 		// no corresponding entry in directory entries
 		if (pdir_sub == NULL)
 			goto fat32_open_return;
 
+		dir_sub_bk = *pdir_sub;
+		
 		path_part = strtok(NULL, "/");
 	}
 	
@@ -380,184 +356,23 @@ file *fat32_open2(fat32_t *pfat32, const char *path)
 		pfile->cluster = pfat32->root_cluster;
 		pfile->attribute = 0x10;
 	} else {
-		
-		DEBUG("before write pfile.\n");
-		
-		memcpy(((uint16_t *)(&pfile->cluster) + 1), &dir_sub_bk.reg_dir.cluster_high, 2);
-		memcpy(&pfile->cluster, &dir_sub_bk.reg_dir.cluster_low, 2);
-
-//		pfile->cluster = ((uint32_t)(dir_sub_bk.reg_dir.cluster_high) << 16) +
-//			dir_sub_bk.reg_dir.cluster_low;
-		kprintf("+");
+		pfile->cluster = ((uint32_t)(dir_sub_bk.reg_dir.cluster_high) << 16) +
+			dir_sub_bk.reg_dir.cluster_low;
 		pfile->attribute = dir_sub_bk.reg_dir.attribute;
-		kprintf("+");
 		pfile->pfat32 = pfat32;
-		kprintf("+");
 		pfile->time_ts = dir_sub_bk.reg_dir.time_ts;
-		kprintf("+");
-		
-		memcpy(&pfile->creation_time, &dir_sub_bk.reg_dir.creation_time, 2);		
-//		pfile->creation_time = dir_sub_bk.reg_dir.creation_time;
-		kprintf("+");
-		
-		memcpy(&pfile->creation_date, &dir_sub_bk.reg_dir.creation_date, 2);
-//		pfile->creation_date = dir_sub_bk.reg_dir.creation_date;
-		kprintf("+");
-		
-		memcpy(&pfile->last_acc_date, &dir_sub_bk.reg_dir.last_acc_date, 2);
-		kprintf("+");
-		memcpy(&pfile->last_mod_time, &dir_sub_bk.reg_dir.last_mod_time, 2);
-		kprintf("+");
-		memcpy(&pfile->last_mod_date, &dir_sub_bk.reg_dir.last_mod_date, 2);
-		kprintf("+\n");
-		memcpy(&pfile->size, &dir_sub_bk.reg_dir.size, 4);
-		
-		DEBUG("after write pfile.\n");
-		DEBUG("And then?\n");
+		pfile->creation_time = dir_sub_bk.reg_dir.creation_time;
+		pfile->creation_date = dir_sub_bk.reg_dir.creation_date;
+		pfile->last_acc_date = dir_sub_bk.reg_dir.last_acc_date;
+		pfile->last_mod_time = dir_sub_bk.reg_dir.last_mod_time;
+		pfile->last_mod_date = dir_sub_bk.reg_dir.last_mod_date;
+		pfile->size = dir_sub_bk.reg_dir.size;
 	}
 
-	
 fat32_open_return:
 
-//	kprintf("&pdir_entry = 0x%x\n", &pdir_entry);
-
-	if (pdir_entry != NULL) {
-		
-		for (int i = 0; i < 128; i++) {
-			kprintf("0x%x\t", *((uint32_t *)((struct mem_chuck *)pdir_entry - 1) + i));
-			if (i + 1 % 8 == 0)
-				kprintf("\n");
-		}
-	
+	if (pdir_entry != NULL)
 		free(pdir_entry);
-	}
 
-	return pfile;
-}
-
-file *fat32_open(fat32_t *pfat32, const char *path)
-{
-	char p[1024];
-	char *path_part;
-	dir_entry_t *pdir_entry = NULL;
-	dir_entry_t *pdir_sub;
-	dir_entry_t dir_sub_bk;
-	size_t dirs;
-	bool is_root = true;
-	file *pfile = NULL;
-
-	if (path == NULL)
-		panic("path is NULL");
-
-	DEBUG("&pdir_entry = 0x%x\n", &pdir_entry);
-	
-	// make a copy of constant path string
-
-	strcpy(p, path);
-
-	path_part = strtok(p, "/");
-	while (path_part != NULL) {
-		// determine to read root cluster or sub-directory cluster
-		if (is_root) {
-
-			dirs = fat32_read_chain(pfat32,
-					pfat32->root_cluster,
-					(char **)(&pdir_entry)) / sizeof(dir_entry_t);
-
-			DEBUG("Root cluster read at 0x%x.\n", pdir_entry);
-
-			is_root = false;
-		} else {
-			// open fail when the last entry found is not a directory
-			if (!FAT32_IS_DIR(pdir_sub->reg_dir.attribute))
-				return pfile;
-
-			// copy the directory entry found and free current entries
-			dir_sub_bk = *pdir_sub;
-			free(pdir_entry);
-
-			// read next directory entry
-			dirs = fat32_read_chain(pfat32,
-					(uint32_t)(dir_sub_bk.reg_dir.cluster_high << 16) +
-					dir_sub_bk.reg_dir.cluster_low,
-					(char **)(&pdir_entry)) / sizeof(dir_entry_t);
-					
-			DEBUG("Sub-cluster read at 0x%x.\n", pdir_entry);
-		}
-
-		DEBUG("Finding sub-directory \"%s\" in 0x%x.\n", path_part, pdir_entry);
-
-		pdir_sub = fat32_find_entry(path_part, pdir_entry, dirs);
-		
-		break;
-		
-/*
-		// no corresponding entry in directory entries
-		if (pdir_sub == NULL)
-			goto fat32_open_return;
-*/
-//		path_part = strtok(NULL, "/");
-	}
-	
-	pfile = (file *)malloc(sizeof(file));
-	if (pfile == NULL)
-		goto fat32_open_return;
-
-	if (is_root) {
-		pfile->cluster = pfat32->root_cluster;
-		pfile->attribute = 0x10;
-	} else {
-		
-		DEBUG("before write pfile.\n");
-		
-		memcpy(((uint16_t *)(&pfile->cluster) + 1), &dir_sub_bk.reg_dir.cluster_high, 2);
-		memcpy(&pfile->cluster, &dir_sub_bk.reg_dir.cluster_low, 2);
-
-//		pfile->cluster = ((uint32_t)(dir_sub_bk.reg_dir.cluster_high) << 16) +
-//			dir_sub_bk.reg_dir.cluster_low;
-		kprintf("+");
-		pfile->attribute = dir_sub_bk.reg_dir.attribute;
-		kprintf("+");
-		pfile->pfat32 = pfat32;
-		kprintf("+");
-		pfile->time_ts = dir_sub_bk.reg_dir.time_ts;
-		kprintf("+");
-		
-		memcpy(&pfile->creation_time, &dir_sub_bk.reg_dir.creation_time, 2);		
-//		pfile->creation_time = dir_sub_bk.reg_dir.creation_time;
-		kprintf("+");
-		
-		memcpy(&pfile->creation_date, &dir_sub_bk.reg_dir.creation_date, 2);
-//		pfile->creation_date = dir_sub_bk.reg_dir.creation_date;
-		kprintf("+");
-		
-		memcpy(&pfile->last_acc_date, &dir_sub_bk.reg_dir.last_acc_date, 2);
-		kprintf("+");
-		memcpy(&pfile->last_mod_time, &dir_sub_bk.reg_dir.last_mod_time, 2);
-		kprintf("+");
-		memcpy(&pfile->last_mod_date, &dir_sub_bk.reg_dir.last_mod_date, 2);
-		kprintf("+\n");
-		memcpy(&pfile->size, &dir_sub_bk.reg_dir.size, 4);
-		
-		DEBUG("after write pfile.\n");
-		DEBUG("And then?\n");
-	}
-
-	
-fat32_open_return:
-
-//	kprintf("&pdir_entry = 0x%x\n", &pdir_entry);
-/*
-	if (pdir_entry != NULL) {
-		
-		for (int i = 0; i < 128; i++) {
-			kprintf("0x%x\t", *((uint32_t *)((struct mem_chuck *)pdir_entry - 1) + i));
-			if (i + 1 % 8 == 0)
-				kprintf("\n");
-		}
-	
-		free(pdir_entry);
-	}
-*/
 	return pfile;
 }
