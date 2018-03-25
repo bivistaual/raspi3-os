@@ -33,14 +33,14 @@ int strcmp(const char * str1, const char * str2)
 	return (str2[index] != '\0');
 }
 
-char * strcpy(char *restrict t, const char *restrict s)
+char * strcpy(char *restrict dest, const char *restrict src)
 {
-	char *dest = t;
+	char *t = dest;
 
-	while (*s != '\0') {
-		*t = *s;
+	while (*src != '\0') {
+		*t = *src;
 		t++;
-		s++;
+		src++;
 	}
 	*t = '\0';
 
@@ -67,13 +67,13 @@ char *utf16toascii(char *restrict dest, const char *restrict src)
 	char *d = dest;
 
 	while (*(uint16_t *)src != L'\0') {
-		*dest = (char)(*src);
-		dest++;
+		*d = (char)(*src);
+		d++;
 		src += 2;
 	}
-	*dest = '\0';
+	*d = '\0';
 
-	return d;
+	return dest;
 }
 
 char *utf16ntoascii(char *restrict dest, const char *restrict src, size_t size)
@@ -96,13 +96,13 @@ char *asciitoutf16(char *restrict dest, const char *restrict src)
 	char *d = dest;
 
 	while (*src != '\0') {
-		*(uint16_t *)dest = (uint16_t)(*src);
-		dest += 2;
+		*(uint16_t *)d = (uint16_t)(*src);
+		d += 2;
 		src++;
 	}
-	*(uint16_t *)dest = L'\0';
+	*(uint16_t *)d = L'\0';
 
-	return d;
+	return dest;
 }
 
 char *asciintoutf16(char *restrict dest, const char *restrict src, size_t size)
@@ -122,7 +122,9 @@ char *asciintoutf16(char *restrict dest, const char *restrict src, size_t size)
 
 char *strcat(char *__restrict dest, const char *__restrict src)
 {
-	return strcpy(dest + strlen(dest), src);
+	strcpy(dest + strlen(dest), src);
+	
+	return dest;
 }
 
 char * strtok(char *restrict s, const char *restrict p)

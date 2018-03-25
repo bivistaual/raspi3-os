@@ -165,9 +165,6 @@ void cat(char (*array)[ARG_LIMIT], unsigned int num)
 		}
 	
 		file_info(pf);
-		// block until read ''
-		while (mu_read_byte() != '\r')
-			continue;
 
 		if (FAT32_IS_DIR(pf->attribute)) {
 			kprintf("it's a directory: %s\n", array[i]);
@@ -195,6 +192,7 @@ void cd(char (*array)[ARG_LIMIT], unsigned int num)
 	}
 
 	path_filte(cwd_temp, array[0]);
+//	DEBUG("filted path = %s\n", cwd_temp);
 
 	pf = fat32_open(pfat32_global, cwd_temp);
 	
@@ -203,10 +201,7 @@ void cd(char (*array)[ARG_LIMIT], unsigned int num)
 		return;
 	}
 	
-	file_info(pf);
-	// block until read ''
-	while (mu_read_byte() != '\r')
-		continue;
+	//file_info(pf);
 
 	if (!FAT32_IS_DIR(pf->attribute)) {
 //		DEBUG("attribute = 0x%x\n", pf->attribute);
@@ -266,25 +261,22 @@ void ls(char (*array)[ARG_LIMIT], unsigned int num)
 		return;
 	}
 	
-	file_info(pf);
-	// block until read ''
-	while (mu_read_byte() != '\r')
-		continue;
+//	file_info(pf);
 	
-	DEBUG("Determine file is directory or file.");
+//	DEBUG("Determine file is directory or file.\n");
 		
 	if (!FAT32_IS_DIR(pf->attribute)) {
 		kprintf("it is not a directory: %s\n", temp);
 		return;
 	}
 
-	DEBUG("Reading cluster %d.\n", pf->cluster);
+//	DEBUG("Reading cluster %d.\n", pf->cluster);
 	
 	// char ** cast may cause unaligned access!!!!!!!!!!!!!!!!!!!!!!!!!!
 	dirs = fat32_read_chain(pfat32_global, pf->cluster, (char **)(&pdir_entry)) /
 		sizeof(dir_entry_t);
 
-	DEBUG("%d directory entries read.\n", dirs);
+//	DEBUG("%d directory entries read.\n", dirs);
 		
 	while (index < dirs) {
 		lfn_entrys = fat32_parse_name(&pdir_entry[index], name);
@@ -333,7 +325,7 @@ void ls(char (*array)[ARG_LIMIT], unsigned int num)
 				FAT32_GET_SECOND(last_mod_time),
 				pdir_entry[index].reg_dir.size,
 				name);
-
+		
 		index++;
 		strcpy(attribute, "---");
 	}
@@ -368,18 +360,26 @@ void test_malloc(void)
 	p = (int *)malloc(127 * sizeof(int));
 	for (int i = 0; i < 127; i++)
 		p[i] = i;
+	
+	DEBUG("p = 0x%x\n", p);
 
 	p2 = (int *)malloc(126 * sizeof(int));
 	for (int i = 126; i > 0; i--)
 		p2[126 - i] = i;
+	
+	DEBUG("p2 = 0x%x\n", p2);
 
 	free(p);
 
 	p3 = (int *)malloc(45 * sizeof(int));
+	
+	DEBUG("p3 = 0x%x\n", p3);
 
 	free(p2);
 
 	p4 = (int *)malloc(47 * sizeof(int));
+	
+	DEBUG("p4 = 0x%x\n", p4);
 
 	free(p3);
 	free(p4);
@@ -387,9 +387,9 @@ void test_malloc(void)
 
 static inline void file_info(file *pfile)
 {
-	kprintf("cluster:\t%d\n", pfile->cluster);
-	kprintf("attribute:\t0x%x\n", pfile->attribute);
-	kprintf("size:\t\t%d\n", pfile->size);
+	kprintf("file information:\n\tcluster:\t%d\n", pfile->cluster);
+	kprintf("\tattribute:\t0x%x\n", pfile->attribute);
+	kprintf("\tsize:\t\t%d\n", pfile->size);
 }
 
 static inline void fat32_info(void)

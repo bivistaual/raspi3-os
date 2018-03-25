@@ -73,7 +73,7 @@ void * malloc(size_t size)
 	// return the data field pointer.
 
 	LIST_FOREACH(scan, head, node) {
-		if (MEM_CHUCK_UNUSE(scan)) {
+		if (!MEM_CHUCK_USED(scan)) {
 
 //			DEBUG("Unused bin found in the list. Setting used.\n");
 
@@ -114,7 +114,7 @@ void *realloc(void *ptr, size_t size)
 	void *new;
 	size_t size_org = ((struct mem_chuck *)ptr - 1)->size;
 	
-	DEBUG("Orginal size is %d bytes, now is %d bytes.\n", size_org, size);
+//	DEBUG("Orginal size is %d bytes, now is %d bytes.\n", size_org, size);
 
 	if (size == 0) {
 		free(ptr);
@@ -128,10 +128,10 @@ void *realloc(void *ptr, size_t size)
 	memcpy(new, ptr, size > size_org ? size_org : size);
 	free(ptr);
 	
-	DEBUG("New memory area from 0x%x to 0x%x, old from 0x%x to 0x%x.\n",
-		(uint64_t)new, (uint64_t)new + size,
-		(uint64_t)ptr, (uint64_t)ptr + size_org
-	);
+//	DEBUG("New memory area from 0x%x to 0x%x, old from 0x%x to 0x%x.\n",
+//		(uint64_t)new, (uint64_t)new + size,
+//		(uint64_t)ptr, (uint64_t)ptr + size_org
+//	);
 	
 	return new;
 }

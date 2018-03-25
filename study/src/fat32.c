@@ -8,6 +8,7 @@
 #include "malloc.h"
 #include "assert.h"
 #include "system_timer.h"
+#include "mini_uart.h"
 
 extern int sd_err;
 
@@ -104,8 +105,8 @@ size_t fat32_read_cluster(fat32_t *pfat32, size_t c_index, char *buffer)
 
 	for (uint32_t i = 0; i < cluster_size; i++) {
 
-		//DEBUG("Reading logical sector %d.\n",
-		//		pfat32->data_start + cluster_size * (c_index - 2) + i);
+//		DEBUG("Reading logical sector %d.\n",
+//				pfat32->data_start + cluster_size * (c_index - 2) + i);
 
 		result += cd_read_sector(&pfat32->device,
 				pfat32->data_start + cluster_size * (c_index - 2) + i,
@@ -138,12 +139,19 @@ size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, char **pbuf)
 	if (buf_entry == NULL)
 		return 0;
 
+//	DEBUG("Reading data from sector %d.\n", fat_start + distance);
+
 	if (cd_read_sector(pcd, fat_start + distance, (char *)buf_entry) <= 0)
 		panic("Can't read any directory entry at sector %d.\n",
 				fat_start + distance);
 	next_index = buf_entry[c_index % sector_size] & FAT32_ENTRY_MASK;
-
-	//DEBUG("Data from sector %d read.\n", fat_start + distance);
+	
+/*//	DEBUG("&buf_entry = 0x%x\n", buf_entry);
+	for (int i = 0; i < 16; i++) {
+		kprintf("0x%x\t", *((uint32_t *)buf_entry + i));
+		if ((i + 1) % 8 == 0)
+			kprintf("\n");
+	}*/
 
 	// unused cluster
 
@@ -159,12 +167,12 @@ size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, char **pbuf)
 	//while (next_index - 2 <= 0xfffffed || next_index - 0xffffff8 <= 7) {
 	while (1) {
 		// read the specific cluster data to the tail of buffer
+
+//		DEBUG("Reading data from cluster %d.\n", c_index);
 	
 		result += fat32_read_cluster(pfat32, c_index, *pbuf + result);
 
-//		DEBUG("Data from cluster %d read.\n", c_index);
-
-		DEBUG("next entry = 0x%x\n", next_index);
+//		DEBUG("next entry = 0x%x\n", next_index);
 		
 		// not EOC
 		
@@ -178,18 +186,24 @@ size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, char **pbuf)
 					panic("Can't read any directory entry at sector %d.\n",
 							fat_start + distance);
 
-//				DEBUG("Renew directory entry at sector %d.\n", fat_start + distance);
+				//DEBUG("Renew directory entry at sector %d.\n", fat_start + distance);
 			}
 
 			// save current entry to further use and get next entry
 			c_index = next_index;
 			next_index = buf_entry[next_index % sector_size] & FAT32_ENTRY_MASK;
-
+	
+/*			//DEBUG("&buf_entry = 0x%x\n", buf_entry);
+			for (int i = 0; i < 16; i++) {
+				kprintf("0x%x\t", *((uint32_t *)buf_entry + i));
+				if (i + 1 % 8 == 0)
+					kprintf("\n");
+			}
+*/
 			// re-allocate memory for next read
 			
-//			DEBUG("Re-allocate pbuf to %d bytes.\n", result + cluster_size * sector_size);
+			//DEBUG("Re-allocate pbuf to %d bytes.\n", result + cluster_size * sector_size);
 
-			// !!!!!!!!!! MEMORY LEAK HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			*pbuf = (char *)realloc(*pbuf, result + cluster_size * sector_size);
 			if (pbuf == NULL) {
 				result = 0;
@@ -199,7 +213,7 @@ size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, char **pbuf)
 			break;
 	}
 
-	DEBUG("Total %d bytes data read from cluster %d.\n", result, c_start);
+	//DEBUG("Total %d bytes data read from cluster %d.\n", result, c_start);
 
 fat32_read_chain_return:
 
@@ -336,7 +350,7 @@ file *fat32_open(fat32_t *pfat32, const char *path)
 			return NULL;
 		}
 
-		DEBUG("Finding sub-directory in 0x%x.\n", pdir_entry);
+		// DEBUG("Finding sub-directory in 0x%x.\n", pdir_entry);
 		pdir_sub = fat32_find_entry(path_part, pdir_entry, dirs);
 
 		// no corresponding entry in directory entries

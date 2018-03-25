@@ -9,8 +9,8 @@
 #define IS_POWER_OF_2(x)														\
 	((x) && !((x) & ((x) - 1)))
 
-#define MEM_CHUCK_UNUSE(chuck)													\
-	(!(((chuck)->size) & 0x1))
+#define MEM_CHUCK_USED(chuck)													\
+	(((chuck)->size) & 0x1)
 
 #define MEM_CHUCK_SET(chuck)													\
 	((chuck)->size |= 0x1)

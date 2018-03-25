@@ -2,9 +2,7 @@ TARGET = aarch64-none-elf
 CROSS = $(TARGET)
 
 CC = $(CROSS)-gcc
-CCFLAGS = -std=c11 -O2 -Wall -nostdlib -nostartfiles -ffreestanding -pie -fpie -g3
-
-CCFLAGS_O1_EX = -std=c11 -Wall -fguess-branch-probability -fif-conversion2 -fif-conversion -finline-functions-called-once -fipa-pure-const -fipa-profile -fipa-reference -fmerge-constants -fmove-loop-invariants -freorder-blocks -fshrink-wrap -fsplit-wide-types -fssa-backprop -fssa-phiopt -ftree-bit-ccp -ftree-ccp -ftree-ch -ftree-coalesce-vars -ftree-copy-prop -ftree-dce -ftree-dominator-opts -ftree-dse -ftree-forwprop -ftree-fre -ftree-phiprop -ftree-sink -ftree-slsr -ftree-sra -ftree-pta -ftree-ter -funit-at-a-time -nostdlib -nostartfiles -ffreestanding -pie -fpie -std=c11 -Wall -fauto-inc-dec -fbranch-count-reg -fcombine-stack-adjustments -fcompare-elim -fcprop-registers -fdce -fdefer-pop -fdse -fforward-propagate -nostdlib -nostartfiles -ffreestanding -pie -fpie
+CCFLAGS = -std=c11 -O2 -Wall -nostdlib -nostartfiles -ffreestanding -pie -fpie
 
 LD = $(CROSS)-ld
 LDFLAGS = --gc-sections -static -nostdlib -nostartfiles --no-dynamic-linker
@@ -55,7 +53,7 @@ install: $(KERNEL).bin
 	$(TTYWRITE) -i $<
 
 connect:
-	screen /dev/ttyUSB0 115200 8N1
+	screen -h 9999 /dev/ttyUSB0 115200 8N1
 
 clean:
 	rm -rf $(OBJ_DIR)/* $(BIN_DIR)/*

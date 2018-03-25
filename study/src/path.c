@@ -53,7 +53,10 @@ char *path_simplify(char *path)
 		for (int i = 0; i <= top; i++) {
 			strcat(path, "/");
 			strcat(path, stack[i]);
+//			DEBUG("path part = %s\n", path);
 		}
+	
+//	DEBUG("path = %s\n", path);
 
 	return path;
 }
