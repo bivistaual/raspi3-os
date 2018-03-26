@@ -1,641 +1,4127 @@
-(/) > ls
-file information:
-        cluster:        2
-        attribute:      0x10
-        size:           1431655765
-ls: Press Enter to continue...
-ls: Determine file is directory or file.ls: Reading cluster 2.
-fat32_read_chain: Reading data from sector 8748.
-cd_read_sector: Reading sector 8748 from bin[12].
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 8748.
-cd_read_sector: Logical sector 8748 which is 1 physical sectors from physical sector 8748 is read.
-cd_read_sector: Adding sector 8748 to bin[12] at 0x85ab0
-fat32_read_chain: Reading data from cluster 2.
-fat32_read_cluster: Reading logical sector 16384.
-cd_read_sector: Reading sector 16384 from bin[0].
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16384.
-cd_read_sector: Logical sector 16384 which is 1 physical sectors from physical sector 16384 is read.
-cd_read_sector: Adding sector 16384 to bin[0] at 0x95af0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16385.
-cd_read_sector: Reading sector 16385 from bin[1].
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16385.
-cd_read_sector: Logical sector 16385 which is 1 physical sectors from physical sector 16385 is read.
-cd_read_sector: Adding sector 16385 to bin[1] at 0x95b30
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16386.
-cd_read_sector: Reading sector 16386 from bin[2].
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16386.
-cd_read_sector: Logical sector 16386 which is 1 physical sectors from physical sector 16386 is read.
-cd_read_sector: Adding sector 16386 to bin[2] at 0x95b70
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16387.
-cd_read_sector: Reading sector 16387 from bin[3].
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16387.
-cd_read_sector: Logical sector 16387 which is 1 physical sectors from physical sector 16387 is read.
-cd_read_sector: Adding sector 16387 to bin[3] at 0x95bb0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16388.
-cd_read_sector: Reading sector 16388 from bin[4].
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16388.
-cd_read_sector: Logical sector 16388 which is 1 physical sectors from physical sector 16388 is read.
-cd_read_sector: Adding sector 16388 to bin[4] at 0x95bf0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16389.
-cd_read_sector: Reading sector 16389 from bin[5].
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16389.
-cd_read_sector: Logical sector 16389 which is 1 physical sectors from physical sector 16389 is read.
-cd_read_sector: Adding sector 16389 to bin[5] at 0x95c30
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16390.
-cd_read_sector: Reading sector 16390 from bin[6].
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16390.
-cd_read_sector: Logical sector 16390 which is 1 physical sectors from physical sector 16390 is read.
-cd_read_sector: Adding sector 16390 to bin[6] at 0x95c70
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16391.
-cd_read_sector: Reading sector 16391 from bin[7].
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16391.
-cd_read_sector: Logical sector 16391 which is 1 physical sectors from physical sector 16391 is read.
-cd_read_sector: Adding sector 16391 to bin[7] at 0x95cb0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16392.
-cd_read_sector: Reading sector 16392 from bin[8].
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16392.
-cd_read_sector: Logical sector 16392 which is 1 physical sectors from physical sector 16392 is read.
-cd_read_sector: Adding sector 16392 to bin[8] at 0x95cf0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16393.
-cd_read_sector: Reading sector 16393 from bin[9].
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16393.
-cd_read_sector: Logical sector 16393 which is 1 physical sectors from physical sector 16393 is read.
-cd_read_sector: Adding sector 16393 to bin[9] at 0x95d30
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16394.
-cd_read_sector: Reading sector 16394 from bin[10].
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16394.
-cd_read_sector: Logical sector 16394 which is 1 physical sectors from physical sector 16394 is read.
-cd_read_sector: Adding sector 16394 to bin[10] at 0x95d70
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16395.
-cd_read_sector: Reading sector 16395 from bin[11].
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16395.
-cd_read_sector: Logical sector 16395 which is 1 physical sectors from physical sector 16395 is read.
-cd_read_sector: Adding sector 16395 to bin[11] at 0x95db0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16396.
-cd_read_sector: Reading sector 16396 from bin[12].
-cd_read_sector: pscan=0x85ab0 &node=0x85ac0 next=0x0 pprev=0x855f0
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16396.
-cd_read_sector: Logical sector 16396 which is 1 physical sectors from physical sector 16396 is read.
-cd_read_sector: Adding sector 16396 to bin[12] at 0x95df0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16397.
-cd_read_sector: Reading sector 16397 from bin[13].
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16397.
-cd_read_sector: Logical sector 16397 which is 1 physical sectors from physical sector 16397 is read.
-cd_read_sector: Adding sector 16397 to bin[13] at 0x95e30
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16398.
-cd_read_sector: Reading sector 16398 from bin[14].
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16398.
-cd_read_sector: Logical sector 16398 which is 1 physical sectors from physical sector 16398 is read.
-cd_read_sector: Adding sector 16398 to bin[14] at 0x95e70
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16399.
-cd_read_sector: Reading sector 16399 from bin[15].
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16399.
-cd_read_sector: Logical sector 16399 which is 1 physical sectors from physical sector 16399 is read.
-cd_read_sector: Adding sector 16399 to bin[15] at 0x95eb0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16400.
-cd_read_sector: Reading sector 16400 from bin[0].
-cd_read_sector: pscan=0x95af0 &node=0x95b00 next=0x0 pprev=0x85590
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16400.
-cd_read_sector: Logical sector 16400 which is 1 physical sectors from physical sector 16400 is read.
-cd_read_sector: Adding sector 16400 to bin[0] at 0x95ef0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16401.
-cd_read_sector: Reading sector 16401 from bin[1].
-cd_read_sector: pscan=0x95b30 &node=0x95b40 next=0x0 pprev=0x85598
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16401.
-cd_read_sector: Logical sector 16401 which is 1 physical sectors from physical sector 16401 is read.
-cd_read_sector: Adding sector 16401 to bin[1] at 0x95f30
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16402.
-cd_read_sector: Reading sector 16402 from bin[2].
-cd_read_sector: pscan=0x95b70 &node=0x95b80 next=0x0 pprev=0x855a0
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16402.
-cd_read_sector: Logical sector 16402 which is 1 physical sectors from physical sector 16402 is read.
-cd_read_sector: Adding sector 16402 to bin[2] at 0x95f70
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16403.
-cd_read_sector: Reading sector 16403 from bin[3].
-cd_read_sector: pscan=0x95bb0 &node=0x95bc0 next=0x0 pprev=0x855a8
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16403.
-cd_read_sector: Logical sector 16403 which is 1 physical sectors from physical sector 16403 is read.
-cd_read_sector: Adding sector 16403 to bin[3] at 0x95fb0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16404.
-cd_read_sector: Reading sector 16404 from bin[4].
-cd_read_sector: pscan=0x95bf0 &node=0x95c00 next=0x0 pprev=0x855b0
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16404.
-cd_read_sector: Logical sector 16404 which is 1 physical sectors from physical sector 16404 is read.
-cd_read_sector: Adding sector 16404 to bin[4] at 0x95ff0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16405.
-cd_read_sector: Reading sector 16405 from bin[5].
-cd_read_sector: pscan=0x95c30 &node=0x95c40 next=0x0 pprev=0x855b8
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16405.
-cd_read_sector: Logical sector 16405 which is 1 physical sectors from physical sector 16405 is read.
-cd_read_sector: Adding sector 16405 to bin[5] at 0x96030
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16406.
-cd_read_sector: Reading sector 16406 from bin[6].
-cd_read_sector: pscan=0x95c70 &node=0x95c80 next=0x0 pprev=0x855c0
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16406.
-cd_read_sector: Logical sector 16406 which is 1 physical sectors from physical sector 16406 is read.
-cd_read_sector: Adding sector 16406 to bin[6] at 0x96070
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16407.
-cd_read_sector: Reading sector 16407 from bin[7].
-cd_read_sector: pscan=0x95cb0 &node=0x95cc0 next=0x0 pprev=0x855c8
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16407.
-cd_read_sector: Logical sector 16407 which is 1 physical sectors from physical sector 16407 is read.
-cd_read_sector: Adding sector 16407 to bin[7] at 0x960b0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16408.
-cd_read_sector: Reading sector 16408 from bin[8].
-cd_read_sector: pscan=0x95cf0 &node=0x95d00 next=0x0 pprev=0x855d0
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16408.
-cd_read_sector: Logical sector 16408 which is 1 physical sectors from physical sector 16408 is read.
-cd_read_sector: Adding sector 16408 to bin[8] at 0x960f0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16409.
-cd_read_sector: Reading sector 16409 from bin[9].
-cd_read_sector: pscan=0x95d30 &node=0x95d40 next=0x0 pprev=0x855d8
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16409.
-cd_read_sector: Logical sector 16409 which is 1 physical sectors from physical sector 16409 is read.
-cd_read_sector: Adding sector 16409 to bin[9] at 0x96130
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16410.
-cd_read_sector: Reading sector 16410 from bin[10].
-cd_read_sector: pscan=0x95d70 &node=0x95d80 next=0x0 pprev=0x855e0
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16410.
-cd_read_sector: Logical sector 16410 which is 1 physical sectors from physical sector 16410 is read.
-cd_read_sector: Adding sector 16410 to bin[10] at 0x96170
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16411.
-cd_read_sector: Reading sector 16411 from bin[11].
-cd_read_sector: pscan=0x95db0 &node=0x95dc0 next=0x0 pprev=0x855e8
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16411.
-cd_read_sector: Logical sector 16411 which is 1 physical sectors from physical sector 16411 is read.
-cd_read_sector: Adding sector 16411 to bin[11] at 0x961b0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16412.
-cd_read_sector: Reading sector 16412 from bin[12].
-cd_read_sector: pscan=0x95df0 &node=0x95e00 next=0x85ac0 pprev=0x855f0
-cd_read_sector: pscan=0x85ab0 &node=0x85ac0 next=0x0 pprev=0x95e00
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16412.
-cd_read_sector: Logical sector 16412 which is 1 physical sectors from physical sector 16412 is read.
-cd_read_sector: Adding sector 16412 to bin[12] at 0x961f0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16413.
-cd_read_sector: Reading sector 16413 from bin[13].
-cd_read_sector: pscan=0x95e30 &node=0x95e40 next=0x0 pprev=0x855f8
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16413.
-cd_read_sector: Logical sector 16413 which is 1 physical sectors from physical sector 16413 is read.
-cd_read_sector: Adding sector 16413 to bin[13] at 0x96230
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16414.
-cd_read_sector: Reading sector 16414 from bin[14].
-cd_read_sector: pscan=0x95e70 &node=0x95e80 next=0x0 pprev=0x85600
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16414.
-cd_read_sector: Logical sector 16414 which is 1 physical sectors from physical sector 16414 is read.
-cd_read_sector: Adding sector 16414 to bin[14] at 0x96270
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16415.
-cd_read_sector: Reading sector 16415 from bin[15].
-cd_read_sector: pscan=0x95eb0 &node=0x95ec0 next=0x0 pprev=0x85608
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16415.
-cd_read_sector: Logical sector 16415 which is 1 physical sectors from physical sector 16415 is read.
-cd_read_sector: Adding sector 16415 to bin[15] at 0x962b0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16416.
-cd_read_sector: Reading sector 16416 from bin[0].
-cd_read_sector: pscan=0x95ef0 &node=0x95f00 next=0x95b00 pprev=0x85590
-cd_read_sector: pscan=0x95af0 &node=0x95b00 next=0x0 pprev=0x95f00
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16416.
-cd_read_sector: Logical sector 16416 which is 1 physical sectors from physical sector 16416 is read.
-cd_read_sector: Adding sector 16416 to bin[0] at 0x962f0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16417.
-cd_read_sector: Reading sector 16417 from bin[1].
-cd_read_sector: pscan=0x95f30 &node=0x95f40 next=0x95b40 pprev=0x85598
-cd_read_sector: pscan=0x95b30 &node=0x95b40 next=0x0 pprev=0x95f40
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16417.
-cd_read_sector: Logical sector 16417 which is 1 physical sectors from physical sector 16417 is read.
-cd_read_sector: Adding sector 16417 to bin[1] at 0x96330
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16418.
-cd_read_sector: Reading sector 16418 from bin[2].
-cd_read_sector: pscan=0x95f70 &node=0x95f80 next=0x95b80 pprev=0x855a0
-cd_read_sector: pscan=0x95b70 &node=0x95b80 next=0x0 pprev=0x95f80
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16418.
-cd_read_sector: Logical sector 16418 which is 1 physical sectors from physical sector 16418 is read.
-cd_read_sector: Adding sector 16418 to bin[2] at 0x96370
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16419.
-cd_read_sector: Reading sector 16419 from bin[3].
-cd_read_sector: pscan=0x95fb0 &node=0x95fc0 next=0x95bc0 pprev=0x855a8
-cd_read_sector: pscan=0x95bb0 &node=0x95bc0 next=0x0 pprev=0x95fc0
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16419.
-cd_read_sector: Logical sector 16419 which is 1 physical sectors from physical sector 16419 is read.
-cd_read_sector: Adding sector 16419 to bin[3] at 0x963b0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16420.
-cd_read_sector: Reading sector 16420 from bin[4].
-cd_read_sector: pscan=0x95ff0 &node=0x96000 next=0x95c00 pprev=0x855b0
-cd_read_sector: pscan=0x95bf0 &node=0x95c00 next=0x0 pprev=0x96000
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16420.
-cd_read_sector: Logical sector 16420 which is 1 physical sectors from physical sector 16420 is read.
-cd_read_sector: Adding sector 16420 to bin[4] at 0x963f0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16421.
-cd_read_sector: Reading sector 16421 from bin[5].
-cd_read_sector: pscan=0x96030 &node=0x96040 next=0x95c40 pprev=0x855b8
-cd_read_sector: pscan=0x95c30 &node=0x95c40 next=0x0 pprev=0x96040
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16421.
-cd_read_sector: Logical sector 16421 which is 1 physical sectors from physical sector 16421 is read.
-cd_read_sector: Adding sector 16421 to bin[5] at 0x96430
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16422.
-cd_read_sector: Reading sector 16422 from bin[6].
-cd_read_sector: pscan=0x96070 &node=0x96080 next=0x95c80 pprev=0x855c0
-cd_read_sector: pscan=0x95c70 &node=0x95c80 next=0x0 pprev=0x96080
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16422.
-cd_read_sector: Logical sector 16422 which is 1 physical sectors from physical sector 16422 is read.
-cd_read_sector: Adding sector 16422 to bin[6] at 0x96470
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16423.
-cd_read_sector: Reading sector 16423 from bin[7].
-cd_read_sector: pscan=0x960b0 &node=0x960c0 next=0x95cc0 pprev=0x855c8
-cd_read_sector: pscan=0x95cb0 &node=0x95cc0 next=0x0 pprev=0x960c0
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16423.
-cd_read_sector: Logical sector 16423 which is 1 physical sectors from physical sector 16423 is read.
-cd_read_sector: Adding sector 16423 to bin[7] at 0x964b0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16424.
-cd_read_sector: Reading sector 16424 from bin[8].
-cd_read_sector: pscan=0x960f0 &node=0x96100 next=0x95d00 pprev=0x855d0
-cd_read_sector: pscan=0x95cf0 &node=0x95d00 next=0x0 pprev=0x96100
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16424.
-cd_read_sector: Logical sector 16424 which is 1 physical sectors from physical sector 16424 is read.
-cd_read_sector: Adding sector 16424 to bin[8] at 0x964f0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16425.
-cd_read_sector: Reading sector 16425 from bin[9].
-cd_read_sector: pscan=0x96130 &node=0x96140 next=0x95d40 pprev=0x855d8
-cd_read_sector: pscan=0x95d30 &node=0x95d40 next=0x0 pprev=0x96140
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16425.
-cd_read_sector: Logical sector 16425 which is 1 physical sectors from physical sector 16425 is read.
-cd_read_sector: Adding sector 16425 to bin[9] at 0x96530
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16426.
-cd_read_sector: Reading sector 16426 from bin[10].
-cd_read_sector: pscan=0x96170 &node=0x96180 next=0x95d80 pprev=0x855e0
-cd_read_sector: pscan=0x95d70 &node=0x95d80 next=0x0 pprev=0x96180
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16426.
-cd_read_sector: Logical sector 16426 which is 1 physical sectors from physical sector 16426 is read.
-cd_read_sector: Adding sector 16426 to bin[10] at 0x96570
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16427.
-cd_read_sector: Reading sector 16427 from bin[11].
-cd_read_sector: pscan=0x961b0 &node=0x961c0 next=0x95dc0 pprev=0x855e8
-cd_read_sector: pscan=0x95db0 &node=0x95dc0 next=0x0 pprev=0x961c0
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16427.
-cd_read_sector: Logical sector 16427 which is 1 physical sectors from physical sector 16427 is read.
-cd_read_sector: Adding sector 16427 to bin[11] at 0x965b0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16428.
-cd_read_sector: Reading sector 16428 from bin[12].
-cd_read_sector: pscan=0x961f0 &node=0x96200 next=0x95e00 pprev=0x855f0
-cd_read_sector: pscan=0x95df0 &node=0x95e00 next=0x85ac0 pprev=0x96200
-cd_read_sector: pscan=0x85ab0 &node=0x85ac0 next=0x0 pprev=0x95e00
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16428.
-cd_read_sector: Logical sector 16428 which is 1 physical sectors from physical sector 16428 is read.
-cd_read_sector: Adding sector 16428 to bin[12] at 0x965f0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16429.
-cd_read_sector: Reading sector 16429 from bin[13].
-cd_read_sector: pscan=0x96230 &node=0x96240 next=0x95e40 pprev=0x855f8
-cd_read_sector: pscan=0x95e30 &node=0x95e40 next=0x0 pprev=0x96240
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16429.
-cd_read_sector: Logical sector 16429 which is 1 physical sectors from physical sector 16429 is read.
-cd_read_sector: Adding sector 16429 to bin[13] at 0x96630
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16430.
-cd_read_sector: Reading sector 16430 from bin[14].
-cd_read_sector: pscan=0x96270 &node=0x96280 next=0x95e80 pprev=0x85600
-cd_read_sector: pscan=0x95e70 &node=0x95e80 next=0x0 pprev=0x96280
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16430.
-cd_read_sector: Logical sector 16430 which is 1 physical sectors from physical sector 16430 is read.
-cd_read_sector: Adding sector 16430 to bin[14] at 0x96670
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16431.
-cd_read_sector: Reading sector 16431 from bin[15].
-cd_read_sector: pscan=0x962b0 &node=0x962c0 next=0x95ec0 pprev=0x85608
-cd_read_sector: pscan=0x95eb0 &node=0x95ec0 next=0x0 pprev=0x962c0
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16431.
-cd_read_sector: Logical sector 16431 which is 1 physical sectors from physical sector 16431 is read.
-cd_read_sector: Adding sector 16431 to bin[15] at 0x966b0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16432.
-cd_read_sector: Reading sector 16432 from bin[0].
-cd_read_sector: pscan=0x962f0 &node=0x96300 next=0x95f00 pprev=0x85590
-cd_read_sector: pscan=0x95ef0 &node=0x95f00 next=0x95b00 pprev=0x96300
-cd_read_sector: pscan=0x95af0 &node=0x95b00 next=0x0 pprev=0x95f00
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16432.
-cd_read_sector: Logical sector 16432 which is 1 physical sectors from physical sector 16432 is read.
-cd_read_sector: Adding sector 16432 to bin[0] at 0x966f0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16433.
-cd_read_sector: Reading sector 16433 from bin[1].
-cd_read_sector: pscan=0x96330 &node=0x96340 next=0x95f40 pprev=0x85598
-cd_read_sector: pscan=0x95f30 &node=0x95f40 next=0x95b40 pprev=0x96340
-cd_read_sector: pscan=0x95b30 &node=0x95b40 next=0x0 pprev=0x95f40
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16433.
-cd_read_sector: Logical sector 16433 which is 1 physical sectors from physical sector 16433 is read.
-cd_read_sector: Adding sector 16433 to bin[1] at 0x96730
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16434.
-cd_read_sector: Reading sector 16434 from bin[2].
-cd_read_sector: pscan=0x96370 &node=0x96380 next=0x95f80 pprev=0x855a0
-cd_read_sector: pscan=0x95f70 &node=0x95f80 next=0x95b80 pprev=0x96380
-cd_read_sector: pscan=0x95b70 &node=0x95b80 next=0x0 pprev=0x95f80
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16434.
-cd_read_sector: Logical sector 16434 which is 1 physical sectors from physical sector 16434 is read.
-cd_read_sector: Adding sector 16434 to bin[2] at 0x96770
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16435.
-cd_read_sector: Reading sector 16435 from bin[3].
-cd_read_sector: pscan=0x963b0 &node=0x963c0 next=0x95fc0 pprev=0x855a8
-cd_read_sector: pscan=0x95fb0 &node=0x95fc0 next=0x95bc0 pprev=0x963c0
-cd_read_sector: pscan=0x95bb0 &node=0x95bc0 next=0x0 pprev=0x95fc0
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16435.
-cd_read_sector: Logical sector 16435 which is 1 physical sectors from physical sector 16435 is read.
-cd_read_sector: Adding sector 16435 to bin[3] at 0x967b0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16436.
-cd_read_sector: Reading sector 16436 from bin[4].
-cd_read_sector: pscan=0x963f0 &node=0x96400 next=0x96000 pprev=0x855b0
-cd_read_sector: pscan=0x95ff0 &node=0x96000 next=0x95c00 pprev=0x96400
-cd_read_sector: pscan=0x95bf0 &node=0x95c00 next=0x0 pprev=0x96000
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16436.
-cd_read_sector: Logical sector 16436 which is 1 physical sectors from physical sector 16436 is read.
-cd_read_sector: Adding sector 16436 to bin[4] at 0x967f0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16437.
-cd_read_sector: Reading sector 16437 from bin[5].
-cd_read_sector: pscan=0x96430 &node=0x96440 next=0x96040 pprev=0x855b8
-cd_read_sector: pscan=0x96030 &node=0x96040 next=0x95c40 pprev=0x96440
-cd_read_sector: pscan=0x95c30 &node=0x95c40 next=0x0 pprev=0x96040
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16437.
-cd_read_sector: Logical sector 16437 which is 1 physical sectors from physical sector 16437 is read.
-cd_read_sector: Adding sector 16437 to bin[5] at 0x96830
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16438.
-cd_read_sector: Reading sector 16438 from bin[6].
-cd_read_sector: pscan=0x96470 &node=0x96480 next=0x96080 pprev=0x855c0
-cd_read_sector: pscan=0x96070 &node=0x96080 next=0x95c80 pprev=0x96480
-cd_read_sector: pscan=0x95c70 &node=0x95c80 next=0x0 pprev=0x96080
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16438.
-cd_read_sector: Logical sector 16438 which is 1 physical sectors from physical sector 16438 is read.
-cd_read_sector: Adding sector 16438 to bin[6] at 0x96870
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16439.
-cd_read_sector: Reading sector 16439 from bin[7].
-cd_read_sector: pscan=0x964b0 &node=0x964c0 next=0x960c0 pprev=0x855c8
-cd_read_sector: pscan=0x960b0 &node=0x960c0 next=0x95cc0 pprev=0x964c0
-cd_read_sector: pscan=0x95cb0 &node=0x95cc0 next=0x0 pprev=0x960c0
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16439.
-cd_read_sector: Logical sector 16439 which is 1 physical sectors from physical sector 16439 is read.
-cd_read_sector: Adding sector 16439 to bin[7] at 0x968b0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16440.
-cd_read_sector: Reading sector 16440 from bin[8].
-cd_read_sector: pscan=0x964f0 &node=0x96500 next=0x96100 pprev=0x855d0
-cd_read_sector: pscan=0x960f0 &node=0x96100 next=0x95d00 pprev=0x96500
-cd_read_sector: pscan=0x95cf0 &node=0x95d00 next=0x0 pprev=0x96100
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16440.
-cd_read_sector: Logical sector 16440 which is 1 physical sectors from physical sector 16440 is read.
-cd_read_sector: Adding sector 16440 to bin[8] at 0x968f0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16441.
-cd_read_sector: Reading sector 16441 from bin[9].
-cd_read_sector: pscan=0x96530 &node=0x96540 next=0x96140 pprev=0x855d8
-cd_read_sector: pscan=0x96130 &node=0x96140 next=0x95d40 pprev=0x96540
-cd_read_sector: pscan=0x95d30 &node=0x95d40 next=0x0 pprev=0x96140
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16441.
-cd_read_sector: Logical sector 16441 which is 1 physical sectors from physical sector 16441 is read.
-cd_read_sector: Adding sector 16441 to bin[9] at 0x96930
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16442.
-cd_read_sector: Reading sector 16442 from bin[10].
-cd_read_sector: pscan=0x96570 &node=0x96580 next=0x96180 pprev=0x855e0
-cd_read_sector: pscan=0x96170 &node=0x96180 next=0x95d80 pprev=0x96580
-cd_read_sector: pscan=0x95d70 &node=0x95d80 next=0x0 pprev=0x96180
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16442.
-cd_read_sector: Logical sector 16442 which is 1 physical sectors from physical sector 16442 is read.
-cd_read_sector: Adding sector 16442 to bin[10] at 0x96970
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16443.
-cd_read_sector: Reading sector 16443 from bin[11].
-cd_read_sector: pscan=0x965b0 &node=0x965c0 next=0x961c0 pprev=0x855e8
-cd_read_sector: pscan=0x961b0 &node=0x961c0 next=0x95dc0 pprev=0x965c0
-cd_read_sector: pscan=0x95db0 &node=0x95dc0 next=0x0 pprev=0x961c0
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16443.
-cd_read_sector: Logical sector 16443 which is 1 physical sectors from physical sector 16443 is read.
-cd_read_sector: Adding sector 16443 to bin[11] at 0x969b0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16444.
-cd_read_sector: Reading sector 16444 from bin[12].
-cd_read_sector: pscan=0x965f0 &node=0x96600 next=0x96200 pprev=0x855f0
-cd_read_sector: pscan=0x961f0 &node=0x96200 next=0x95e00 pprev=0x96600
-cd_read_sector: pscan=0x95df0 &node=0x95e00 next=0x85ac0 pprev=0x96200
-cd_read_sector: pscan=0x85ab0 &node=0x85ac0 next=0x0 pprev=0x95e00
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16444.
-cd_read_sector: Logical sector 16444 which is 1 physical sectors from physical sector 16444 is read.
-cd_read_sector: Adding sector 16444 to bin[12] at 0x969f0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16445.
-cd_read_sector: Reading sector 16445 from bin[13].
-cd_read_sector: pscan=0x96630 &node=0x96640 next=0x96240 pprev=0x855f8
-cd_read_sector: pscan=0x96230 &node=0x96240 next=0x95e40 pprev=0x96640
-cd_read_sector: pscan=0x95e30 &node=0x95e40 next=0x0 pprev=0x96240
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16445.
-cd_read_sector: Logical sector 16445 which is 1 physical sectors from physical sector 16445 is read.
-cd_read_sector: Adding sector 16445 to bin[13] at 0x96a30
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16446.
-cd_read_sector: Reading sector 16446 from bin[14].
-cd_read_sector: pscan=0x96670 &node=0x96680 next=0x96280 pprev=0x85600
-cd_read_sector: pscan=0x96270 &node=0x96280 next=0x95e80 pprev=0x96680
-cd_read_sector: pscan=0x95e70 &node=0x95e80 next=0x0 pprev=0x96280
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16446.
-cd_read_sector: Logical sector 16446 which is 1 physical sectors from physical sector 16446 is read.
-cd_read_sector: Adding sector 16446 to bin[14] at 0x96a70
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16447.
-cd_read_sector: Reading sector 16447 from bin[15].
-cd_read_sector: pscan=0x966b0 &node=0x966c0 next=0x962c0 pprev=0x85608
-cd_read_sector: pscan=0x962b0 &node=0x962c0 next=0x95ec0 pprev=0x966c0
-cd_read_sector: pscan=0x95eb0 &node=0x95ec0 next=0x0 pprev=0x962c0
-cd_read_sector: Prepare to read from sdcard.
-cd_read_sector: Reading 1 physical sectors from logical sector 16447.
-cd_read_sector: Logical sector 16447 which is 1 physical sectors from physical sector 16447 is read.
-cd_read_sector: Adding sector 16447 to bin[15] at 0x96ab0
-fat32_read_cluster: Press Enter to continue...
-fat32_read_chain: next entry = 0xfffffff
-fat32_read_chain: Total 32768 bytes data read from cluster 2.
-ls: 1024 directory entries read.
 
-..............................
+Welcome to raspberry pi 3b shell!
 
+ˆÿˆÿˆÿˆÿˆÿˆÿˆÿWÿ ˆÿˆÿWÿ   ˆÿˆÿWÿ ˆÿˆÿˆÿˆÿˆÿˆÿWÿˆÿˆÿˆÿˆÿˆÿˆÿˆÿˆÿWÿ ˆÿˆÿWÿ
+ˆÿˆÿTÿPÿPÿPÿˆÿˆÿWÿˆÿˆÿQÿ   ˆÿˆÿQÿˆÿˆÿTÿPÿPÿPÿPÿ]ÿZÿPÿPÿˆÿˆÿTÿPÿPÿ]ÿ ˆÿˆÿQÿ
+ˆÿˆÿˆÿˆÿˆÿˆÿˆÿTÿ]ÿZÿˆÿˆÿWÿ ˆÿˆÿTÿ]ÿZÿˆÿˆÿˆÿˆÿˆÿˆÿWÿ   ˆÿˆÿQÿ    ˆÿˆÿQÿ
+ˆÿˆÿTÿPÿPÿPÿˆÿˆÿWÿ ZÿˆÿˆÿˆÿˆÿTÿ]ÿ  ZÿPÿPÿPÿPÿˆÿˆÿWÿ  ˆÿˆÿQÿ    ˆÿˆÿQÿ
+ˆÿˆÿˆÿˆÿˆÿˆÿˆÿTÿ]ÿ  ZÿˆÿˆÿTÿ]ÿ   ˆÿˆÿˆÿˆÿˆÿˆÿTÿ]ÿ  ˆÿˆÿQÿ    ˆÿˆÿˆÿˆÿˆÿˆÿˆÿWÿ
+ZÿPÿPÿPÿPÿPÿPÿ]ÿ    ZÿPÿ]ÿ    ZÿPÿPÿPÿPÿPÿ]ÿ   ZÿPÿ]ÿ    ZÿPÿPÿPÿPÿPÿPÿ]ÿ
 
 (/) > ls
-file information:
-        cluster:        2
-        attribute:      0x10
-        size:           1431655765
-ls: Press Enter to continue...
-ls: Determine file is directory or file.ls: Reading cluster 2.
-fat32_read_chain: Reading data from sector 8748.
-cd_read_sector: Reading sector 8748 from bin[12].
-cd_read_sector: pscan=0x969f0 &node=0x96a00 next=0x96600 pprev=0x855f0
-cd_read_sector: pscan=0x965f0 &node=0x96600 next=0x96200 pprev=0x96a00
-cd_read_sector: pscan=0x961f0 &node=0x96200 next=0x95e00 pprev=0x96600
-cd_read_sector: pscan=0x95df0 &node=0x95e00 next=0x85ac0 pprev=0x96200
-cd_read_sector: pscan=0x85ab0 &node=0x85ac0 next=0x0 pprev=0x95e00
-cd_read_sector: Read 8748 sector from cache.
-fat32_read_chain: Reading data from cluster 2.
-fat32_read_cluster: Reading logical sector 16384.
-cd_read_sector: Reading sector 16384 from bin[0].
-cd_read_sector: pscan=0x966f0 &node=0x96700 next=0x96300 pprev=0x85590
-cd_read_sector: pscan=0x962f0 &node=0x96300 next=0x95f00 pprev=0x96700
-cd_read_sector: pscan=0x95ef0 &node=0x95f00 next=0x95b00 pprev=0x96300
-cd_read_sector: pscan=0x95af0 &node=0x95b00 next=0x0 pprev=0x95f00
-cd_read_sector: Read 16384 sector from cache.
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16385.
-cd_read_sector: Reading sector 16385 from bin[1].
-cd_read_sector: pscan=0x96730 &node=0x96740 next=0x96340 pprev=0x85598
-cd_read_sector: pscan=0x96330 &node=0x96340 next=0x95f40 pprev=0x96740
-cd_read_sector: pscan=0x95f30 &node=0x95f40 next=0x95b40 pprev=0x96340
-cd_read_sector: pscan=0x95b30 &node=0x95b40 next=0x0 pprev=0x95f40
-cd_read_sector: Read 16385 sector from cache.
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16386.
-cd_read_sector: Reading sector 16386 from bin[2].
-cd_read_sector: pscan=0x96770 &node=0x96780 next=0x96380 pprev=0x855a0
-cd_read_sector: pscan=0x96370 &node=0x96380 next=0x95f80 pprev=0x96780
-cd_read_sector: pscan=0x95f70 &node=0x95f80 next=0x95b80 pprev=0x96380
-cd_read_sector: pscan=0x95b70 &node=0x95b80 next=0x0 pprev=0x95f80
-cd_read_sector: Read 16386 sector from cache.
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16387.
-cd_read_sector: Reading sector 16387 from bin[3].
-cd_read_sector: pscan=0x967b0 &node=0x967c0 next=0x963c0 pprev=0x855a8
-cd_read_sector: pscan=0x963b0 &node=0x963c0 next=0x95fc0 pprev=0x967c0
-cd_read_sector: pscan=0x95fb0 &node=0x95fc0 next=0x95bc0 pprev=0x963c0
-cd_read_sector: pscan=0x95bb0 &node=0x95bc0 next=0x0 pprev=0x95fc0
-cd_read_sector: Read 16387 sector from cache.
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16388.
-cd_read_sector: Reading sector 16388 from bin[4].
-cd_read_sector: pscan=0x967f0 &node=0x96800 next=0x96400 pprev=0x855b0
-cd_read_sector: pscan=0x963f0 &node=0x96400 next=0x96000 pprev=0x96800
-cd_read_sector: pscan=0x95ff0 &node=0x96000 next=0x95c00 pprev=0x96400
-cd_read_sector: pscan=0x95bf0 &node=0x95c00 next=0x0 pprev=0x96000
-cd_read_sector: Read 16388 sector from cache.
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16389.
-cd_read_sector: Reading sector 16389 from bin[5].
-cd_read_sector: pscan=0x96830 &node=0x96840 next=0x96440 pprev=0x855b8
-cd_read_sector: pscan=0x96430 &node=0x96440 next=0x96040 pprev=0x96840
-cd_read_sector: pscan=0x96030 &node=0x96040 next=0x95c40 pprev=0x96440
-cd_read_sector: pscan=0x95c30 &node=0x95c40 next=0x0 pprev=0x96040
-cd_read_sector: Read 16389 sector from cache.
-fat32_read_cluster: Press Enter to continue...
-fat32_read_cluster: Reading logical sector 16390.
-cd_read_sector: Reading sector 16390 from bin[6].
-cd_read_sector: pscan=0x96870 &node=0x96880 next=0x96480 pprev=0x855c0
-cd_read_sector: pscan=0x96470 &node=0x96480 next=0x96080 pprev=0x96880
-cd_read_sector: pscan=0x96070 &node=0x96080 next=0x95c80 pprev=0x96480
-cd_read_sector: pscan=0x95c70 &node=0x95c80 next=0x0 pprev=0x96080
-cd_read_sector: Read 16390 sector from cache.
-fat32_read_cluster: Press Enter to continue...
+fat32_parse_name: Parsing long name.
+ls: name = 0x6f570
+ls: dir entry:
+0x544f4f42      0x45444f43      0x204e4942      0x70e60000      0x4c794c79      0x7a680000      0x34c74 0xcb1c
+-w- 3/25/2018   14:7:12         3/20/38         15:19:16        51996   bootcode.bin
+fat32_parse_name: Parsing long name.
+ls: name = 0x6f570
+ls: dir entry:
+0x464e4f43      0x20204749      0x20545854      0x70e60000      0x4c774c79      0x7a680000      0x54c74 0x50
+-w- 3/25/2018   14:7:12         3/20/38         15:19:16        80      config.txt
+fat32_parse_name: Parsing long name.
+ls: name = 0x6f570
+ls: dir entry:
+0x55584946      0x20202050      0x20544144      0x70e60000      0x4c794c79      0x7a680000      0x64c74 0x19a7
+-w- 3/25/2018   14:7:12         3/20/38         15:19:16        6567    fixup.dat
+fat32_parse_name: Parsing long name.
+ls: name = 0x6f570
+ls: dir entry:
+0x4e52454b      0x20384c45      0x20474d49      0x70e60000      0x4c774c79      0x7a680000      0x74c74 0xa20
+-w- 3/25/2018   14:7:12         3/20/38         15:19:16        2592    kernel8.img
+fat32_parse_name: Parsing long name.
+ls: name = 0x6f570
+ls: dir entry:
+0x52415453      0x20202054      0x20464c45      0x70e66400      0x4c794c79      0x7a680000      0x84c74 0x2b0d64
+-w- 3/25/2018   14:7:22         3/20/38         15:19:16        2821476 start.elf
+fat32_parse_name: Parsing long name.
+ls: name = 0x6f570
+ls: dir entry:
+0x474f5250      0x534d4152      0x10202020      0x7d096400      0x4c794c79      0x7f530000      0x5f4c79        0x0
+dw- 3/25/2018   15:40:28        3/25/38         15:58:38        0       programs/
+fat32_parse_name: Parsing long name.
+ls: name = 0x6f570
+ls: dir entry:
+0x534152e5      0x317e2d48      0x10202020      0x7f530000      0x4c794c79      0x7f530000      0x634c79        0x0
+dw- 3/25/2018   15:58:38        3/25/38         15:58:38        0       programs//
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+(/) > ls programs
+fat32_parse_name: Parsing long name.
+fat32_parse_name: Parsing long name.
+fat32_parse_name: Parsing long name.
+fat32_parse_name: Parsing long name.
+fat32_parse_name: Parsing long name.
+fat32_parse_name: Parsing long name.
+fat32_parse_name: So the entry's first char is 0x50
+fat32_parse_name: So the entry's first char is 0x2e
+ls: name = 0x6f570
+ls: dir entry:
+0x2020202e      0x20202020      0x10202020      0x70eb0000      0x4c794c79      0x70eb0000      0x5f4c79        0x0
+dw- 3/25/2018   14:7:22         3/25/38         14:7:22         0       ./
+fat32_parse_name: So the entry's first char is 0x2e
+ls: name = 0x6f570
+ls: dir entry:
+0x20202e2e      0x20202020      0x10202020      0x70eb0000      0x4c794c79      0x70eb0000      0x4c79  0x0
+dw- 3/25/2018   14:7:22         3/25/38         14:7:22         0       ../
+fat32_parse_name: Parsing long name.
+ls: name = 0x6f570
+ls: dir entry:
+0x444145e5      0x317e454d      0x20505753      0x80166400      0x4c794c79      0x80160000      0x644c79        0x1000
+-w- 3/25/2018   16:0:54         3/25/38         16:0:44         4096    ../
+fat32_parse_name: Parsing long name.
+ls: name = 0x6f570
+ls: dir entry:
+0x44414552      0x2020454d      0x20545854      0x80166400      0x4c794c79      0x80160000      0x654c79        0x33
+-w- 3/25/2018   16:0:54         3/25/38         16:0:44         51      README.txt
+fat32_parse_name: A deleted entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: Parsing long name.
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+fat32_parse_name: An unused entry. *0x6f570 = 0
+ls: name = 0x6f570
+(/) >

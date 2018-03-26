@@ -24,13 +24,13 @@ static inline void mbr_parse(block_device *pbd, MBR_t *pmbr)
 
 	for (int n = 0, offset = 446; n < 4; offset += 16, n++) {
 		pmbr->part_entry[n].boot = *(buffer + offset);
-//		DEBUG("boot = 0x%x\n", pmbr->part_entry[n].boot);
+		//DEBUG("boot = 0x%x\n", pmbr->part_entry[n].boot);
 		pmbr->part_entry[n].type = *(buffer + offset + 4);
-//		DEBUG("type = 0x%x\n", pmbr->part_entry[n].type);
+		//DEBUG("type = 0x%x\n", pmbr->part_entry[n].type);
 		memcpy(&pmbr->part_entry[n].start, buffer + offset + 8, 4);
-//		DEBUG("start = %d\n", pmbr->part_entry[n].start);
+		//DEBUG("start = %d\n", pmbr->part_entry[n].start);
 		memcpy(&pmbr->part_entry[n].part_size, buffer + offset + 12, 4);
-//		DEBUG("size = %d\n\n", pmbr->part_entry[n].part_size);
+		//DEBUG("size = %d\n\n", pmbr->part_entry[n].part_size);
 	}
 }
 
@@ -65,27 +65,27 @@ fat32_t *fat32_init(block_device *pbd)
 	ebpb_parse(pbd, &mbr, &ebpb);
 
 	pfat32->fat_start = mbr.part_entry[0].start + ebpb.reserved_size;
-//	DEBUG("fat_start = %d\n", pfat32->fat_start);
+	//DEBUG("fat_start = %d\n", pfat32->fat_start);
 	
 	memcpy(&pfat32->sector_size, &ebpb.sector_size, 2);
-//	DEBUG("sector_size = %d\n", pfat32->sector_size);
+	//DEBUG("sector_size = %d\n", pfat32->sector_size);
 
 	pfat32->cluster_size = ebpb.cluster_size;
-//	DEBUG("cluster_size = %d\n", pfat32->cluster_size);
+	//DEBUG("cluster_size = %d\n", pfat32->cluster_size);
 
 	pfat32->root_cluster = ebpb.root_cluster;
-//	DEBUG("root_cluster = %d\n", pfat32->root_cluster);
+	//DEBUG("root_cluster = %d\n", pfat32->root_cluster);
 
-//	DEBUG("#FATs = %d\n", ebpb.fats);
+	//DEBUG("#FATs = %d\n", ebpb.fats);
 	
 	ebpb.system_id[6] = '\0';
-//	DEBUG("system id = %s\n", ebpb.system_id);
+	//DEBUG("system id = %s\n", ebpb.system_id);
 
 	pfat32->fat_size = ebpb.fat_size;
-//	DEBUG("fat_size = %d\n", pfat32->fat_size);
+	//DEBUG("fat_size = %d\n", pfat32->fat_size);
 
 	pfat32->data_start = pfat32->fat_start + ebpb.fats * ebpb.fat_size;
-//	DEBUG("data_start = %d\n", pfat32->data_start);
+	//DEBUG("data_start = %d\n", pfat32->data_start);
 
 	pcd = &pfat32->device;
 	pcd->device = *pbd;
@@ -102,18 +102,21 @@ size_t fat32_read_cluster(fat32_t *pfat32, size_t c_index, char *buffer)
 	uint32_t cluster_size = pfat32->cluster_size;
 	uint32_t sector_size = pfat32->sector_size;
 	size_t result = 0;
+	
+	// why the cluster number of the sub-directory of root directory is ZERO?
+	c_index = c_index < 2 ? 2 : c_index;
 
 	for (uint32_t i = 0; i < cluster_size; i++) {
 
-//		DEBUG("Reading logical sector %d.\n",
-//				pfat32->data_start + cluster_size * (c_index - 2) + i);
+		//DEBUG("Reading logical sector %d.\n",
+		//		pfat32->data_start + cluster_size * (c_index - 2) + i);
 
 		result += cd_read_sector(&pfat32->device,
 				pfat32->data_start + cluster_size * (c_index - 2) + i,
 				buffer + i * sector_size);
 	}
 
-//	DEBUG("Total %d bytes read.\n", result);
+	//DEBUG("Total %d bytes read.\n", result);
 
 	return result;
 }
@@ -139,19 +142,19 @@ size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, char **pbuf)
 	if (buf_entry == NULL)
 		return 0;
 
-//	DEBUG("Reading data from sector %d.\n", fat_start + distance);
+	//DEBUG("Reading data from sector %d.\n", fat_start + distance);
 
 	if (cd_read_sector(pcd, fat_start + distance, (char *)buf_entry) <= 0)
 		panic("Can't read any directory entry at sector %d.\n",
 				fat_start + distance);
 	next_index = buf_entry[c_index % sector_size] & FAT32_ENTRY_MASK;
 	
-/*//	DEBUG("&buf_entry = 0x%x\n", buf_entry);
-	for (int i = 0; i < 16; i++) {
-		kprintf("0x%x\t", *((uint32_t *)buf_entry + i));
-		if ((i + 1) % 8 == 0)
-			kprintf("\n");
-	}*/
+	//DEBUG("&buf_entry = 0x%x\n", buf_entry);
+	//for (int i = 0; i < 16; i++) {
+	//	kprintf("0x%x\t", *((uint32_t *)buf_entry + i));
+	//	if ((i + 1) % 8 == 0)
+	//		kprintf("\n");
+	//}
 
 	// unused cluster
 
@@ -168,11 +171,11 @@ size_t fat32_read_chain(fat32_t *pfat32, size_t c_start, char **pbuf)
 	while (1) {
 		// read the specific cluster data to the tail of buffer
 
-//		DEBUG("Reading data from cluster %d.\n", c_index);
+		//DEBUG("Reading data from cluster %d.\n", c_index);
 	
 		result += fat32_read_cluster(pfat32, c_index, *pbuf + result);
 
-//		DEBUG("next entry = 0x%x\n", next_index);
+		//DEBUG("next entry = 0x%x\n", next_index);
 		
 		// not EOC
 		
@@ -229,18 +232,29 @@ dir_entry_t *fat32_find_entry(const char *name, dir_entry_t *pdir_entry, size_t 
 
 	while (c < length) {
 		lfn_entrys = fat32_parse_name(pdir_entry + c, buffer);
+		
+		c += lfn_entrys;
+		
+		//DEBUG("Parsed name \"%s\" with %d long file name entries\n", buffer, lfn_entrys);
 
-		if (buffer[0] == '\0')
-			c += lfn_entrys + 1;
-		else {
+		// If directory is NOT deleted, determine it is unused or not.
+		// If it is unused, break and return. Otherwise, compare it's name with
+		// the directory caller finding.
+		// If it is, return it's regular directory entry address by adding offset
+		// @c with base address @pdir_entry. If it is not, goto next directory entry.
+		if (((uint8_t)(pdir_entry[c].reg_dir.name[0]) != 0xe5) &&
+			((uint8_t)(pdir_entry[c].reg_dir.name[0]) != 0x05)) {
+			if ((uint8_t)(pdir_entry[c].reg_dir.name[0]) == 0)
+				break;
 
+			//DEBUG("Comparing \"%s\" and \"%s\"\n", name, buffer);
 			if (strcmp(name, buffer) == 0) {
-				fat32_parse_name(pdir_entry + c + lfn_entrys, buffer);
-				return pdir_entry + c + lfn_entrys;
+				// fat32_parse_name(pdir_entry + c, buffer);
+				return pdir_entry + c;
 			}
-			
-			c += lfn_entrys + 1;
 		}
+			
+		c++;
 	}
 	
 	return NULL;
@@ -252,8 +266,10 @@ size_t fat32_parse_name(dir_entry_t *pdir_entry, char *buffer)
 	int index = 0, point_index = 0;
 	char temp[7];
 
-	if (FAT32_IS_LNF(pdir_entry->reg_dir.attribute)) {
-		while (FAT32_IS_LNF(pdir_entry[lfn_entrys].lnf_dir.attribute)) {
+	if (FAT32_IS_LFN(pdir_entry->reg_dir.attribute)) {		
+		//DEBUG("Parsing long name file directory.\n");
+		
+		while (FAT32_IS_LFN(pdir_entry[lfn_entrys].lnf_dir.attribute)) {
 			char *p = buffer + 13 * ((pdir_entry[lfn_entrys].lnf_dir.seq_number & 0x1f) - 1);
 			
 			strncpy(p, utf16ntoascii(temp, pdir_entry[lfn_entrys].lnf_dir.name1, 10), 5);
@@ -262,16 +278,12 @@ size_t fat32_parse_name(dir_entry_t *pdir_entry, char *buffer)
 			
 			lfn_entrys++;
 		}
-	} else if ((uint8_t)pdir_entry->reg_dir.name[0] == 0xe5) {
-//		DEBUG("A deleted entry.\n");
-		buffer[0] = '\0';
-	} else {
-
-//		DEBUG("A regular entry with:\n");
-
+	} else {		
+		//DEBUG("Parsing regular directory.\n");
+		
 		// get directory entry name and make @index be index of '\0' or equal to 8
 		while (index < 8) {
-			if (pdir_entry->reg_dir.name[index] == '\0')
+			if (pdir_entry->reg_dir.name[index] == ' ')
 				break;
 			index++;
 		}
@@ -280,14 +292,14 @@ size_t fat32_parse_name(dir_entry_t *pdir_entry, char *buffer)
 		strncpy(buffer, pdir_entry->reg_dir.name, index);
 		
 		// if extension is NOT empty
-		if (pdir_entry->reg_dir.extension[0] != '\0') {
+		if (pdir_entry->reg_dir.extension[0] != ' ') {
 			point_index = index;
 			index = 0;
 			buffer[point_index] = '.';
 			
 			// get extension name and make @index be index of '\0' or equal to 3
 			while (index < 3) {
-				if (pdir_entry->reg_dir.name[index] == '\0')
+				if (pdir_entry->reg_dir.name[index] == ' ')
 					break;
 				index++;
 			}
@@ -337,6 +349,10 @@ file *fat32_open(fat32_t *pfat32, const char *path)
 
 			// copy the directory entry found and free current entries
 			free(pdir_entry);
+			
+			//DEBUG("Reading cluster %d.\n",
+			//      (uint32_t)(dir_sub_bk.reg_dir.cluster_high << 16) +
+			//      dir_sub_bk.reg_dir.cluster_low);
 
 			// read next directory entry
 			dirs = fat32_read_chain(pfat32,
@@ -350,9 +366,16 @@ file *fat32_open(fat32_t *pfat32, const char *path)
 			return NULL;
 		}
 
-		// DEBUG("Finding sub-directory in 0x%x.\n", pdir_entry);
+		//DEBUG("Finding sub-directory \"%s\".\n", path_part);
+		
 		pdir_sub = fat32_find_entry(path_part, pdir_entry, dirs);
-
+		
+		//DEBUG("pdir_sub:\n");
+		//for (int i = 0; i < 8; i++) {
+		//	kprintf("0x%x\t", ((uint32_t *)(pdir_sub))[i]);
+		//}
+		//kprintf("\n");
+		
 		// no corresponding entry in directory entries
 		if (pdir_sub == NULL)
 			goto fat32_open_return;

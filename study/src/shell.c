@@ -164,7 +164,7 @@ void cat(char (*array)[ARG_LIMIT], unsigned int num)
 			return;
 		}
 	
-		file_info(pf);
+		// file_info(pf);
 
 		if (FAT32_IS_DIR(pf->attribute)) {
 			kprintf("it's a directory: %s\n", array[i]);
@@ -172,8 +172,29 @@ void cat(char (*array)[ARG_LIMIT], unsigned int num)
 		}
 
 		size = fat32_read_chain(pfat32_global, pf->cluster, &data);
-		data[size] = '\0';
-		kprintf("%s\n", data);
+		if (data == NULL || size == 0)
+			continue;
+
+		for (size_t j = 0; j < size; j++)
+			if ((uint8_t)(data[j]) != 0xff && (uint8_t)(data[j] & 0x80)) {
+				DEBUG("data[%d] = 0x%x\n", j, data[j]);
+				kprintf("error processing \'%s\': invalid UTF-8\n", array[i]);
+				// goto cat_free_next;
+				break;
+			}
+
+		size_t k = 0;
+		while ((uint8_t)(data[k]) != 0xff && k < 256) {
+			kprintf("0x%x ", data[k]);
+			//mu_write_byte(data[k]);
+			//if (data[k] == '\n')
+			//	mu_write_byte('\r');
+			k++;
+		}
+		
+// cat_free_next:
+
+		free(data);
 	}
 }
 
@@ -191,8 +212,7 @@ void cd(char (*array)[ARG_LIMIT], unsigned int num)
 		return;
 	}
 
-	path_filte(cwd_temp, array[0]);
-//	DEBUG("filted path = %s\n", cwd_temp);
+	to_abs_path(cwd_temp, array[0]);
 
 	pf = fat32_open(pfat32_global, cwd_temp);
 	
@@ -201,16 +221,17 @@ void cd(char (*array)[ARG_LIMIT], unsigned int num)
 		return;
 	}
 	
-	//file_info(pf);
+	// file_info(pf);
 
 	if (!FAT32_IS_DIR(pf->attribute)) {
-//		DEBUG("attribute = 0x%x\n", pf->attribute);
-		kprintf("not a directory: %s\n", cwd_temp);
+		// DEBUG("attribute = 0x%x\n", pf->attribute);
+		kprintf("not a directory: %s\n", array[0]);
 		return;
 	}
 
+	path_simplify(cwd_temp);
 	strcpy(cwd(), cwd_temp);
-
+	
 	free(pf);
 
 	return;
@@ -233,19 +254,20 @@ void ls(char (*array)[ARG_LIMIT], unsigned int num)
 	char attribute[4] = "---";
 
 	if (num == 1) {
-		if (!strcmp("-a", array[0]))
+		if (!strcmp("-a", array[0])) {
 			show_hidden = true;
-		else
-			path_filte(path, array[0]);
+			strcpy(path, cwd());
+		} else
+			to_abs_path(path, array[0]);
 	} else if (num == 2) {
 		if (!strcmp("-a", array[0])) {
 			show_hidden = true;
 			temp = array[1];
-			path_filte(path, array[1]);
+			to_abs_path(path, array[1]);
 		} else if (!strcmp("-a", array[1])) {
 			show_hidden = true;
 			temp = array[0];
-			path_filte(path, array[0]);
+			to_abs_path(path, array[0]);
 		} else {
 			kprintf("too many arguments\n");
 			return;
@@ -261,38 +283,51 @@ void ls(char (*array)[ARG_LIMIT], unsigned int num)
 		return;
 	}
 	
-//	file_info(pf);
+	//file_info(pf);
 	
-//	DEBUG("Determine file is directory or file.\n");
+	//DEBUG("Determine file is directory or file.\n");
 		
 	if (!FAT32_IS_DIR(pf->attribute)) {
 		kprintf("it is not a directory: %s\n", temp);
+		free(pf);
 		return;
 	}
 
-//	DEBUG("Reading cluster %d.\n", pf->cluster);
+	//DEBUG("Reading cluster %d.\n", pf->cluster);
 	
-	// char ** cast may cause unaligned access!!!!!!!!!!!!!!!!!!!!!!!!!!
 	dirs = fat32_read_chain(pfat32_global, pf->cluster, (char **)(&pdir_entry)) /
 		sizeof(dir_entry_t);
 
-//	DEBUG("%d directory entries read.\n", dirs);
+	//DEBUG("%d directory entries read.\n", dirs);
 		
 	while (index < dirs) {
 		lfn_entrys = fat32_parse_name(&pdir_entry[index], name);
 
 		index += lfn_entrys;
-
-		// the entry has already deleted.
-		if (name[0] == '\0') {
+		
+		// If entry has already been deleted, goto next entry.
+		if ((uint8_t)(pdir_entry[index].reg_dir.name[0]) == 0xe5 ||
+			(uint8_t)(pdir_entry[index].reg_dir.name[0]) == 0x05) {
 			index++;
 			continue;
 		}
+		
+		// If entry indicates the following entries are unused, break.
+		if ((uint8_t)(pdir_entry[index].reg_dir.name[0]) == 0)
+			break;
 
 		if (!show_hidden && FAT32_IS_HIDDEN(pdir_entry[index].reg_dir.attribute)) {
 			index++;
 			continue;
 		}
+
+		/*
+		DEBUG("dir entry:\n");
+		for (int i = 0; i < 8; i++) {
+			kprintf("0x%x\t", ((uint32_t *)(pdir_entry + index))[i]);
+		}
+		kprintf("\n");
+		*/
 
 		uint8_t attr = pdir_entry[index].reg_dir.attribute;
 		uint16_t creation_time = pdir_entry[index].reg_dir.creation_time;
@@ -330,6 +365,8 @@ void ls(char (*array)[ARG_LIMIT], unsigned int num)
 		strcpy(attribute, "---");
 	}
 
+	if (pdir_entry != NULL)
+		free(pdir_entry);
 	free(pf);
 }
 

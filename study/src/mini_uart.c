@@ -59,7 +59,11 @@ int mu_read_fifo(unsigned char * c)
 void mu_write_str(const char * str)
 {
 	unsigned long index = 0;
-	while (str[index] != '\0')
-		mu_write_byte(str[index++]);
+	while (str[index] != '\0') {
+		mu_write_byte(str[index]);
+		if (str[index] == '\n')
+			mu_write_byte('\r');
+		index++;
+	}
 }
 

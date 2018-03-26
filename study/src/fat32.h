@@ -16,10 +16,12 @@
 #define FAT32_MINUTE_MASK		0x07e0
 #define FAT32_SECOND_MASK		0x001f
 
+#define FD_TABLE_MAX			64
+
 #define FAT32_IS_HIDDEN(attribute)												\
 	(attribute & 0x02)
 
-#define FAT32_IS_LNF(attribute)													\
+#define FAT32_IS_LFN(attribute)													\
 	(attribute == 0x0f)
 
 #define FAT32_IS_ARCH(attribute)												\
@@ -177,10 +179,12 @@ size_t fat32_read_chain (fat32_t *pfat32, size_t c_start, char **pbuf);
 dir_entry_t *fat32_find_entry (const char *name, dir_entry_t *pdir_entry, size_t length);
 
 /*
- * Return an offset of regular_dir_entry from @pdir_entry.
+ * Return an offset of regular_dir_entry from @pdir_entry. Parse entry name and copy
+ * to buffer.
  *
- * NOTE: the directory entry name's first byte indicates the directory is deleted or
- * not.
+ * NOTE: The directory entry name's first byte indicates the directory is deleted or
+ * not. This function DO NOT determine the entry is deleted/used or not. Just return
+ * a name string.
  */
 size_t fat32_parse_name (dir_entry_t *pdir_entry, char *buffer);
 

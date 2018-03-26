@@ -25,7 +25,7 @@ int kprintf(const char *fmt, ...)
 int __kprintf(const char *str, va_list args)
 {
 	unsigned strIndex = 0;
-	char c, temp[32];
+	char c, temp[32], c2;
 
 	while ((c = str[strIndex++]) != '\0') {
 		switch (c) {
@@ -38,7 +38,10 @@ int __kprintf(const char *str, va_list args)
 						mu_write_str(va_arg(args, char *));
 						break;
 					case 'c':
-						mu_write_byte((char)va_arg(args, int));
+						c2 = (char)va_arg(args, int);
+						mu_write_byte(c2);
+						if (c == '\n')
+							mu_write_byte('\r');
 						break;
 					case 'x':
 						mu_write_str(itoh(va_arg(args, long unsigned int), temp));
