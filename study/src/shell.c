@@ -175,24 +175,19 @@ void cat(char (*array)[ARG_LIMIT], unsigned int num)
 		if (data == NULL || size == 0)
 			continue;
 
-		for (size_t j = 0; j < size; j++)
-			if ((uint8_t)(data[j]) != 0xff && (uint8_t)(data[j] & 0x80)) {
-				DEBUG("data[%d] = 0x%x\n", j, data[j]);
+		for (size_t j = 0; j < pf->size; j++)
+			if ((uint8_t)(data[j]) & 0x80) {
 				kprintf("error processing \'%s\': invalid UTF-8\n", array[i]);
-				// goto cat_free_next;
-				break;
+				goto cat_free_next;
 			}
 
-		size_t k = 0;
-		while ((uint8_t)(data[k]) != 0xff && k < 256) {
-			kprintf("0x%x ", data[k]);
-			//mu_write_byte(data[k]);
-			//if (data[k] == '\n')
-			//	mu_write_byte('\r');
-			k++;
+		for (size_t j = 0; j < pf->size; j++) {
+			mu_write_byte(data[j]);
+			if (data[j] == '\n')
+				mu_write_byte('\r');
 		}
-		
-// cat_free_next:
+
+cat_free_next:
 
 		free(data);
 	}
