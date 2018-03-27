@@ -7,7 +7,7 @@
 
 static void jump_to(char *);
 
-int kernel_main(void)
+int kmain(void)
 {
     mu_init();
 

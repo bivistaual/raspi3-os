@@ -5,12 +5,11 @@
 #include "sdcard.h"
 #include "device.h"
 #include "system_timer.h"
-
 #include "malloc.h"
 
 fat32_t *pfat32_global;
 
-int kernel_main(void)
+void kmain(void)
 {
 	block_device bd = {512, sd_init, sd_readsector};
 
@@ -29,5 +28,5 @@ int kernel_main(void)
 	
 	shell_loop();
 
-	return 0;
+	while (1);
 }

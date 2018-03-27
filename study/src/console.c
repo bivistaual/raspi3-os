@@ -136,11 +136,11 @@ void __panic(const char *file, int line, const char *func, const char *fmt, ...)
 
 #ifdef DUMP_STACK
 
-	uint32_t *current_stack_point;
+	uint32_t *current_stack_pointer;
 
 	__asm__(
 		"mov %0, sp"
-		:"=r"(current_stack_point)
+		:"=r"(current_stack_pointer)
 	);
 
 	kprintf("\n\nSTACK DUMP FROM ADDRESS 0x%x:\n\n", (uint32_t)current_stack_point);
