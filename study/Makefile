@@ -19,9 +19,9 @@ TTYWRITE = ./ttywrite
 BOOTLOADER = $(BIN_DIR)/bootloader
 KERNEL = $(BIN_DIR)/shell
 
-KERNEL_OBJS = aarch64.o path.o sdcard.o string.o kmain.o device.o hashmap.o assert.o malloc.o shell.o system_timer.o console.o start.o mini_uart.o atags.o fat32.o
+KERNEL_OBJS = exception.o aarch64.o path.o sdcard.o string.o kmain.o device.o hashmap.o assert.o malloc.o shell.o system_timer.o console.o start.o mini_uart.o atags.o fat32.o
 
-BOOTLOADER_OBJS = bootloader.o string.o xmodem.o system_timer.o start.o mini_uart.o
+BOOTLOADER_OBJS = console.o exception.o bootloader.o string.o xmodem.o system_timer.o start.o mini_uart.o
 
 KERNEL_DEPS = $(foreach n, $(KERNEL_OBJS), $(OBJ_DIR)/$(n))
 BOOTLOADER_DEPS = $(foreach n, $(BOOTLOADER_OBJS), $(OBJ_DIR)/$(n))

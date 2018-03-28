@@ -90,6 +90,8 @@ switch_to_el1:
 
     // set up exception handlers
     // FIXME: load `_vectors` addr into appropriate register (guide: 10.4)
+	adr		x2, _vectors
+	msr		VBAR_EL1, x2
 
     // change execution level to EL1 (ref: C5.2.19)
     mov     x2, #0x3c5
@@ -123,22 +125,44 @@ go_kmain:
 
 context_save:
     // FIXME: Save the remaining context to the stack.
+	stp		x30, x1, [SP, #-32]!
+	str		x2, [SP, #16]
+	mrs		x1, ESR_EL1
+	mov		x2, #0
+	bl		handle_exception
 
 .global context_restore
 context_restore:
     // FIXME: Restore the context from the stack.
-
+	ldr		x2, [SP, #16]
+	ldp		x30, x1, [SP], #32
     ret
 
-#define HANDLER(source, kind) \
-    .align 7; \
-    stp     lr, x0, [SP, #-16]!; \
-    mov     x0, ##source; \
-    movk    x0, ##kind, LSL #16; \
-    bl      context_save; \
-    ldp     lr, x0, [SP], #16; \
+#define HANDLER(source, kind)													\
+    .align 7;																	\
+    stp     x30, x0, [SP, #-16]!;												\
+    mov     x0, ##source;														\
+    movk    x0, ##kind, LSL #16;												\
+    bl      context_save;														\
+    ldp     x30, x0, [SP], #16;													\
     eret
 
 .align 11
 _vectors:
     // FIXME: Setup the 16 exception vectors.
+	HANDLER(#0, #0);
+	HANDLER(#0, #1);
+	HANDLER(#0, #2);
+	HANDLER(#0, #3);
+	HANDLER(#1, #0);
+	HANDLER(#1, #1);
+	HANDLER(#1, #2);
+	HANDLER(#1, #3);
+	HANDLER(#2, #0);
+	HANDLER(#2, #1);
+	HANDLER(#2, #2);
+	HANDLER(#2, #3);
+	HANDLER(#3, #0);
+	HANDLER(#3, #1);
+	HANDLER(#3, #2);
+	HANDLER(#3, #3);

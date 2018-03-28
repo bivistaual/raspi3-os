@@ -25,7 +25,11 @@ void kmain(void)
 		panic("Can't initialize SD card!");
 
 	pfat32_global = fat32_init(&bd);
-	
+
+	__asm__ __volatile__(
+		"brk 2;"
+	);
+
 	shell_loop();
 
 	while (1);
