@@ -30,7 +30,10 @@ void kmain(void)
 		"brk 2;"
 	);
 
-	shell_loop();
+	kprintf("\nWelcome to raspberry pi 3b shell!\n\n");
+	display_bvstl();
+	kprintf("\n");
 
-	while (1);
+	while (1)
+		shell_start("> ");
 }

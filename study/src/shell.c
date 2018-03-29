@@ -19,25 +19,33 @@ extern fat32_t *pfat32_global;
 static inline void fat32_info(void);
 static inline void file_info(file *pfile);
 
-int shell_loop(void)
+int shell_start(char *prefix)
 {
 	char buffer[CMD_LIMIT];
 	Cmd command;
 	
 	command.capacity = ARG_CAPACITY;
 	command.length = 0;
-
-	kprintf("\nWelcome to raspberry pi 3b shell!\n\n");
-	display_bvstl();
-	kprintf("\n");
+	strcpy(cwd(), "/");
 
 	while (1) {
-		kprintf("(%s) > ", cwd());
+		kprintf("(%s) %s", cwd(), prefix);
 		if (read_cmd(buffer) == NULL)
 			continue;
 		if (parse_cmd(&command, buffer) <= 0)
 			continue;
-		exe_cmd(&command);
+		if (exe_cmd(&command) == 0)
+			break;
+	}
+
+	return 0;
+}
+
+int shell_exit(int argc)
+{
+	if (argc != 1) {
+		kprintf("too many arguments\n");
+		return 1;
 	}
 
 	return 0;
@@ -126,10 +134,12 @@ int exe_cmd(Cmd * pCmd)
 		fat32_info();
 	else if (!strcmp(pCmd->arg[0], "malloc"))
 		test_malloc();
+	else if (!strcmp(pCmd->arg[0], "exit"))
+		return shell_exit(pCmd->length);
 	else
 		kprintf("unknow command: %s\n", pCmd->arg[0]);
 
-	return 0;
+	return 1;
 }
 
 void echo(char (*array)[ARG_LIMIT], unsigned int num)

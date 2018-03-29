@@ -13,11 +13,29 @@
 #define KIND_FIQ			2
 #define KIND_SERROR			3
 
+#define EC_FROM_ESR(esr)	(esr & 0xfc000000)
+
+#define EC_DATA_ABORT_SAME	(0b100101 << 26)
+#define EC_SVC_AARCH64		(0b010101 << 26)
+#define EC_BRK				(0b111100 << 26)
+
 struct info {
 	uint16_t	source;
 	uint16_t	kind;
 };
 
-void handle_exception(struct info i, uint32_t esr, uint8_t *tp);
+struct trap_frame {
+	uint64_t ELR;
+	uint64_t SPSR;
+	uint64_t SP;
+	uint64_t TPIDR;
+	__uint128_t q[32];
+	uint64_t x1[30];
+	uint64_t reserved;
+	uint64_t x30;
+	uint64_t x0;
+};
+
+void handle_exception(struct info i, uint32_t esr, void *tp);
 
 #endif

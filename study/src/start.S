@@ -42,13 +42,13 @@ switch_to_el2:
     mov     x2, #0x5b1
     msr     SCR_EL3, x2
 
-    // 2. set-up SPSR and PL switch! (bits 0, 3, 6, 7, 8, 9) (ref: C5.2.20)
+    // 2. set-up spSR and PL switch! (bits 0, 3, 6, 7, 8, 9) (ref: C5.2.20)
     //	mask watchpoint, Breakpoint, and Software Step exceptions targeted
     //	at the current Exception level，SError irq, IRQ FIQ,
     //	set the exception level to return to,
-    //	make SP linked to ELx
+    //	make sp linked to ELx
     mov     x2, #0x3c9
-    msr     SPSR_EL3, x2
+    msr     spSR_EL3, x2
     adr     x2, switch_to_el1
     msr     ELR_EL3, x2
     eret
@@ -61,7 +61,7 @@ switch_to_el1:
     // so now, switch to EL1
 
     // set the stack-pointer for EL1
-    msr     SP_EL1, x1
+    msr     sp_EL1, x1
 
     // enable CNTP for EL1/EL0 (ref: D7.5.2, D7.5.13)
     // NOTE: This doesn't actually enable the counter stream.
@@ -89,15 +89,15 @@ switch_to_el1:
     msr     SCTLR_EL1, x2
 
     // set up exception handlers
-    // FIXME: load `_vectors` addr into appropriate register (guide: 10.4)
+    // load `_vectors` addr into appropriate register (guide: 10.4)
 	adr		x2, _vectors
 	msr		VBAR_EL1, x2
 
     // change execution level to EL1 (ref: C5.2.19)
     mov     x2, #0x3c5
-    msr     SPSR_EL2, x2
+    msr     spSR_EL2, x2
     
-    // FIXME: Return to EL1 at `set_stack`.
+    // return to EL1 at `set_stack`.
     adr     x2, set_stack
     msr     ELR_EL2, x2
     eret
@@ -124,32 +124,109 @@ go_kmain:
     b       halt
 
 context_save:
-    // FIXME: Save the remaining context to the stack.
-	stp		x30, x1, [SP, #-32]!
-	str		x2, [SP, #16]
+    // Save the remaining context to the stack.
+	sub		sp, sp, #0xf0
+	stp		x1, x2, [sp]
+	stp		x3, x4, [sp, #0x10]
+	stp		x5, x6, [sp, #0x20]
+	stp		x7, x8, [sp, #0x30]
+	stp		x9, x10, [sp, #0x40]
+	stp		x11, x12, [sp, #0x50]
+	stp		x13, x14, [sp, #0x60]
+	stp		x15, x16, [sp, #0x70]
+	stp		x17, x18, [sp, #0x80]
+	stp		x19, x20, [sp, #0x90]
+	stp		x21, x22, [sp, #0xa0]
+	stp		x23, x24, [sp, #0xb0]
+	stp		x25, x26, [sp, #0xc0]
+	stp		x27, x28, [sp, #0xd0]
+	str		x29, [sp, #0xe0]
+	sub		sp, sp, #0x100
+	stp		q16, q17, [sp]
+	stp		q18, q19, [sp, #0x20]
+	stp		q20, q21, [sp, #0x40]
+	stp		q22, q23, [sp, #0x60]
+	stp		q24, q25, [sp, #0x80]
+	stp		q26, q27, [sp, #0xa0]
+	stp		q28, q29, [sp, #0xc0]
+	stp		q30, q31, [sp, #0xe0]
+	sub		sp, sp, #0x100
+	stp		q0, q1, [sp]
+	stp		q2, q3, [sp, #0x20]
+	stp		q4, q5, [sp, #0x40]
+	stp		q6, q7, [sp, #0x60]
+	stp		q8, q9, [sp, #0x80]
+	stp		q10, q11, [sp, #0xa0]
+	stp		q12, q13, [sp, #0xc0]
+	stp		q14, q15, [sp, #0xe0]
+	mrs		x1, ELR_EL1
+	mrs		x2, SPSR_EL1
+	stp		x1, x2, [sp, #-32]!
+	mrs		x1, SP_EL0
+	mrs		x2, TPIDR_EL0
+	stp		x1, x2, [sp, #16]
 	mrs		x1, ESR_EL1
-	mov		x2, #0
+	mov		x2, sp
+	str		x30, [sp, #-16]!
 	bl		handle_exception
 
 .global context_restore
 context_restore:
-    // FIXME: Restore the context from the stack.
-	ldr		x2, [SP, #16]
-	ldp		x30, x1, [SP], #32
-    ret
-
+    // Restore the context from the stack.
+	ldr		x30, [sp], #16
+	ldp		x1, x2, [sp], #32
+	msr		ELR_EL1, x1
+	msr		SPSR_EL1, x2
+	ldp		x1, x2, [sp, #-16]
+	msr		SP_EL0, x1
+	msr		TPIDR_EL0, x2
+	ldp		q0, q1, [sp]
+	ldp		q2, q3, [sp, #0x20]
+	ldp		q4, q5, [sp, #0x40]
+	ldp		q6, q7, [sp, #0x60]
+	ldp		q8, q9, [sp, #0x80]
+	ldp		q10, q11, [sp, #0xa0]
+	ldp		q12, q13, [sp, #0xc0]
+	ldp		q14, q15, [sp, #0xe0]
+	add		sp, sp, #0x100
+	ldp		q16, q17, [sp]
+	ldp		q18, q19, [sp, #0x20]
+	ldp		q20, q21, [sp, #0x40]
+	ldp		q22, q23, [sp, #0x60]
+	ldp		q24, q25, [sp, #0x80]
+	ldp		q26, q27, [sp, #0xa0]
+	ldp		q28, q29, [sp, #0xc0]
+	ldp		q30, q31, [sp, #0xe0]
+	add		sp, sp, #0xf0
+	ldp		x1, x2, [sp]
+	ldp		x3, x4, [sp, #0x10]
+	ldp		x5, x6, [sp, #0x20]
+	ldp		x7, x8, [sp, #0x30]
+	ldp		x9, x10, [sp, #0x40]
+	ldp		x11, x12, [sp, #0x50]
+	ldp		x13, x14, [sp, #0x60]
+	ldp		x15, x16, [sp, #0x70]
+	ldp		x17, x18, [sp, #0x80]
+	ldp		x19, x20, [sp, #0x90]
+	ldp		x21, x22, [sp, #0xa0]
+	ldp		x23, x24, [sp, #0xb0]
+	ldp		x25, x26, [sp, #0xc0]
+	ldp		x27, x28, [sp, #0xd0]
+	ldr		x29, [sp, #0xe0]
+	ret
+	
 #define HANDLER(source, kind)													\
     .align 7;																	\
-    stp     x30, x0, [SP, #-16]!;												\
+    stp     x30, x0, [sp, #-16]!;												\
     mov     x0, ##source;														\
     movk    x0, ##kind, LSL #16;												\
     bl      context_save;														\
-    ldp     x30, x0, [SP], #16;													\
+    ldp     x30, x0, [sp], #16;													\
     eret
 
 .align 11
 _vectors:
-    // FIXME: Setup the 16 exception vectors.
+    // Setup the 16 exception vectors.
 	HANDLER(#0, #0);
 	HANDLER(#0, #1);
 	HANDLER(#0, #2);

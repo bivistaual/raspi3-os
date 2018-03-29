@@ -8,7 +8,9 @@ typedef struct {
 	unsigned int length;
 }	Cmd;
 
-int shell_loop (void);
+int shell_start (char *);
+
+int shell_exit (int);
 
 char *read_cmd (char *);
 
