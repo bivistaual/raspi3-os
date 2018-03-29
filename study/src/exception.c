@@ -12,10 +12,12 @@ void handle_exception(struct info i, uint32_t esr, void *tp)
 		case KIND_SYNCHRONOUS:
 			switch (i.source) {
 				case SOURCE_SPELX:
+				case SOURCE_AARCH64:
 					switch (EC_FROM_ESR(esr)) {
 						case EC_DATA_ABORT_SAME:
 							// FIXME: data abort
 							//DEBUG("Data abort because of code: 0x%x\n", esr & 0x3f);
+							while (1);
 							break;
 						case EC_BRK:
 							// FIXME: start a debug shell
@@ -28,6 +30,8 @@ void handle_exception(struct info i, uint32_t esr, void *tp)
 							DEBUG("svc detected.\n");
 							break;
 						default:
+							DEBUG("unknow error.\n");
+							while (1);
 							break;
 					}
 					break;

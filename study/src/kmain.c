@@ -7,6 +7,7 @@
 #include "system_timer.h"
 #include "malloc.h"
 #include "scheduler.h"
+#include "aarch64.h"
 
 fat32_t *pfat32_global;
 scheduler *pscheduler_global;
@@ -32,27 +33,7 @@ void kmain(void)
 
 	pscheduler_global = scheduler_init();
 
-	__asm__ __volatile__(
-		"brk 1;"
-		"brk 2;"
-	);
-
-	shell_start("user0> ");
-	
-	__asm__ __volatile__(
-		"brk 3;"
-	);
-	
-	kprintf("\nWelcome to raspberry pi 3b shell!\n\n");
-	display_bvstl();
-	kprintf("\n");
-
-	shell_start("user1> ");
-
 	scheduler_start(pscheduler_global, shell);
-
-	while (1)
-		shell_start("> ");
 }
 
 static void shell(void)
@@ -71,7 +52,7 @@ static void shell(void)
 	kprintf("\nWelcome to raspberry pi 3b shell!\n\n");
 	display_bvstl();
 	kprintf("\n");
-
+	
 	while (1)
 		shell_start("user1> ");
 }
