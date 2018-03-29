@@ -42,13 +42,13 @@ switch_to_el2:
     mov     x2, #0x5b1
     msr     SCR_EL3, x2
 
-    // 2. set-up spSR and PL switch! (bits 0, 3, 6, 7, 8, 9) (ref: C5.2.20)
+    // 2. set-up SPSR and PL switch! (bits 0, 3, 6, 7, 8, 9) (ref: C5.2.20)
     //	mask watchpoint, Breakpoint, and Software Step exceptions targeted
     //	at the current Exception level，SError irq, IRQ FIQ,
     //	set the exception level to return to,
     //	make sp linked to ELx
     mov     x2, #0x3c9
-    msr     spSR_EL3, x2
+    msr     SPSR_EL3, x2
     adr     x2, switch_to_el1
     msr     ELR_EL3, x2
     eret
@@ -61,7 +61,7 @@ switch_to_el1:
     // so now, switch to EL1
 
     // set the stack-pointer for EL1
-    msr     sp_EL1, x1
+    msr     SP_EL1, x1
 
     // enable CNTP for EL1/EL0 (ref: D7.5.2, D7.5.13)
     // NOTE: This doesn't actually enable the counter stream.
@@ -95,7 +95,7 @@ switch_to_el1:
 
     // change execution level to EL1 (ref: C5.2.19)
     mov     x2, #0x3c5
-    msr     spSR_EL2, x2
+    msr     SPSR_EL2, x2
     
     // return to EL1 at `set_stack`.
     adr     x2, set_stack
@@ -169,11 +169,11 @@ context_save:
 	mov		x2, sp
 	str		x30, [sp, #-16]!
 	bl		handle_exception
+	ldr		x30, [sp], #16
 
 .global context_restore
 context_restore:
     // Restore the context from the stack.
-	ldr		x30, [sp], #16
 	ldp		x1, x2, [sp], #32
 	msr		ELR_EL1, x1
 	msr		SPSR_EL1, x2

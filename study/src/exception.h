@@ -24,17 +24,17 @@ struct info {
 	uint16_t	kind;
 };
 
-struct trap_frame {
-	uint64_t ELR;
-	uint64_t SPSR;
-	uint64_t SP;
-	uint64_t TPIDR;
-	__uint128_t q[32];
-	uint64_t x1[30];
-	uint64_t reserved;
-	uint64_t x30;
-	uint64_t x0;
-};
+typedef struct {
+	uint64_t	ELR;
+	uint64_t	SPSR;
+	uint64_t	SP;
+	uint64_t	TPIDR;
+	__uint128_t	q[32];
+	uint64_t	x1[29];
+	uint64_t	reserved;
+	uint64_t	x30;
+	uint64_t	x0;
+}	trap_frame;
 
 void handle_exception(struct info i, uint32_t esr, void *tp);
 

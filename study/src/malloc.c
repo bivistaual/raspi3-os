@@ -49,9 +49,11 @@ void * bump_alloc(size_t size)
 	static uint8_t * current = (uint8_t *)&_end;
 	uint8_t * result = current;
 
-	current += ALIGN_UP(size, 8);
+	current += ALIGN_UP(size, 16);
 	if (current > _memory_map.end)
 		return NULL;
+
+	// DEBUG("result = 0x%x\n", result);
 
 	return result;
 }
@@ -78,7 +80,7 @@ void * malloc(size_t size)
 //			DEBUG("Unused bin found in the list. Setting used.\n");
 
 			pmem = scan;
-			pmem->size = ALIGN_UP(size, 8);
+			pmem->size = ALIGN_UP(size, 16);
 			MEM_CHUCK_SET(pmem);
 
 //			DEBUG("Return data address at 0x%x.\n", (uint64_t)(pmem + 1));
@@ -99,7 +101,7 @@ void * malloc(size_t size)
 		return NULL;
 
 	// set size aligned up and used flag
-	pmem->size = ALIGN_UP(size, 8);
+	pmem->size = ALIGN_UP(size, 16);
 	MEM_CHUCK_SET(pmem);
 			
 	list_add_tail(&(pmem->node), head);
