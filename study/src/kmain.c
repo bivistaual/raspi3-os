@@ -38,17 +38,6 @@ void kmain(void)
 
 static void shell(void)
 {
-	__asm__ __volatile__(
-		"brk 1;"
-		"brk 2;"
-	);
-
-	shell_start("user0> ");
-	
-	__asm__ __volatile__(
-		"brk 3;"
-	);
-	
 	kprintf("\nWelcome to raspberry pi 3b shell!\n\n");
 	display_bvstl();
 	kprintf("\n");
