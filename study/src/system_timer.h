@@ -36,22 +36,22 @@
 
 #define SYSTEM_TIMER_M0_CLR()													\
 	do {																		\
-		SYSTEM_TIMER_BASE[SYSTEM_TIMER_CS] &= ~SYSTEM_TIMER_CS_M0;				\
+		SYSTEM_TIMER_BASE[SYSTEM_TIMER_CS] |= SYSTEM_TIMER_CS_M0;				\
 	} while (0)
 
 #define SYSTEM_TIMER_M1_CLR()													\
 	do {																		\
-		SYSTEM_TIMER_BASE[SYSTEM_TIMER_CS] &= ~SYSTEM_TIMER_CS_M1;				\
+		SYSTEM_TIMER_BASE[SYSTEM_TIMER_CS] |= SYSTEM_TIMER_CS_M1;				\
 	} while (0)
 
 #define SYSTEM_TIMER_M2_CLR()													\
 	do {																		\
-		SYSTEM_TIMER_BASE[SYSTEM_TIMER_CS] &= ~SYSTEM_TIMER_CS_M2;				\
+		SYSTEM_TIMER_BASE[SYSTEM_TIMER_CS] |= SYSTEM_TIMER_CS_M2;				\
 	} while (0)
 
 #define SYSTEM_TIMER_M3_CLR()													\
 	do {																		\
-		SYSTEM_TIMER_BASE[SYSTEM_TIMER_CS] &= ~SYSTEM_TIMER_CS_M3;				\
+		SYSTEM_TIMER_BASE[SYSTEM_TIMER_CS] = SYSTEM_TIMER_CS_M3;				\
 	} while (0)
 
 /*
@@ -127,5 +127,9 @@ void wait_micros(unsigned int);
  */
 #define spin_sleep_s(p)		spin_sleep_ms((p) * 1000UL)
 
-#endif
+/*
+ * Sets up a match in timer 1 to occur time in microseconds from now.
+ */
+void tick_in(unsigned int);
 
+#endif

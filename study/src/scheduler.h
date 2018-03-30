@@ -7,6 +7,8 @@
 #include "process.h"
 #include "exception.h"
 
+#define TICK_TIME (2 * 1000 * 1000)
+
 typedef struct {
 	LIST_HEAD(p_list);
 	uint64_t			current_id;

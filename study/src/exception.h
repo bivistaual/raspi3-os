@@ -36,6 +36,6 @@ typedef struct {
 	uint64_t	x0;
 }	trap_frame;
 
-void handle_exception(struct info i, uint32_t esr, void *tp);
+void handle_exception(struct info i, uint32_t esr, trap_frame *tp);
 
 #endif

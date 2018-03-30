@@ -19,7 +19,7 @@ TTYWRITE = ./ttywrite
 BOOTLOADER = $(BIN_DIR)/bootloader
 KERNEL = $(BIN_DIR)/shell
 
-KERNEL_OBJS = process.o scheduler.o exception.o aarch64.o path.o sdcard.o string.o kmain.o device.o hashmap.o assert.o malloc.o shell.o system_timer.o console.o start.o mini_uart.o atags.o fat32.o
+KERNEL_OBJS = interrupt.o process.o scheduler.o exception.o aarch64.o path.o sdcard.o string.o kmain.o device.o hashmap.o assert.o malloc.o shell.o system_timer.o console.o start.o mini_uart.o atags.o fat32.o
 
 BOOTLOADER_OBJS = shell.o console.o exception.o bootloader.o string.o xmodem.o system_timer.o start.o mini_uart.o
 

@@ -1,3 +1,5 @@
+#include <stdint.h>
+
 #include "system_timer.h"
 
 unsigned long current_time(void)
@@ -24,4 +26,10 @@ void spin_sleep_us(unsigned long period)
 
 	while (current_time() - startTime <= period)
 		continue;
+}
+
+void tick_in(unsigned int period)
+{
+	SYSTEM_TIMER_M1_CLR();
+	SYSTEM_TIMER_C1_SET((uint32_t)(current_time() + period));
 }

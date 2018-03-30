@@ -197,7 +197,7 @@ context_restore:
 	ldp		q26, q27, [sp, #0xa0]
 	ldp		q28, q29, [sp, #0xc0]
 	ldp		q30, q31, [sp, #0xe0]
-	add		sp, sp, #0xf0
+	add		sp, sp, #0x100
 	ldp		x1, x2, [sp]
 	ldp		x3, x4, [sp, #0x10]
 	ldp		x5, x6, [sp, #0x20]
@@ -213,6 +213,7 @@ context_restore:
 	ldp		x25, x26, [sp, #0xc0]
 	ldp		x27, x28, [sp, #0xd0]
 	ldr		x29, [sp, #0xe0]
+	add		sp, sp, #0xf0
 	ret
 	
 #define HANDLER(source, kind)													\

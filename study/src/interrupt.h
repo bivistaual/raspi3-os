@@ -4,9 +4,13 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "exception.h"
+
 #define IRQ_BASE_ADDR	0x3f00b200
 
 typedef enum {
+	timer1 = 1,
+	timer3 = 3,
 	gpio0 = 49,
 	gpio1 = 50,
 	gpio2 = 51,
@@ -27,19 +31,29 @@ typedef struct {
 	uint32_t	irq_basic_disable;
 }	interrupt_contorler_t;
 
-#define irq_controler ((interrupt_contorler_t *)IRQ_BASE_ADDR)
+void handle_irq(irq_class, trap_frame *tp);
+
+#define irq_controler ((volatile interrupt_contorler_t *)IRQ_BASE_ADDR)
 
 #define irq_is_pending(irq)														\
-	((1 << (irq)) & irq_controler->irq_basic_pending)
+	((irq) <= 31 ?																\
+	 ((1 << (irq)) & irq_controler->irq_pending_1) :							\
+	 (1 << (irq - 32) & irq_controler->irq_pending_2))
 
-static inline void irq_enable(int irq)
+static inline void irq_enable(irq_class irq)
 {
-	irq_controler->irq_enable_1 |= 1 << irq;
+	if (irq <= 31)
+		irq_controler->irq_enable_1 |= 1 << irq;
+	else
+		irq_controler->irq_enable_2 |= 1 << (irq - 32);
 }
 
 static inline void irq_disable(irq_class irq)
 {
-	irq_controler->irq_basic_disable &= ~(1 << irq);
+	if (irq <= 31)
+		irq_controler->irq_disable_1 &= ~(1 << irq);
+	else
+		irq_controler->irq_disable_2 &= ~(1 << (irq - 32));
 }
 
 #endif

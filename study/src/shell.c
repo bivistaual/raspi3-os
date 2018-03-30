@@ -18,6 +18,7 @@ extern fat32_t *pfat32_global;
 
 static inline void fat32_info(void);
 static inline void file_info(file *pfile);
+static inline void brk(void);
 
 int shell_start(char *prefix)
 {
@@ -132,8 +133,8 @@ int exe_cmd(Cmd * pCmd)
 		ls(pCmd->arg + 1, pCmd->length - 1);
 	else if (!strcmp(pCmd->arg[0], "fat32info"))
 		fat32_info();
-	else if (!strcmp(pCmd->arg[0], "malloc"))
-		test_malloc();
+	else if (!strcmp(pCmd->arg[0], "brk"))
+		brk();
 	else if (!strcmp(pCmd->arg[0], "exit"))
 		return shell_exit(pCmd->length);
 	else
@@ -425,6 +426,13 @@ void test_malloc(void)
 
 	free(p3);
 	free(p4);
+}
+
+static inline void brk(void)
+{
+	__asm__ __volatile__(
+		"brk 1;"
+	);
 }
 
 static inline void file_info(file *pfile)
