@@ -3,6 +3,7 @@
 #include "exception.h"
 #include "console.h"
 #include "shell.h"
+#include "interrupt.h"
 
 void handle_exception(struct info i, uint32_t esr, void *tp)
 {
@@ -38,6 +39,11 @@ void handle_exception(struct info i, uint32_t esr, void *tp)
 				default:
 					break;
 			}
+			break;
+		case KIND_IRQ:
+			DEBUG("irq pending base register = 0x%x\n",
+					irq_controler->irq_basic_pending);
+			while (1);
 			break;
 		default:
 			break;
