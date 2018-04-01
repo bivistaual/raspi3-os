@@ -142,6 +142,11 @@ static void inline list_insert_after(struct list_node * new, struct list_node * 
 	__list_add(new, prev, prev->next);
 }
 
+static void inline list_insert_before(struct list_node *new, struct list_node *next)
+{
+	__list_add(new, next->prev, next);
+}
+
 static void inline list_add_tail(struct list_node * new, struct list_node * head)
 {
 	list_insert_after(new, head->prev);
@@ -169,6 +174,12 @@ static void inline list_move_after(struct list_node * src, struct list_node * de
 {
 	list_del(src);
 	list_insert_after(src, dest);
+}
+
+static void inline list_move_before(struct list_node *src, struct list_node *dest)
+{
+	list_del(src);
+	list_insert_before(src, dest);
 }
 
 static void inline list_replace(struct list_node * new, struct list_node * old)

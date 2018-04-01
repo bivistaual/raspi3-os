@@ -54,7 +54,7 @@
 
 struct mem_chuck {
 	uint32_t size;
-	struct list_node node; 
+	struct list_node node __attribute__((aligned(16))); 
 } __attribute__((aligned(16)));
 
 struct mem_map {

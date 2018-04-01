@@ -1,4 +1,3 @@
-#include "shell.h"
 #include "console.h"
 #include "mini_uart.h"
 #include "fat32.h"
@@ -13,8 +12,6 @@
 fat32_t *pfat32_global;
 scheduler *pscheduler_global;
 
-static void shell(void);
-
 void kmain(void)
 {
 	block_device bd = {512, sd_init, sd_readsector};
@@ -24,6 +21,8 @@ void kmain(void)
 	// block until read ''
 	while (mu_read_byte() != '\r')
 		continue;
+
+	DEBUG("sizeof(kmain) = %d bytes.\n", sizeof(kmain));
 
 	mem_init();
 
@@ -38,15 +37,5 @@ void kmain(void)
 
 	tick_in(TICK_TIME);
 
-	scheduler_start(pscheduler_global, shell);
-}
-
-static void shell(void)
-{
-	kprintf("\nWelcome to raspberry pi shell!\n\n");
-	display_bvstl();
-	kprintf("\n");
-
-	while (1)
-		shell_start("> ");
+	scheduler_start(pscheduler_global);
 }

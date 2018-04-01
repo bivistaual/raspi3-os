@@ -7,7 +7,7 @@
 #include "exception.h"
 #include "string.h"
 
-process *process_init(uint64_t id)
+process *process_init(void (*pfun)(void), bool (*event_arrived)(void))
 {
 	process *p;
 
@@ -17,8 +17,6 @@ process *process_init(uint64_t id)
 		return NULL;
 	}
 
-	p->id = id;
-	
 	p->stack = malloc(PROCESS_STACK_SIZE);
 	if (p->stack == NULL) {
 		kprintf("Can't allocate stack for new process: no memory available.\n");
@@ -29,7 +27,28 @@ process *process_init(uint64_t id)
 
 	memset(&p->tp, 0, sizeof(trap_frame));
 
-	// FIXME: set @state of the process
+	// set @state of the process
+	p->state = PROCESS_WAITING;
+
+	p->event_arrived = event_arrived;
+	p->tp.ELR = (uint64_t)pfun;
+	p->tp.SP = (uint64_t)p->stack + PROCESS_STACK_SIZE - sizeof(trap_frame);
 
 	return p;
+}
+
+bool process_is_ready(process *pp)
+{
+	if (pp->state == PROCESS_READY)
+		return true;
+	else if (pp->state == PROCESS_WAITING) {
+		if (pp->event_arrived == NULL || pp->event_arrived()) {
+			pp->state = PROCESS_READY;
+			return true;
+		} else
+			return false;
+	} else if (pp->state == PROCESS_EXECUTING)
+		return true;
+	else
+		return false;
 }

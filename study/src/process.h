@@ -10,16 +10,21 @@
 
 #define PROCESS_STACK_SIZE	(1 << 20)
 
+#define PROCESS_WAITING		0
+#define PROCESS_READY		1
+#define PROCESS_EXECUTING	2
+
 typedef struct {
 	uint64_t	id;
-	uint32_t	state;
+	uint8_t		state;
 	void		*stack;
+	bool		(*event_arrived)(void);
 	LIST_NODE(node);
 	trap_frame	tp;
 }	process;
 
-process *process_init(uint64_t);
+process *process_init(void (*pfun)(void), bool (*event_arrived)(void));
 
-bool *process_is_ready(process *);
+bool process_is_ready(process *);
 
 #endif

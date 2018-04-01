@@ -28,6 +28,7 @@ SECTIONS {
   
     /* end of the binary */
 	/* . = 0x90000; */
+  . = ALIGN(16);
   _end = .;
   
     /* number of bytes in BSS section and complete binary */

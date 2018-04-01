@@ -20,6 +20,8 @@ int exe_cmd (Cmd *);
 
 void echo (char (*)[ARG_LIMIT], unsigned int);
 
+void display_welcome(void);
+
 void display_bvstl (void);
 
 void display_bivistaual (void);

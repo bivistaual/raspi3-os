@@ -4,11 +4,13 @@
 #include "system_timer.h"
 #include "console.h"
 
-void handle_irq(irq_class irq, trap_frame *tp)
+extern scheduler *pscheduler_global;
+
+void handle_irq(irq_class irq, trap_frame *ptf)
 {
 	switch (irq) {
 		case timer1:
-			DEBUG("timer1 interrupt acknowledge.\n");
+			switch_process(pscheduler_global, PROCESS_WAITING, ptf);
 			tick_in(TICK_TIME);
 			break;
 		default:

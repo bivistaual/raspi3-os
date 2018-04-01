@@ -46,7 +46,7 @@ void mem_init(void)
 
 void * bump_alloc(size_t size)
 {
-	static uint8_t * current = (uint8_t *)&_end;
+	static uint8_t * current = &_end;
 	uint8_t * result = current;
 
 	current += ALIGN_UP(size, 16);
