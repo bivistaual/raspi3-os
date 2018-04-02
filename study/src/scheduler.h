@@ -7,7 +7,7 @@
 #include "process.h"
 #include "exception.h"
 
-#define TICK_TIME (10 * 1000)
+#define TICK_TIME (10 * 1000 * 1000)
 
 typedef struct {
 	LIST_HEAD(p_list);

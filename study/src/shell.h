@@ -34,6 +34,8 @@ void cat (char (*)[ARG_LIMIT], unsigned int);
 
 void ls (char (*)[ARG_LIMIT], unsigned int);
 
+unsigned int sleep(unsigned int ms);
+
 void test_malloc (void);
 
 void mem_init (void);

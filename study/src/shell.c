@@ -131,12 +131,14 @@ int exe_cmd(Cmd * pCmd)
 		pwd();
 	else if (!strcmp(pCmd->arg[0], "ls"))
 		ls(pCmd->arg + 1, pCmd->length - 1);
-	else if (!strcmp(pCmd->arg[0], "fat32info"))
+	else if (!strcmp(pCmd->arg[0], "sleep"))
+		return sleep(20 * 1000);
+	else if (!strcmp(pCmd->arg[0], "exit")) {
+		kprintf("Actually sleep %d ms.\n", shell_exit(pCmd->length));
+	} else if (!strcmp(pCmd->arg[0], "fat32info"))
 		fat32_info();
 	else if (!strcmp(pCmd->arg[0], "brk"))
 		brk();
-	else if (!strcmp(pCmd->arg[0], "exit"))
-		return shell_exit(pCmd->length);
 	else
 		kprintf("unknow command: %s\n", pCmd->arg[0]);
 
@@ -374,6 +376,27 @@ void ls(char (*array)[ARG_LIMIT], unsigned int num)
 	if (pdir_entry != NULL)
 		free(pdir_entry);
 	free(pf);
+}
+
+unsigned int sleep(unsigned int ms)
+{
+	uint32_t retval;
+	uint64_t error;
+
+	__asm__ __volatile__(
+		"mov x0, %2;"
+		"svc 1;"
+		"mov %0, x0;"
+		"mov %1, x7"
+		:"=r"(retval), "=r"(error)
+		:"r"(ms)
+		:"w0", "x7"
+	);
+
+	if (error != 0)
+		kprintf("error in sleep\n");
+	
+	return retval;
 }
 
 void display_welcome(void)

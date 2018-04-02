@@ -22,8 +22,6 @@ void kmain(void)
 	while (mu_read_byte() != '\r')
 		continue;
 
-	DEBUG("sizeof(kmain) = %d bytes.\n", sizeof(kmain));
-
 	mem_init();
 
 	if (bd.init() != 0)

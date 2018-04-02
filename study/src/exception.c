@@ -11,7 +11,8 @@ void handle_exception(struct info i, uint32_t esr, trap_frame *ptf)
 	int irq;
 
 	// DEBUG("source = %d, kind = %d, esr = 0x%x\n", i.source, i.kind, esr);
-	
+
+	// this is a very huge switch. XD
 	switch (i.kind) {
 		case KIND_SYNCHRONOUS:
 			switch (i.source) {
@@ -34,18 +35,16 @@ void handle_exception(struct info i, uint32_t esr, trap_frame *ptf)
 							handle_syscall(esr & 0xffff, ptf);
 							break;
 						default:
-							DEBUG("unknow error.\n");
-							//while (1);
+							panic("Unknow error code: 0x%x.\n", EC_FROM_ESR(esr));
 							break;
 					}
 					break;
 				default:
+					panic("Unknown source of exception: %d.\n", i.source);
 					break;
 			}
 			break;
 		case KIND_IRQ:
-			// DEBUG("irq_basic_pending = 0x%x, irq pending 1 = 0x%x, irq pending 2 = 0x%x\n",
-			// 		irq_controler->irq_pending_1, irq_controler->irq_pending_2, irq_controler->irq_basic_pending);
 			irq = __builtin_ctz(irq_controler->irq_pending_1);
 			if (irq != 32)
 				handle_irq(irq, ptf);
@@ -58,6 +57,7 @@ void handle_exception(struct info i, uint32_t esr, trap_frame *ptf)
 			}
 			break;
 		default:
+			panic("Unknown kind of exception: %d.\n", i.kind);
 			break;
 	}
 }

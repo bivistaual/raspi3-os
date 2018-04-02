@@ -6,6 +6,7 @@
 #include "aarch64.h"
 #include "shell.h"
 #include "list.h"
+#include "system_timer.h"
 
 extern uint64_t _start;
 extern void context_restore(void);
@@ -90,14 +91,18 @@ static void shell(void)
 
 static void process1(void)
 {
-	while (1)
-		kprintf("1");
+	while (1) {
+		kprintf("1: %d\n", (uint32_t)(current_time() / 1000000));
+		spin_sleep_s(1);
+	}
 }
 
 static void process2(void)
 {
-	while(1)
-		kprintf("2");
+	while(1) {
+		kprintf("2: %d\n", (uint32_t)(current_time() / 1000000));
+		spin_sleep_s(1);
+	}
 }
 
 void scheduler_start(scheduler *ps)

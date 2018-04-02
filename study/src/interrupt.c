@@ -14,8 +14,7 @@ void handle_irq(irq_class irq, trap_frame *ptf)
 			tick_in(TICK_TIME);
 			break;
 		default:
-			DEBUG("unknow interrupt class.\n");
-			while(1);
+			panic("Unknown interrupt number: %d.\n", irq);
 			break;
 	}
 }
