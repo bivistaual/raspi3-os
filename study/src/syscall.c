@@ -1,9 +1,12 @@
 #include "syscall.h"
 #include "console.h"
 #include "system_timer.h"
+#include "scheduler.h"
+
+extern scheduler *pscheduler_global;
 
 /*
- * Sleep for `ms` milliseconds.
+ * Sleep to `ms` milliseconds.
  *
  * This system call takes one parameter: the number of milliseconds to sleep.
  *
@@ -11,11 +14,13 @@
  * parameter: the approximate true elapsed time from when `sleep` was called to
  * when `sleep` returned.
  */
-static void sys_sleep(uint32_t ms, trap_frame *ptf);
+static void sleep_to(uint64_t ms, trap_frame *ptf);
+
+static bool __sleep_to(process *);
 
 static syscall_t syscall_table[] = {
 	{0, NULL},
-	{1, (syscall_func)sys_sleep}
+	{1, (syscall_func)sleep_to}
 };
 
 void handle_syscall(uint16_t num, trap_frame *ptf)
@@ -43,17 +48,19 @@ void handle_syscall(uint16_t num, trap_frame *ptf)
 			arg[0], arg[1], arg[2], arg[3], arg[4], arg[5], arg[6]);
 }
 
-static void sys_sleep(uint32_t ms, trap_frame *ptf)
+static void sleep_to(uint64_t ms, trap_frame *ptf)
 {
-	uint64_t start_time = current_time();
-	uint64_t retval;
+	process *pp;
 
 	DEBUG("ms = %d\n", ms);
 
-	while ((retval = (current_time() - start_time)) < ms * 1000) {
-		continue;
-	}
+	pp = find_process(pscheduler_global, ptf->TPIDR);
 
-	ptf->x0 = retval;
-	ptf->x1[6] = 0;
+	pp->event_arrived = __sleep_to;
+	pp->state = PROCESS_WAITING;
+}
+
+static bool __sleep_to(process *pp)
+{
+	return current_time() >= pp->tp.x0;
 }

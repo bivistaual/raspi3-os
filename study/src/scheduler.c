@@ -44,6 +44,17 @@ uint64_t add_process(scheduler *pscheduler, process *pprocess)
 	return pprocess->id;
 }
 
+process *find_process(scheduler *pscheduler, uint64_t id)
+{
+	process *pscan;
+
+	LIST_FOREACH(pscan, &pscheduler->p_list, node)
+		if (pscan->id == id)
+			return pscan;
+
+	return NULL;
+}
+
 uint64_t switch_process(scheduler *pscheduler, uint8_t new_state, trap_frame *ptf)
 {
 	process *pnext;

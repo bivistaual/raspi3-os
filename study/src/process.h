@@ -14,16 +14,16 @@
 #define PROCESS_READY		1
 #define PROCESS_EXECUTING	2
 
-typedef struct {
+typedef struct __process {
 	uint64_t	id;
 	uint8_t		state;
 	void		*stack;
-	bool		(*event_arrived)(void);
+	bool		(*event_arrived)(struct __process *);
 	LIST_NODE(node);
 	trap_frame	tp;
 }	process;
 
-process *process_init(void (*pfun)(void), bool (*event_arrived)(void));
+process *process_init(void (*pfun)(void), bool (*event_arrived)(process *));
 
 bool process_is_ready(process *);
 

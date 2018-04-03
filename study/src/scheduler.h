@@ -30,6 +30,8 @@ scheduler *scheduler_init(void);
  */
 uint64_t add_process(scheduler *pscheduler, process *pprocess);
 
+process *find_process(scheduler *pscheduler, uint64_t id);
+
 /*
  * Sets the current process's state to `new_state`, finds the next process to
  * switch to, and performs the context switch on `tf` by saving `tf` into the

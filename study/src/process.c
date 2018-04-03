@@ -7,7 +7,7 @@
 #include "exception.h"
 #include "string.h"
 
-process *process_init(void (*pfun)(void), bool (*event_arrived)(void))
+process *process_init(void (*pfun)(void), bool (*event_arrived)(process *))
 {
 	process *p;
 
@@ -42,7 +42,7 @@ bool process_is_ready(process *pp)
 	if (pp->state == PROCESS_READY)
 		return true;
 	else if (pp->state == PROCESS_WAITING) {
-		if (pp->event_arrived == NULL || pp->event_arrived()) {
+		if (pp->event_arrived == NULL || pp->event_arrived(pp)) {
 			pp->state = PROCESS_READY;
 			return true;
 		} else
