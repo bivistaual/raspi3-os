@@ -8,7 +8,7 @@ extern void _start(void);
 
 static char * itoa(long unsigned int, char *);
 static char * itoh(long unsigned int, char *);
-static char getDigit(long unsigned int, char *, long unsigned int *);
+static char get_digit(long unsigned int, char *, long unsigned int *);
 
 int kprintf(const char *fmt, ...)
 {
@@ -24,13 +24,13 @@ int kprintf(const char *fmt, ...)
 
 int __kprintf(const char *str, va_list args)
 {
-	unsigned strIndex = 0;
+	unsigned str_index = 0;
 	char c, temp[32], c2;
 
-	while ((c = str[strIndex++]) != '\0') {
+	while ((c = str[str_index++]) != '\0') {
 		switch (c) {
 			case '%':
-				switch (c = str[strIndex++]) {
+				switch (c = str[str_index++]) {
 					case 'd':
 						mu_write_str(itoa(va_arg(args, int), temp));
 						break;
@@ -64,11 +64,11 @@ int __kprintf(const char *str, va_list args)
 	return 1;
 }
 
-static char getDigit(long unsigned int n, char * str, long unsigned int *pIndex)
+static char get_digit(long unsigned int n, char * str, long unsigned int *pIndex)
 {
 	char c;
 	if (n / 10 > 0) {
-		c = getDigit(n / 10, str, pIndex);
+		c = get_digit(n / 10, str, pIndex);
 		str[*pIndex] = c;
 		(*pIndex)++;
 		return (n % 10 + '0');
@@ -80,7 +80,7 @@ static char getDigit(long unsigned int n, char * str, long unsigned int *pIndex)
 static char * itoa(long unsigned int n, char * str)
 {
 	long unsigned int index = 0;
-	char c = getDigit(n, str, &index);
+	char c = get_digit(n, str, &index);
 	str[index++] = c;
 	str[index] = '\0';
 	return str;
