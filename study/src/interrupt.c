@@ -10,7 +10,7 @@ void handle_irq(irq_class irq, trap_frame *ptf)
 {
 	switch (irq) {
 		case timer1:
-			switch_process(pscheduler_global, PROCESS_WAITING, ptf);
+			switch_process(pscheduler_global, PROCESS_READY, ptf);
 			tick_in(TICK_TIME);
 			break;
 		default:

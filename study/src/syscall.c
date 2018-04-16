@@ -6,7 +6,7 @@
 extern scheduler *pscheduler_global;
 
 /*
- * Sleep to `ms` milliseconds.
+ * Sleep `ms` milliseconds.
  *
  * This system call takes one parameter: the number of milliseconds to sleep.
  *
@@ -14,13 +14,13 @@ extern scheduler *pscheduler_global;
  * parameter: the approximate true elapsed time from when `sleep` was called to
  * when `sleep` returned.
  */
-static void sleep_to(uint64_t ms, trap_frame *ptf);
+static void sys_sleep(uint32_t ms, trap_frame *ptf);
 
-static bool __sleep_to(process *);
+static bool __sys_sleep(process *);
 
 static syscall_t syscall_table[] = {
 	{0, NULL},
-	{1, (syscall_func)sleep_to}
+	{1, (syscall_func)sys_sleep}
 };
 
 void handle_syscall(uint16_t num, trap_frame *ptf)
@@ -48,7 +48,7 @@ void handle_syscall(uint16_t num, trap_frame *ptf)
 			arg[0], arg[1], arg[2], arg[3], arg[4], arg[5], arg[6]);
 }
 
-static void sleep_to(uint64_t ms, trap_frame *ptf)
+static void sys_sleep(uint32_t ms, trap_frame *ptf)
 {
 	process *pp;
 
@@ -56,11 +56,29 @@ static void sleep_to(uint64_t ms, trap_frame *ptf)
 
 	pp = find_process(pscheduler_global, ptf->TPIDR);
 
-	pp->event_arrived = __sleep_to;
+	pp->event_arrived = __sys_sleep;
 	pp->state = PROCESS_WAITING;
+
+	// sleep current process and force switching to next process
+	switch_process(pscheduler_global, PROCESS_WAITING, ptf);
+	tick_in(TICK_TIME);
 }
 
-static bool __sleep_to(process *pp)
+static bool __sys_sleep(process *pp)
 {
-	return current_time() >= pp->tp.x0;
+	static bool not_init = true;
+	static uint64_t start_time = 0;
+
+	if (not_init) {
+		start_time = current_time();
+		not_init = false;
+	}
+
+	// inject true sleep time
+	if (current_time() - start_time >= pp->tp.x0 * 1000000) {
+		pp->tp.x0 = (current_time() - start_time) * 1000000;
+		return true;
+	}
+
+	return false;
 }

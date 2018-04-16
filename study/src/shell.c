@@ -382,7 +382,6 @@ unsigned int sleep(unsigned int ms)
 {
 	uint32_t retval;
 	uint64_t error;
-	uint64_t end_time = current_time() + ms;
 
 	__asm__ __volatile__(
 		"mov x0, %2;"
@@ -390,7 +389,7 @@ unsigned int sleep(unsigned int ms)
 		"mov %0, x0;"
 		"mov %1, x7"
 		:"=r"(retval), "=r"(error)
-		:"r"(end_time)
+		:"r"(ms)
 		:"w0", "x7"
 	);
 
